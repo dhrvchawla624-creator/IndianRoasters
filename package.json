@@ -5,7 +5,7 @@
   "scripts": {
     "server": "tsx watch server.ts",
     "client": "vite",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "vite concurrently \"npm run server\" \"npm run client\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "node-fetch": "^3.3.2",
+    "path-to-regexp": "^8.3.0",
     "rc-slider": "^11.1.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
