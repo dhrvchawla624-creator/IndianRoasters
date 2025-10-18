@@ -94,7 +94,7 @@ function App() {
   const fetchCoffee = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3000/api/coffee');
+      const response = await fetch('http://api/coffee');
       const result = await response.json();
       setBeans(result.data);
       setLastUpdate(result.lastUpdate);
