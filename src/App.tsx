@@ -310,46 +310,46 @@ function App() {
               />
             </div>
           </div>
-          {/* Search bar perfectly vertically centered with the slider */}
-          <div style={{
-            minWidth: 320,
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            height: 50
-          }}>
-            <div className="search-bar" style={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              height: '30px',
-              boxShadow: '0 2px 12px #E8E2DD50',
-              borderRadius: '9px',
-              background: '#fff',
-              border: '1.5px solid #efe7dd'
-            }}>
-              <span className="search-icon" style={{marginLeft:14, marginRight:4, color:'#AB6E36'}}>🔍</span>
-              <input
-                type="text"
-                placeholder="Search for coffee beans, roasters, origins..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-                style={{
-                  color: '#111',
-                  background: 'inherit',
-                  width: '100%',
-                  maxWidth: '600px',
-                  height: '40px',
-                  fontSize: '18px',
-                  border: 'none',
-                  outline: 'none',
-                  borderRadius: '9px'
-                }}
-              />
-            </div>
-          </div>
-        </div>
+         {/* Search bar perfectly vertically centered with the slider */}
+<div style={{
+  minWidth: 320,
+  flex: 1,
+  display: 'flex',
+  alignItems: 'center',
+  height: 50
+}}>
+  <div className="search-bar" style={{
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    height: '30px',
+    boxShadow: '0 2px 12px #E8E2DD50',
+    borderRadius: '9px',
+    background: '#fff',
+    border: '1.5px solid #efe7dd'
+  }}>
+    <span className="search-icon" style={{marginLeft:14, marginRight:4, color:'#AB6E36'}}>🔍</span>
+    <input
+      type="text"
+      placeholder="Search for coffee beans, roasters, origins..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="search-input"
+      style={{
+        color: '#111',
+        background: 'inherit',
+        width: '100%',
+        maxWidth: '600px',
+        height: '40px',
+        fontSize: '18px',
+        border: 'none',
+        outline: 'none',
+        borderRadius: '9px'
+      }}
+    />
+  </div>
+</div>
+
 </div>
 
         </div>
