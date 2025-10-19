@@ -322,7 +322,7 @@ function App() {
               display: 'flex',
               alignItems: 'center',
               width: '100%',
-              height: '50px',
+              height: '30px',
               boxShadow: '0 2px 12px #E8E2DD50',
               borderRadius: '9px',
               background: '#fff',
