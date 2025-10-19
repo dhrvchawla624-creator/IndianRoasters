@@ -223,9 +223,9 @@ function App() {
         <div className="hero-content">
           <div className="hero-badge">☕ Premium Specialty Coffee</div>
           <h1 className="hero-title">
-            Your Ultimate Coffee
+            Your Ultimate Indian Coffee Roasters
             <br />
-            <span className="gradient-text">Marketplace</span>
+            <span className="gradient-text">Library</span>
           </h1>
           <p className="hero-description">
             Explore {beans.length}+ handpicked specialty beans from {roasters.length} top roasters across India
@@ -316,7 +316,7 @@ function App() {
             flex: 1,
             display: 'flex',
             alignItems: 'center',
-            height: 90
+            height: 50
           }}>
             <div className="search-bar" style={{
               display: 'flex',
