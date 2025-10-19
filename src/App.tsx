@@ -223,9 +223,9 @@ function App() {
         <div className="hero-content">
           <div className="hero-badge">☕ Premium Specialty Coffee</div>
           <h1 className="hero-title">
-            Your Ultimate Indian Coffee Roasters
+            Your Ultimate Indian
             <br />
-            <span className="gradient-text">Library</span>
+            <span className="gradient-text">Coffee Roasters Library</span>
           </h1>
           <p className="hero-description">
             Explore {beans.length}+ handpicked specialty beans from {roasters.length} top roasters across India
