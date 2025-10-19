@@ -66,4 +66,84 @@ Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roast
 ## 📦 Getting Started
 
 1. **Clone this repo:**
+git clone https://github.com/dhrvchawla624-creator/IndianRoasters.git
+cd IndianRoasters
 
+npm install
+2. **Install dependencies:*3. **Run locally (Vite + Express):**
+
+npm run dev
+
+4. **Visit:**
+[http://localhost:5173](http://localhost:5173)
+
+---
+
+## 🔄 Refresh Data (Backend)
+
+- **Local Scraping:**  
+Run `npm run refresh` or hit `/api/refresh` to fetch the latest beans.
+
+- **Caching:**  
+Coffee data is cached for 90 days in `cache.json` for fast reloads.
+
+---
+
+## 🖼️ Screenshots
+
+| Interactive Filters                  | Coffee Grid Cards                  |
+| :-----------------------------------:| :--------------------------------: |
+| ![](./src/assets/filters-demo.png)   | ![](./src/assets/cards-demo.png)   |
+
+---
+
+## 👨‍💻 File Structure
+
+src/
+App.tsx # Main UI logic
+App.css # CSS styling, gradients, animations
+assets/ # Images, icons, graphics
+api/
+coffee.ts # Fetch/cached coffee API
+refresh.ts # Scraper endpoint
+server.ts # Express server entry
+fetcher.ts # Data scraper
+cache.json # Local cache (auto)
+
+
+---
+
+## 🌱 Roadmap
+
+- [ ] Add more roaster sources (Naivo, Subko, Devans)
+- [ ] Advanced tasting notes filters
+- [ ] User favorites & collections
+- [ ] Mobile-first enhancements
+
+---
+
+## 🤝 Contributing
+
+1. Fork + clone the repo
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit and push your changes
+4. Open a Pull Request
+
+Feel free to open Issues for bugs & features!
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+## 🙏 Credits
+
+Built by Dhruv Chawla.  
+Coffee data sourced from top Indian roasters, including Bluetokaicoffee.
+
+---
+
+**Brew better. Discover deeper. Welcome to IndianRoasters.**
