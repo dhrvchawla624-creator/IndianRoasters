@@ -1,75 +1,118 @@
-# React + TypeScript + Vite
+☕ IndianRoasters
+Discover, filter, and explore India's finest specialty coffee roasters through a seamless, interactive web experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![IndianRoasters Hero](./src/assets/header-coffee path to your desired banner image -->
 
-Currently, two official plugins are available:
+🚀 Live Demo
+Explore IndianRoasters online: indian-roasters.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
+Interactive, real-time filtering
+Effortlessly filter beans by roaster, origin, roast level, process, tasting notes, price, and stock status.
 
-## React Compiler
+Rich search experience
+Search across names, roasters, origins, and tasting profiles instantly.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Responsive coffee cards
+Clean, card-style grid showcasing bean images, details, and instant “Buy Now” links.
 
-## Expanding the ESLint configuration
+Modern UI/UX
+Coffee-themed colors, gradients, and smooth animations designed for comfort and clarity.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Auto-refresh & live data
+Freshly scraped specialty coffee listings with easy backend refresh support.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Fast, real-time UI with zero page reloads
+Built using React + Vite for lightning-fast performance.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🛠️ Tech Stack
+Layer	Tech
+Frontend	React 18, TypeScript, Vite
+API	Express.js, Node.js
+Scraping	Axios, Cheerio
+Caching	JSON file-based (90-day expiry)
+Styling	Pure CSS with gradients, animations
+🧩 Architecture & Main Components
+Frontend (React)
+Powerful Search + Filters UI
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Responsive Grid with Coffee Cards
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Instant feedback and animation states
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Backend (Express)
+/api/coffee — Serves cached & fresh bean data
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# IndianRoasters
-A not so simple common filtering for most Indian Roasters
+/api/refresh — Scrapes fresh beans from sources
+
+Scraping Logic
+Targets sites like bluetokaicoffe.com (extendable)
+
+Automatic data cleaning & normalization
+
+📦 Getting Started
+Clone this repo:
+
+bash
+git clone https://github.com/dhrvchawla624-creator/IndianRoasters.git
+cd IndianRoasters
+Install dependencies:
+
+bash
+npm install
+Run locally (Vite + Express):
+
+bash
+npm run dev
+Visit:
+http://localhost:5173
+
+🔄 Refresh Data (Backend)
+Local Scraping:
+Run npm run refresh or hit /api/refresh to fetch the latest beans.
+
+Caching:
+Coffee data is cached for 90 days in cache.json for fast reloads.
+
+🖼️ Screenshots
+Interactive Filters	Coffee Grid Cards
+![](./src/assets/filters-demo./src/assets/cards-demo.png 👨‍💻 File Structure	
+text
+src/
+  App.tsx          # Main UI logic
+  App.css          # CSS styling, gradients, animations
+  assets/          # Images, icons, graphics
+api/
+  coffee.ts        # Fetch/cached coffee API
+  refresh.ts       # Scraper endpoint
+server.ts          # Express server entry
+fetcher.ts         # Data scraper
+cache.json         # Local cache (auto)
+🌱 Roadmap
+ Add more roaster sources (Naivo, Subko, Devans)
+
+ Advanced tasting notes filters
+
+ User favorites & collections
+
+ Mobile-first enhancements
+
+🤝 Contributing
+Fork + clone the repo
+
+Create your feature branch (git checkout -b feature/my-feature)
+
+Commit and push your changes
+
+Open a Pull Request
+
+Feel free to open Issues for bugs & features!
+
+📄 License
+MIT
+
+🙏 Credits
+Built by Dhruv Chawla.
+Coffee data sourced from top Indian roasters including Bluetokaicoffee.
+
+Brew better. Discover deeper. Welcome to IndianRoasters.
