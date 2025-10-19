@@ -351,9 +351,6 @@ function App() {
           </div>
         </div>
 
-</div>
-
-        </div>
         {/* Filters as restored horizontally */}
         <div className="filter-tabs" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 12 }}>
           {/* Roaster */}
@@ -592,3 +589,4 @@ function App() {
 }
 
 export default App;
+
