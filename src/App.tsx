@@ -574,8 +574,8 @@ function App() {
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <h3>☕ Homegrounds</h3>
-            <p>Your ultimate specialty coffee marketplace</p>
+            <h3>☕ Indian Homebrews</h3>
+            <p>Your ultimate specialty coffee library</p>
           </div>
           <div className="footer-info">
             <p>Discover beans from India's finest roasters</p>
