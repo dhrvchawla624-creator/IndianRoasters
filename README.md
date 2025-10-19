@@ -1,118 +1,69 @@
-☕ IndianRoasters
-Discover, filter, and explore India's finest specialty coffee roasters through a seamless, interactive web experience.
+# ☕ IndianRoasters
 
-![IndianRoasters Hero](./src/assets/header-coffee path to your desired banner image -->
+**Discover, filter, and explore India's finest specialty coffee roasters through a seamless, interactive web experience.**
 
-🚀 Live Demo
-Explore IndianRoasters online: indian-roasters.vercel.app
+![Banner](./src/assets/header-coffee.jpg) <!-- Replace with your actual image path if needed -->
 
-✨ Features
-Interactive, real-time filtering
-Effortlessly filter beans by roaster, origin, roast level, process, tasting notes, price, and stock status.
+---
 
-Rich search experience
-Search across names, roasters, origins, and tasting profiles instantly.
+## 🚀 Live Demo
 
-Responsive coffee cards
-Clean, card-style grid showcasing bean images, details, and instant “Buy Now” links.
+Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roasters.vercel.app)
 
-Modern UI/UX
-Coffee-themed colors, gradients, and smooth animations designed for comfort and clarity.
+---
 
-Auto-refresh & live data
-Freshly scraped specialty coffee listings with easy backend refresh support.
+## ✨ Features
 
-Fast, real-time UI with zero page reloads
-Built using React + Vite for lightning-fast performance.
+- **Interactive, real-time filtering**  
+  Effortlessly filter beans by roaster, origin, roast level, process, tasting notes, price, and stock status.
 
-🛠️ Tech Stack
-Layer	Tech
-Frontend	React 18, TypeScript, Vite
-API	Express.js, Node.js
-Scraping	Axios, Cheerio
-Caching	JSON file-based (90-day expiry)
-Styling	Pure CSS with gradients, animations
-🧩 Architecture & Main Components
-Frontend (React)
-Powerful Search + Filters UI
+- **Rich search experience**  
+  Search across names, roasters, origins, and tasting profiles instantly.
 
-Responsive Grid with Coffee Cards
+- **Responsive coffee cards**  
+  Clean, card-style grid showcasing bean images, details, and instant “Buy Now” links.
 
-Instant feedback and animation states
+- **Modern UI/UX**  
+  Coffee-themed colors, gradients, and smooth animations designed for comfort and clarity.
 
-Backend (Express)
-/api/coffee — Serves cached & fresh bean data
+- **Auto-refresh & live data**  
+  Freshly scraped specialty coffee listings with easy backend refresh support.
 
-/api/refresh — Scrapes fresh beans from sources
+- **Fast, real-time UI with zero page reloads**  
+  Built using React + Vite for lightning-fast performance.
 
-Scraping Logic
-Targets sites like bluetokaicoffe.com (extendable)
+---
 
-Automatic data cleaning & normalization
+## 🛠️ Tech Stack
 
-📦 Getting Started
-Clone this repo:
+| Layer     | Tech                           |
+|-----------|-------------------------------|
+| Frontend  | React 18, TypeScript, Vite     |
+| API       | Express.js, Node.js            |
+| Scraping  | Axios, Cheerio                 |
+| Caching   | JSON file-based (90-day expiry)|
+| Styling   | Pure CSS with gradients, animations |
 
-bash
-git clone https://github.com/dhrvchawla624-creator/IndianRoasters.git
-cd IndianRoasters
-Install dependencies:
+---
 
-bash
-npm install
-Run locally (Vite + Express):
+## 🧩 Architecture & Main Components
 
-bash
-npm run dev
-Visit:
-http://localhost:5173
+### Frontend (React)
+- Powerful Search + Filters UI
+- Responsive Grid with Coffee Cards
+- Instant feedback and animation states
 
-🔄 Refresh Data (Backend)
-Local Scraping:
-Run npm run refresh or hit /api/refresh to fetch the latest beans.
+### Backend (Express)
+- `/api/coffee` — Serves cached & fresh bean data
+- `/api/refresh` — Scrapes fresh beans from sources
 
-Caching:
-Coffee data is cached for 90 days in cache.json for fast reloads.
+### Scraping Logic
+- Targets sites like bluetokaicoffe.com (extendable)
+- Automatic data cleaning & normalization
 
-🖼️ Screenshots
-Interactive Filters	Coffee Grid Cards
-![](./src/assets/filters-demo./src/assets/cards-demo.png 👨‍💻 File Structure	
-text
-src/
-  App.tsx          # Main UI logic
-  App.css          # CSS styling, gradients, animations
-  assets/          # Images, icons, graphics
-api/
-  coffee.ts        # Fetch/cached coffee API
-  refresh.ts       # Scraper endpoint
-server.ts          # Express server entry
-fetcher.ts         # Data scraper
-cache.json         # Local cache (auto)
-🌱 Roadmap
- Add more roaster sources (Naivo, Subko, Devans)
+---
 
- Advanced tasting notes filters
+## 📦 Getting Started
 
- User favorites & collections
+1. **Clone this repo:**
 
- Mobile-first enhancements
-
-🤝 Contributing
-Fork + clone the repo
-
-Create your feature branch (git checkout -b feature/my-feature)
-
-Commit and push your changes
-
-Open a Pull Request
-
-Feel free to open Issues for bugs & features!
-
-📄 License
-MIT
-
-🙏 Credits
-Built by Dhruv Chawla.
-Coffee data sourced from top Indian roasters including Bluetokaicoffee.
-
-Brew better. Discover deeper. Welcome to IndianRoasters.
