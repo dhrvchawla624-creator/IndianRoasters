@@ -138,11 +138,11 @@ function Home() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center px-5">
         <div className="text-8xl mb-5 animate-shake">☕</div>
-        <h2 className="text-4xl text-coffee-dark mb-2.5">Oops! Something went wrong</h2>
-        <p className="text-lg text-coffee-light mb-8">{error}</p>
+        <h2 className="text-4xl text-coffee-dark dark:text-dark-text mb-2.5">Oops! Something went wrong</h2>
+        <p className="text-lg text-coffee-light dark:text-dark-text-secondary mb-8">{error}</p>
         <button 
           onClick={fetchCoffee} 
-          className="flex items-center gap-2.5 px-8 py-3.5 bg-coffee-medium text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown hover:-translate-y-0.5 hover:shadow-lg"
+          className="flex items-center gap-2.5 px-8 py-3.5 bg-coffee-medium dark:bg-dark-accent text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown dark:hover:bg-dark-accent/80 hover:-translate-y-0.5 hover:shadow-lg"
         >
           <span>🔄</span> Try Again
         </button>
@@ -154,7 +154,7 @@ function Home() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center px-5">
         <div className="text-8xl mb-5 animate-bounce-custom">☕</div>
-        <h2 className="text-2xl text-coffee-dark">Loading coffee beans...</h2>
+        <h2 className="text-2xl text-coffee-dark dark:text-dark-text">Loading coffee beans...</h2>
       </div>
     );
   }

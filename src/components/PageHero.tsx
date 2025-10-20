@@ -6,15 +6,15 @@ interface PageHeroProps {
 
 function PageHero({ title, subtitle, icon = '☕' }: PageHeroProps) {
   return (
-    <header className="relative bg-gradient-to-br from-coffee-dark via-coffee-brown to-coffee-medium text-white px-5 pt-28 pb-24 overflow-hidden -mb-12">
+    <header className="relative bg-gradient-to-br from-coffee-dark via-coffee-brown to-coffee-medium dark:from-dark-bg-secondary dark:via-dark-surface dark:to-dark-surface-elevated text-white px-5 pt-28 pb-24 overflow-hidden -mb-12 transition-colors duration-300">
       {/* Curved bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-cream-light rounded-t-[50%]"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-cream-light dark:bg-dark-bg rounded-t-[50%] transition-colors duration-300"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         <div className="text-6xl mb-5 animate-float">{icon}</div>
         
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-5 animate-slideUp">
-          <span className="bg-gradient-to-r from-gold to-cream bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
             {title}
           </span>
         </h1>

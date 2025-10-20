@@ -4,7 +4,7 @@ interface FooterProps {
 
 function Footer({ lastUpdate }: FooterProps) {
   return (
-    <footer className="bg-gradient-to-br from-coffee-dark to-coffee-brown text-white px-5 py-16 mt-20">
+    <footer className="bg-gradient-to-br from-coffee-dark to-coffee-brown dark:from-dark-surface-elevated dark:to-dark-bg-secondary text-white px-5 py-16 mt-20 transition-colors duration-300">
       <div className="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-8">
         <div className="flex-1 min-w-[250px]">
           <h3 className="text-3xl font-bold mb-2.5">☕ Indian Homebrews</h3>

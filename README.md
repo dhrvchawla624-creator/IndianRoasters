@@ -18,7 +18,7 @@ Explore Indian Roasters online: [indian-roasters.vercel.app](https://indian-roas
   Fast navigation between pages using React Router with dedicated Home, Roasters, About, Blog, and Contact pages.
 
 - **Responsive Navigation Menu**  
-  Fixed top menu bar with seamless gradient matching the hero section, smooth mobile drawer navigation, and dark theme toggle button for future implementation.
+  Fixed top menu bar with seamless gradient matching the hero section, smooth mobile drawer navigation, and dark theme toggle button.
 
 - **Interactive, real-time filtering**  
   Effortlessly filter beans by roaster, origin, roast level, process, tasting notes, price, and stock status.
@@ -218,7 +218,7 @@ The platform currently aggregates data from these premium Indian coffee roasters
 - [x] **Real-time Search** - Instant search across all coffee attributes
 - [x] **Responsive Design** - Works perfectly on desktop and mobile
 - [x] **Tailwind CSS Migration** - Modern utility-first CSS framework for better maintainability
-- [ ] **Dark Mode Implementation** - Complete dark theme support for better accessibility
+- [x] **Dark Mode Implementation** - Complete dark theme support for better accessibility
 - [ ] **Roasters Directory Content** - Detailed profiles, locations, and stories
 - [ ] **Blog Content** - Brewing guides, roaster interviews, and coffee culture articles
 - [ ] **Contact Form** - Functional contact form with email integration

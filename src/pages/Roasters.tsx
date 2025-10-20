@@ -2,7 +2,7 @@ import PageHero from '../components/PageHero';
 
 function Roasters() {
   return (
-    <div className="min-h-screen bg-cream-light">
+    <div className="min-h-screen bg-cream-light dark:bg-dark-bg transition-colors duration-300">
       <PageHero 
         title="Indian Coffee Roasters"
         subtitle="Discover the artisans behind India's finest specialty coffee beans"
@@ -10,9 +10,9 @@ function Roasters() {
       />
       
       <div className="max-w-7xl mx-auto px-5 py-10">
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-          <div className="text-center text-coffee-light">
-            <h2 className="text-2xl font-bold text-coffee-dark mb-4">
+        <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
+          <div className="text-center text-coffee-light dark:text-dark-text-secondary">
+            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">
               Roasters Directory Coming Soon
             </h2>
             <p className="text-lg mb-8">
@@ -20,24 +20,24 @@ function Roasters() {
               Check back soon to explore their stories, locations, and specialties.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-              <div className="bg-cream rounded-xl p-6">
+              <div className="bg-cream dark:bg-dark-bg-secondary rounded-xl p-6 transition-colors duration-300">
                 <div className="text-3xl mb-3">📍</div>
-                <h3 className="font-bold text-coffee-dark mb-2">Locations</h3>
-                <p className="text-sm text-coffee-medium">
+                <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-2">Locations</h3>
+                <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
                   Find roasters across India from major cities to coffee estates
                 </p>
               </div>
-              <div className="bg-cream rounded-xl p-6">
+              <div className="bg-cream dark:bg-dark-bg-secondary rounded-xl p-6 transition-colors duration-300">
                 <div className="text-3xl mb-3">⭐</div>
-                <h3 className="font-bold text-coffee-dark mb-2">Specialties</h3>
-                <p className="text-sm text-coffee-medium">
+                <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-2">Specialties</h3>
+                <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
                   Learn about unique roasting techniques and signature blends
                 </p>
               </div>
-              <div className="bg-cream rounded-xl p-6">
+              <div className="bg-cream dark:bg-dark-bg-secondary rounded-xl p-6 transition-colors duration-300">
                 <div className="text-3xl mb-3">🌟</div>
-                <h3 className="font-bold text-coffee-dark mb-2">Stories</h3>
-                <p className="text-sm text-coffee-medium">
+                <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-2">Stories</h3>
+                <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
                   Discover the passion and craftsmanship behind each roaster
                 </p>
               </div>

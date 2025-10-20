@@ -13,7 +13,14 @@ import NotFound from './pages/NotFound';
 function App() {
   const [loading, setLoading] = useState(true);
   const [showLanding, setShowLanding] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Initialize from localStorage or system preference
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) {
+      return saved === 'true';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
   const [lastUpdate, setLastUpdate] = useState<string>('');
 
   useEffect(() => {
@@ -47,10 +54,19 @@ function App() {
     fetchLastUpdate();
   }, []);
 
+  useEffect(() => {
+    // Apply dark mode class to document root
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    // Persist to localStorage
+    localStorage.setItem('darkMode', String(isDarkMode));
+  }, [isDarkMode]);
+
   const handleThemeToggle = () => {
     setIsDarkMode(!isDarkMode);
-    // TODO: Implement dark mode theme switching logic
-    console.log('Dark mode toggled:', !isDarkMode);
   };
 
   // Landing page
@@ -60,7 +76,9 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen animate-fadeIn bg-cream-light">
+      <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${
+        isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
+      }`}>
         <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
