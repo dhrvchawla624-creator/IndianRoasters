@@ -1,19 +1,17 @@
+import PageHero from '../components/PageHero';
+
 function Blog() {
   return (
-    <div className="min-h-screen pt-20 px-5 py-10 bg-cream-light">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-coffee-dark mb-4">
-            Coffee Blog
-          </h1>
-          <p className="text-lg text-coffee-medium max-w-2xl mx-auto">
-            Stories, guides, and insights from India's specialty coffee scene
-          </p>
-        </div>
-
+    <div className="min-h-screen bg-cream-light">
+      <PageHero 
+        title="Coffee Blog"
+        subtitle="Stories, guides, and insights from India's specialty coffee scene"
+        icon="📝"
+      />
+      
+      <div className="max-w-7xl mx-auto px-5 py-10">
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
           <div className="text-center text-coffee-light">
-            <div className="text-6xl mb-6">📝</div>
             <h2 className="text-2xl font-bold text-coffee-dark mb-4">
               Blog Coming Soon
             </h2>

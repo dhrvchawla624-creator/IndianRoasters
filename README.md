@@ -65,7 +65,8 @@ Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roast
 
 - `App.tsx` — Main app component with routing setup
 - `Navbar.tsx` — Fixed navigation bar with mobile drawer and theme toggle
-- `Hero.tsx` — Landing header with stats and animations
+- `Hero.tsx` — Landing header with stats and animations (Home page)
+- `PageHero.tsx` — Reusable hero header for consistent branding across all pages
 - `FilterSection.tsx` — Search bar, price slider, and filter dropdowns
 - `CoffeeGrid.tsx` — Product grid with pagination and empty states
 - `CoffeeCard.tsx` — Individual coffee bean card component
@@ -177,7 +178,8 @@ The platform currently aggregates data from these premium Indian coffee roasters
 │   ├── components/
 │   │   ├── LandingPage.tsx    # Animated loading screen
 │   │   ├── Navbar.tsx         # Navigation menu with mobile drawer
-│   │   ├── Hero.tsx           # Hero section with stats
+│   │   ├── Hero.tsx           # Hero section with stats (Home page)
+│   │   ├── PageHero.tsx       # Reusable hero header (other pages)
 │   │   ├── FilterSection.tsx  # Search and filters
 │   │   ├── CoffeeGrid.tsx     # Grid with pagination
 │   │   ├── CoffeeCard.tsx     # Individual product card
@@ -210,6 +212,7 @@ The platform currently aggregates data from these premium Indian coffee roasters
 
 - [x] **Client-Side Routing** - React Router implementation with multiple pages
 - [x] **Responsive Navigation** - Fixed top menu bar with mobile drawer and dark theme toggle placeholder
+- [x] **Consistent Page Headers** - Reusable PageHero component with gradient backgrounds and animations
 - [x] **30+ Roaster Integration** - Blue Tokai, Corridor Seven, Fraction9, Bloom Coffee, etc.
 - [x] **Advanced Filtering System** - Price range, tasting notes, roast levels, origins, processes
 - [x] **Real-time Search** - Instant search across all coffee attributes
