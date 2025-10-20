@@ -54,9 +54,15 @@ Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roast
 
 ### Frontend (React)
 
-- Powerful Search + Filters UI
-- Responsive Grid with Coffee Cards
-- Instant feedback and animation states
+**Modular Component Structure:**
+
+- `App.tsx` — Main orchestrator with state management and filtering logic
+- `Hero.tsx` — Landing header with stats and animations
+- `FilterSection.tsx` — Search bar, price slider, and filter dropdowns
+- `CoffeeGrid.tsx` — Product grid with pagination and empty states
+- `CoffeeCard.tsx` — Individual coffee bean card component
+- `Footer.tsx` — Footer with last update info
+- `ErrorBoundary.tsx` — Graceful error handling wrapper
 
 ### Backend (Express)
 
@@ -152,21 +158,27 @@ The platform currently aggregates data from these premium Indian coffee roasters
 
 ```text
 ├── src/
-│   ├── App.tsx              # Main React component with UI logic
-│   ├── App.css              # Complete styling with coffee theme
-│   ├── main.tsx             # React app entry point
-│   ├── ErrorBoundary.tsx    # Error boundary for graceful error handling
-│   ├── TestErrorBoundary.tsx # Test component for error boundary (dev only)
-│   ├── index.css            # Global styles
-│   └── assets/              # Static assets
+│   ├── components/
+│   │   ├── LandingPage.tsx    # Animated loading screen
+│   │   ├── Hero.tsx           # Hero section with stats
+│   │   ├── FilterSection.tsx  # Search and filters
+│   │   ├── CoffeeGrid.tsx     # Grid with pagination
+│   │   ├── CoffeeCard.tsx     # Individual product card
+│   │   └── Footer.tsx         # Footer component
+│   │   └── ErrorBoundary.tsx  # Error handling
+│   ├── types/
+│   │   └── coffee.ts          # TypeScript interfaces
+│   ├── App.tsx                # Main component
+│   ├── App.css                # Complete styling
+│   ├── main.tsx               # React entry point
+│   └── assets/                # Static assets
 ├── api/
-│   ├── coffee.ts            # Vercel serverless function for coffee data
-│   └── refresh.ts           # Vercel serverless function for refresh
-├── server.ts                # Local Express server for development
-├── fetcher.ts               # Core web scraping logic (30+ roasters)
-├── vite.config.ts           # Vite configuration with proxy setup
-├── package.json             # Dependencies and scripts
-└── README.md                # This file
+│   ├── coffee.ts              # Vercel serverless function
+│   └── refresh.ts             # Cache refresh endpoint
+├── server.ts                  # Local Express server
+├── fetcher.ts                 # Web scraping logic (30+ roasters)
+├── vite.config.ts             # Vite configuration
+└── package.json               # Dependencies and scripts
 ```
 
 ---
