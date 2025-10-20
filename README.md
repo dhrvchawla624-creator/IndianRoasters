@@ -32,6 +32,9 @@ Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roast
 - **Fast, real-time UI with zero page reloads**  
   Built using React + Vite for lightning-fast performance.
 
+- **Error Boundary Protection**  
+  Graceful error handling with user-friendly error messages and recovery options.
+
 ---
 
 ## 🛠️ Tech Stack
@@ -152,6 +155,8 @@ The platform currently aggregates data from these premium Indian coffee roasters
 │   ├── App.tsx              # Main React component with UI logic
 │   ├── App.css              # Complete styling with coffee theme
 │   ├── main.tsx             # React app entry point
+│   ├── ErrorBoundary.tsx    # Error boundary for graceful error handling
+│   ├── TestErrorBoundary.tsx # Test component for error boundary (dev only)
 │   ├── index.css            # Global styles
 │   └── assets/              # Static assets
 ├── api/
