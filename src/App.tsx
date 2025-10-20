@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import FilterSection from './components/FilterSection';
 import CoffeeGrid from './components/CoffeeGrid';
 import Footer from './components/Footer';
-import './App.css';
 
 function getAllTastingNotes(beans: CoffeeBean[]): string[] {
   const allNotes = beans.flatMap(b => b.tastingNotes ?? []);
@@ -156,11 +155,14 @@ function App() {
   // Error page
   if (error) {
     return (
-      <div className="error-page">
-        <div className="error-icon">☕</div>
-        <h2>Oops! Something went wrong</h2>
-        <p>{error}</p>
-        <button onClick={fetchCoffee} className="retry-btn">
+      <div className="flex flex-col items-center justify-center min-h-screen text-center px-5">
+        <div className="text-8xl mb-5 animate-shake">☕</div>
+        <h2 className="text-4xl text-coffee-dark mb-2.5">Oops! Something went wrong</h2>
+        <p className="text-lg text-coffee-light mb-8">{error}</p>
+        <button 
+          onClick={fetchCoffee} 
+          className="flex items-center gap-2.5 px-8 py-3.5 bg-coffee-medium text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown hover:-translate-y-0.5 hover:shadow-lg"
+        >
           <span>🔄</span> Try Again
         </button>
       </div>
@@ -168,7 +170,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="min-h-screen animate-fadeIn">
       <Hero totalBeans={beans.length} totalRoasters={roasters.length} />
       
       <FilterSection

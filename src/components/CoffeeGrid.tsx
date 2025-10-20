@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import type { CoffeeBean } from '../types/coffee';
 import CoffeeCard from './CoffeeCard';
-import '../App.css';
 
 interface CoffeeGridProps {
   pagedBeans: CoffeeBean[];
@@ -53,13 +52,7 @@ function CoffeeGrid({
   return (
     <>
       {/* Coffee beans grid */}
-      <div className="coffee-grid" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '32px',
-        marginTop: '32px',
-        justifyItems: 'center',
-      }}>
+      <div className="max-w-7xl mx-auto px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 justify-items-center">
         {pagedBeans.map(bean => (
           <CoffeeCard key={bean.id} bean={bean} />
         ))}
@@ -67,59 +60,44 @@ function CoffeeGrid({
 
       {/* Pagination Controls */}
       {pageCount > 0 && (
-        <div className="pagination" style={{ display: 'flex', justifyContent: 'center', margin: '40px 0 10px 0', gap: 16, flexWrap: 'wrap' }}>
+        <div className="flex justify-center my-10 gap-4 flex-wrap px-5">
           <button
             onClick={() => setPage(Math.max(page - 1, 1))}
             disabled={page === 1}
-            className="pagination-btn"
-            style={{
-              padding: '8px 18px',
-              borderRadius: 8,
-              border: '2px solid #d4af37',
-              background: page === 1 ? '#f8f7f1' : '#fffbe8',
-              color: page === 1 ? '#aaa' : '#222',
-              fontWeight: 600,
-              cursor: page === 1 ? 'not-allowed' : 'pointer',
-              transition: 'all .12s'
-            }}
+            className={`px-5 py-2 rounded-lg border-2 border-gold font-semibold transition-all duration-150 ${
+              page === 1 
+                ? 'bg-cream-light text-gray-400 cursor-not-allowed' 
+                : 'bg-[#fffbe8] text-[#222] cursor-pointer hover:bg-gold hover:text-white'
+            }`}
           >
             Previous
           </button>
-          <div style={{ display: 'flex', gap: 3, alignItems: 'center', fontSize: 16 }}>
+          <div className="flex gap-1 items-center text-base">
             {paginationPages.map((pg, idx) => typeof pg === 'number' ? (
               <button
                 key={pg}
                 onClick={() => setPage(pg)}
-                className="pagination-btn"
-                style={{
-                  background: pg === page ? '#d4af37' : '#fffbe8',
-                  color: pg === page ? '#fff' : '#111',
-                  fontWeight: pg === page ? 700 : 600,
-                  border: pg === page ? '2px solid #d4af37' : '2px solid #fffbe8',
-                  padding: '4px 11px',
-                  borderRadius: 7,
-                  cursor: pg === page ? 'default' : 'pointer'
-                }}
                 disabled={pg === page}
-              >{pg}</button>
+                className={`px-3 py-1 rounded-lg transition-all ${
+                  pg === page 
+                    ? 'bg-gold text-white font-bold border-2 border-gold cursor-default' 
+                    : 'bg-[#fffbe8] text-[#111] font-semibold border-2 border-[#fffbe8] cursor-pointer hover:bg-gold/10'
+                }`}
+              >
+                {pg}
+              </button>
             ) : (
-              <span key={`ellipsis-${idx}`} style={{padding: '0 4px', color: '#d4af37', fontWeight: 'bolder', userSelect:'none'}}>…</span>
+              <span key={`ellipsis-${idx}`} className="px-1 text-gold font-bold select-none">…</span>
             ))}
           </div>
           <button
             onClick={() => setPage(Math.min(page + 1, pageCount))}
             disabled={page === pageCount || pageCount === 0}
-            className="pagination-btn"
-            style={{
-              padding: '8px 18px',
-              borderRadius: 8,
-              border: '2px solid #d4af37',
-              background: page === pageCount || pageCount === 0 ? '#f8f7f1' : '#fffbe8',
-              color: page === pageCount || pageCount === 0 ? '#aaa' : '#222',
-              fontWeight: 600,
-              cursor: page === pageCount || pageCount === 0 ? 'not-allowed' : 'pointer',
-              transition: 'all .12s'
-            }}
+            className={`px-5 py-2 rounded-lg border-2 border-gold font-semibold transition-all duration-150 ${
+              page === pageCount || pageCount === 0
+                ? 'bg-cream-light text-gray-400 cursor-not-allowed' 
+                : 'bg-[#fffbe8] text-[#222] cursor-pointer hover:bg-gold hover:text-white'
+            }`}
           >
             Next
           </button>
@@ -128,11 +106,14 @@ function CoffeeGrid({
 
       {/* Empty State */}
       {filteredBeansCount === 0 && (
-        <div className="empty-state">
-          <div className="empty-icon">☕</div>
-          <h3>No coffee beans found</h3>
-          <p>Try adjusting your filters or search terms</p>
-          <button onClick={onResetFilters} className="reset-btn">
+        <div className="text-center py-20 px-5 animate-fadeIn">
+          <div className="text-8xl mb-5 opacity-30">☕</div>
+          <h3 className="text-3xl text-coffee-dark mb-2.5">No coffee beans found</h3>
+          <p className="text-base text-coffee-light mb-8">Try adjusting your filters or search terms</p>
+          <button 
+            onClick={onResetFilters} 
+            className="px-8 py-3.5 bg-coffee-medium text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown hover:-translate-y-0.5 hover:shadow-lg"
+          >
             Reset Filters
           </button>
         </div>

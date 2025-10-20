@@ -24,7 +24,7 @@ Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roast
   Clean, card-style grid showcasing bean images, details, and instant “Buy Now” links.
 
 - **Modern UI/UX**  
-  Coffee-themed colors, gradients, and smooth animations designed for comfort and clarity.
+  Coffee-themed colors, gradients, and smooth animations designed for comfort and clarity. Built with Tailwind CSS utility-first approach for maintainable and responsive design.
 
 - **Auto-refresh & live data**  
   Freshly scraped specialty coffee listings with easy backend refresh support.
@@ -45,7 +45,7 @@ Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roast
 | API        | Express.js, Node.js                 |
 | Scraping   | Node Fetch (Shopify JSON APIs)      |
 | Caching    | In-memory cache (1-hour expiry)     |
-| Styling    | Pure CSS with gradients, animations |
+| Styling    | Tailwind CSS with custom animations |
 | Deployment | Vercel (Serverless Functions)       |
 
 ---
@@ -164,12 +164,12 @@ The platform currently aggregates data from these premium Indian coffee roasters
 │   │   ├── FilterSection.tsx  # Search and filters
 │   │   ├── CoffeeGrid.tsx     # Grid with pagination
 │   │   ├── CoffeeCard.tsx     # Individual product card
-│   │   └── Footer.tsx         # Footer component
+│   │   ├── Footer.tsx         # Footer component
 │   │   └── ErrorBoundary.tsx  # Error handling
 │   ├── types/
 │   │   └── coffee.ts          # TypeScript interfaces
 │   ├── App.tsx                # Main component
-│   ├── App.css                # Complete styling
+│   ├── index.css              # Tailwind CSS config & custom animations
 │   ├── main.tsx               # React entry point
 │   └── assets/                # Static assets
 ├── api/
@@ -177,7 +177,7 @@ The platform currently aggregates data from these premium Indian coffee roasters
 │   └── refresh.ts             # Cache refresh endpoint
 ├── server.ts                  # Local Express server
 ├── fetcher.ts                 # Web scraping logic (30+ roasters)
-├── vite.config.ts             # Vite configuration
+├── vite.config.ts             # Vite configuration (includes Tailwind plugin)
 └── package.json               # Dependencies and scripts
 ```
 
@@ -189,6 +189,7 @@ The platform currently aggregates data from these premium Indian coffee roasters
 - [x] **Advanced Filtering System** - Price range, tasting notes, roast levels, origins, processes
 - [x] **Real-time Search** - Instant search across all coffee attributes
 - [x] **Responsive Design** - Works perfectly on desktop and mobile
+- [x] **Tailwind CSS Migration** - Modern utility-first CSS framework for better maintainability
 - [ ] Add user favorites & collections
 - [ ] Coffee recommendation engine
 - [ ] Roaster location mapping

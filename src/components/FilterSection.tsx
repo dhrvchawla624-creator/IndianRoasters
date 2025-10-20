@@ -1,7 +1,6 @@
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { SortOption } from '../types/coffee';
-import '../App.css';
 
 interface FilterSectionProps {
   searchTerm: string;
@@ -28,206 +27,147 @@ interface FilterSectionProps {
   tastingNoteOptions: string[];
 }
 
-function FilterSection({
-  searchTerm,
-  setSearchTerm,
-  selectedRoaster,
-  setSelectedRoaster,
-  selectedOrigin,
-  setSelectedOrigin,
-  selectedRoast,
-  setSelectedRoast,
-  selectedProcess,
-  setSelectedProcess,
-  selectedTastingNote,
-  setSelectedTastingNote,
-  showOutOfStock,
-  setShowOutOfStock,
-  sortBy,
-  setSortBy,
-  priceRange,
-  setPriceRange,
-  roasters,
-  origins,
-  roastLevels,
-  tastingNoteOptions,
-}: FilterSectionProps) {
+const processOptions = [
+  "washed", "natural", "honey", "anaerobic", "fermentation",
+  "pineapple fermentation", "cherry fermentation", "double fermentation",
+  "intenso fermentation", "yeast fermentation", "yeast anaerobic naturals",
+  "bio reactor thermal shock naturals", "thermal shock", "thermal shock naturals",
+  "cultured naturals", "wine yeast fermented anaerobic naturals", "CM natural",
+  "rum barrel aged", "koji fermented naturals", "coferment naturals"
+];
+
+function FilterSection(props: FilterSectionProps) {
   return (
-    <div className="filters-section">
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: '28px',
-        marginBottom: '18px'
-      }}>
-        {/* Price Slider */}
-        <div style={{ minWidth: 250, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 90 }}>
-          <label style={{ fontSize: 19, fontWeight: 500, marginBottom: 4, display:'block' }}>Price Range (₹)</label>
-          <div style={{ width: '100%', padding: '0', background: 'none', boxSizing: 'border-box' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginBottom: '5px',
-                fontWeight: 500,
-                fontSize: 16,
-                color: '#AB6E36',
-              }}
-            >
-              <span>₹{priceRange[0].toLocaleString()}</span>
-              <span>₹{priceRange[1].toLocaleString()}</span>
+    <div className="max-w-7xl mx-auto px-5 py-10">
+      <div className="flex flex-wrap items-center gap-7 mb-5">
+        <div className="min-w-[250px] flex-1 flex flex-col justify-center h-[90px]">
+          <label className="text-lg font-medium mb-1 block">Price Range (₹)</label>
+          <div className="w-full">
+            <div className="flex justify-between mb-1.5 font-medium text-base text-[#AB6E36]">
+              <span>₹{props.priceRange[0].toLocaleString()}</span>
+              <span>₹{props.priceRange[1].toLocaleString()}</span>
             </div>
             <Slider
               range
               min={0}
               max={10000}
-              value={priceRange}
-              onChange={(val) => setPriceRange(val as [number, number])}
+              value={props.priceRange}
+              onChange={(val) => props.setPriceRange(val as [number, number])}
               step={50}
               marks={{}}
-              railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
-              trackStyle={[
-                { backgroundColor: '#D87330', height: 10, borderRadius: 7 },
-              ]}
-              handleStyle={[
-                {
+              styles={{
+                rail: { backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 },
+                track: { backgroundColor: '#D87330', height: 10, borderRadius: 7 },
+                handle: {
                   borderColor: '#D87330',
                   backgroundColor: '#FFF',
-                  boxShadow: '0 2px 8px #D8733020',
+                  boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)',
                   width: 26,
                   height: 26,
                   marginTop: -8,
-                },
-                {
-                  borderColor: '#D87330',
-                  backgroundColor: '#FFF',
-                  boxShadow: '0 2px 8px #D8733020',
-                  width: 26,
-                  height: 26,
-                  marginTop: -8,
-                },
-              ]}
+                }
+              }}
             />
           </div>
         </div>
-       {/* Search bar */}
-        <div style={{
-          minWidth: 320,
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          height: 50
-        }}>
-          <div className="search-bar" style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            height: '30px',
-            boxShadow: '0 2px 12px #E8E2DD50',
-            borderRadius: '9px',
-            background: '#fff',
-            border: '1.5px solid #efe7dd'
-          }}>
-            <span className="search-icon" style={{marginLeft:14, marginRight:4, color:'#AB6E36'}}>🔍</span>
+        
+        <div className="min-w-[320px] flex-1 flex items-center h-[50px]">
+          <div className="flex items-center w-full h-[50px] shadow-md rounded-lg bg-white border border-[#efe7dd] px-4">
+            <span className="text-[#AB6E36] text-xl mr-1">🔍</span>
             <input
               type="text"
               placeholder="Search for coffee beans, roasters, origins..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-              style={{
-                color: '#111',
-                background: 'inherit',
-                width: '100%',
-                maxWidth: '600px',
-                height: '40px',
-                fontSize: '18px',
-                border: 'none',
-                outline: 'none',
-                borderRadius: '9px'
-              }}
+              value={props.searchTerm}
+              onChange={(e) => props.setSearchTerm(e.target.value)}
+              className="text-[#111] bg-transparent w-full h-10 text-lg border-none outline-none"
             />
           </div>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="filter-tabs" style={{ display: 'flex', flexWrap: 'wrap', gap: 18, marginBottom: 12 }}>
-        {/* Roaster */}
-        <div className="filter-group">
-          <label>🏪 Roaster</label>
-          <select value={selectedRoaster} onChange={e => setSelectedRoaster(e.target.value)}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-3">
+        <div className="animate-slideUp">
+          <label className="block text-xs font-semibold text-coffee-brown mb-2 uppercase tracking-wide">
+            🏪 Roaster
+          </label>
+          <select 
+            value={props.selectedRoaster} 
+            onChange={e => props.setSelectedRoaster(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white text-coffee-dark cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light focus:outline-none focus:border-coffee-medium focus:shadow-lg"
+          >
             <option value="all">All Roasters</option>
-            {roasters.map(r => (
-              <option key={r} value={r}>{r}</option>
-            ))}
+            {props.roasters.map(r => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
-        {/* Origin */}
-        <div className="filter-group">
-          <label>🌍 Origin</label>
-          <select value={selectedOrigin} onChange={e => setSelectedOrigin(e.target.value)}>
+        
+        <div className="animate-slideUp">
+          <label className="block text-xs font-semibold text-coffee-brown mb-2 uppercase tracking-wide">
+            🌍 Origin
+          </label>
+          <select 
+            value={props.selectedOrigin} 
+            onChange={e => props.setSelectedOrigin(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white text-coffee-dark cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light focus:outline-none focus:border-coffee-medium focus:shadow-lg"
+          >
             <option value="all">All Origins</option>
-            {origins.map(o => (
-              <option key={o} value={o}>{o}</option>
-            ))}
+            {props.origins.map(o => <option key={o} value={o}>{o}</option>)}
           </select>
         </div>
-        {/* Roast Level */}
-        <div className="filter-group">
-          <label>🔥 Roast</label>
-          <select value={selectedRoast} onChange={e => setSelectedRoast(e.target.value)}>
+        
+        <div className="animate-slideUp">
+          <label className="block text-xs font-semibold text-coffee-brown mb-2 uppercase tracking-wide">
+            🔥 Roast
+          </label>
+          <select 
+            value={props.selectedRoast} 
+            onChange={e => props.setSelectedRoast(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white text-coffee-dark cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light focus:outline-none focus:border-coffee-medium focus:shadow-lg"
+          >
             <option value="all">All Roasts</option>
-            {roastLevels.map(r => (
-              <option key={r} value={r}>{r}</option>
-            ))}
+            {props.roastLevels.map(r => <option key={r} value={r}>{r}</option>)}
           </select>
         </div>
-        {/* Process */}
-        <div className="filter-group">
-          <label>⚙️ Process</label>
-          <select value={selectedProcess} onChange={e => setSelectedProcess(e.target.value)}>
+        
+        <div className="animate-slideUp">
+          <label className="block text-xs font-semibold text-coffee-brown mb-2 uppercase tracking-wide">
+            ⚙️ Process
+          </label>
+          <select 
+            value={props.selectedProcess} 
+            onChange={e => props.setSelectedProcess(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white text-coffee-dark cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light focus:outline-none focus:border-coffee-medium focus:shadow-lg"
+          >
             <option value="all">All Processes</option>
-            {[
-              "washed",
-              "natural",
-              "honey",
-              "anaerobic",
-              "fermentation",
-              "pineapple fermentation",
-              "cherry fermentation",
-              "double fermentation",
-              "intenso fermentation",
-              "yeast fermentation",
-              "yeast anaerobic naturals",
-              "bio reactor thermal shock naturals",
-              "thermal shock",
-              "thermal shock naturals",
-              "cultured naturals",
-              "wine yeast fermented anaerobic naturals",
-              "CM natural",
-              "rum barrel aged",
-              "koji fermented naturals",
-              "coferment naturals"
-            ].map(p => (
+            {processOptions.map(p => (
               <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>
             ))}
           </select>
         </div>
-        {/* Tasting Notes */}
-        <div className="filter-group">
-          <label>🍫 Tasting Notes</label>
-          <select value={selectedTastingNote} onChange={e => setSelectedTastingNote(e.target.value)}>
-            {tastingNoteOptions.map(n => (
+        
+        <div className="animate-slideUp">
+          <label className="block text-xs font-semibold text-coffee-brown mb-2 uppercase tracking-wide">
+            🍫 Tasting Notes
+          </label>
+          <select 
+            value={props.selectedTastingNote} 
+            onChange={e => props.setSelectedTastingNote(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white text-coffee-dark cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light focus:outline-none focus:border-coffee-medium focus:shadow-lg"
+          >
+            {props.tastingNoteOptions.map(n => (
               <option key={n} value={n}>{n.charAt(0).toUpperCase() + n.slice(1)}</option>
             ))}
           </select>
         </div>
-        {/* Sort By */}
-        <div className="filter-group">
-          <label>📊 Sort By</label>
-          <select value={sortBy} onChange={e => setSortBy(e.target.value as SortOption)}>
+        
+        <div className="animate-slideUp">
+          <label className="block text-xs font-semibold text-coffee-brown mb-2 uppercase tracking-wide">
+            📊 Sort By
+          </label>
+          <select 
+            value={props.sortBy} 
+            onChange={e => props.setSortBy(e.target.value as SortOption)}
+            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white text-coffee-dark cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light focus:outline-none focus:border-coffee-medium focus:shadow-lg"
+          >
             <option value="name">Name</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>
@@ -235,15 +175,16 @@ function FilterSection({
           </select>
         </div>
       </div>
-      {/* Out of stock toggle */}
-      <div style={{ marginTop: 4, marginBottom: 8 }}>
-        <label style={{ fontWeight: 500, fontSize: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+      
+      <div className="mt-1 mb-2">
+        <label className="font-medium text-base flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
-            checked={showOutOfStock}
-            onChange={e => setShowOutOfStock(e.target.checked)}
-            style={{ width: 18, height: 18 }}
-          /> Show Out of Stock
+            checked={props.showOutOfStock}
+            onChange={e => props.setShowOutOfStock(e.target.checked)}
+            className="w-[18px] h-[18px] cursor-pointer accent-coffee-medium"
+          /> 
+          Show Out of Stock
         </label>
       </div>
     </div>
