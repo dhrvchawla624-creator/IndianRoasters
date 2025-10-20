@@ -5,7 +5,7 @@ interface HeroProps {
 
 function Hero({ totalBeans, totalRoasters }: HeroProps) {
   return (
-    <header className="relative bg-gradient-to-br from-coffee-dark via-coffee-brown to-coffee-medium text-white px-5 pt-20 pb-24 overflow-hidden -mb-12">
+    <header className="relative bg-gradient-to-br from-coffee-dark via-coffee-brown to-coffee-medium text-white px-5 pt-28 pb-24 overflow-hidden -mb-12">
       {/* Curved bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-cream-light rounded-t-[50%]"></div>
       
