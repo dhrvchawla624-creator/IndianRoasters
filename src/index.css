@@ -126,11 +126,29 @@ html {
 
 /* Focus visible */
 button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-select:focus-visible {
+a:focus-visible {
   outline: 3px solid #D4AF37;
   outline-offset: 2px;
+}
+
+/* Subtle focus styling for form inputs */
+input:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: #D4AF37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* Remove focus styling from input inside search container */
+.search-container input:focus-visible {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Focus styling for search field container */
+.search-container:focus-within {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Custom scrollbar for tags section */

@@ -72,7 +72,7 @@ function FilterSection(props: FilterSectionProps) {
         </div>
         
         <div className="min-w-[320px] flex-1 flex items-center h-[50px]">
-          <div className="flex items-center w-full h-[50px] shadow-md rounded-lg bg-white border border-[#efe7dd] px-4">
+          <div className="search-container flex items-center w-full h-[50px] shadow-md rounded-lg bg-white border border-[#efe7dd] px-4 transition-all duration-300">
             <span className="text-[#AB6E36] text-xl mr-1">🔍</span>
             <input
               type="text"
