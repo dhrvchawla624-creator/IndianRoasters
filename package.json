@@ -5,7 +5,7 @@
   "scripts": {
     "server": "tsx watch server.ts",
     "client": "vite",
-    "dev": "vite concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -17,16 +17,20 @@
     "path-to-regexp": "^8.3.0",
     "rc-slider": "^11.1.9",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
+    "@types/react-router-dom": "^5.3.3",
     "@vercel/node": "^2.3.0",
     "@vitejs/plugin-react": "^5.0.4",
     "concurrently": "^8.2.2",
+    "tailwindcss": "^4.1.14",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "vite": "^7.1.10"

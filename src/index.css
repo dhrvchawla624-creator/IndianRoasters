@@ -1,68 +1,282 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Configure dark mode to use class-based strategy */
+@custom-variant dark (&:where(.dark, .dark *));
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* Custom theme configuration */
+@theme {
+  /* Coffee color palette - Light Mode */
+  --color-coffee-dark: #2c1810;
+  --color-coffee-brown: #4a2c1d;
+  --color-coffee-medium: #6b4423;
+  --color-coffee-light: #8b6f47;
+  --color-cream: #f5e6d3;
+  --color-cream-light: #faf3e9;
+  --color-gold: #d4af37;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  /* Dark Mode Colors */
+  --color-dark-bg: #1a1410;
+  --color-dark-bg-secondary: #2a2116;
+  --color-dark-surface: #352819;
+  --color-dark-surface-elevated: #3d2f1e;
+  --color-dark-text: #f5e6d3;
+  --color-dark-text-secondary: #d4c4b0;
+  --color-dark-text-muted: #a89580;
+  --color-dark-border: #4a3b2a;
+  --color-dark-accent: #e8b84d;
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  /* Custom animations */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Custom keyframe animations */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
   }
-  a:hover {
-    color: #747bff;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  button {
-    background-color: #f9f9f9;
+  50% {
+    transform: translateY(-20px);
   }
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0.6;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.5);
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(10deg);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply animations */
+.animate-fadeOut {
+  animation: fadeOut 0.5s ease 2.5s forwards;
+}
+
+.animate-bounce-custom {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.animate-steam {
+  animation: steam 2s ease-in-out infinite;
+}
+
+.animate-progress {
+  animation: progress 2s ease-in-out infinite;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.6s ease;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Dark mode root class */
+.dark {
+  color-scheme: dark;
+}
+
+/* Selection colors */
+::selection {
+  background: #6b4423;
+  color: white;
+}
+
+.dark ::selection {
+  background: #e8b84d;
+  color: #1a1410;
+}
+
+/* Focus visible */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #d4af37;
+  outline-offset: 2px;
+}
+
+.dark button:focus-visible,
+.dark a:focus-visible {
+  outline: 3px solid #e8b84d;
+  outline-offset: 2px;
+}
+
+/* Subtle focus styling for form inputs */
+input:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.dark input:focus-visible,
+.dark select:focus-visible {
+  outline: none;
+  border-color: #e8b84d;
+  box-shadow: 0 0 0 3px rgba(232, 184, 77, 0.25);
+}
+
+/* Remove focus styling from input inside search container */
+.search-container input:focus-visible {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Focus styling for search field container */
+.search-container:focus-within {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark .search-container:focus-within {
+  border-color: #e8b84d !important;
+  box-shadow: 0 0 0 3px rgba(232, 184, 77, 0.25),
+    0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Custom scrollbar for tags section */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f5e6d3;
+  border-radius: 10px;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-track {
+  background: #2a2116;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 10px;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #e8b84d;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #6b4423;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #d4a03d;
 }
