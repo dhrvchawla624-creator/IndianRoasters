@@ -132,3 +132,23 @@ select:focus-visible {
   outline: 3px solid #D4AF37;
   outline-offset: 2px;
 }
+
+/* Custom scrollbar for tags section */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #F5E6D3;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #6B4423;
+}
+

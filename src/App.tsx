@@ -170,7 +170,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen animate-fadeIn">
+    <div className="min-h-screen animate-fadeIn bg-cream-light">
       <Hero totalBeans={beans.length} totalRoasters={roasters.length} />
       
       <FilterSection
