@@ -52,7 +52,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
             <div className="flex items-center space-x-3">
               <div className="text-3xl">☕</div>
               <div className="flex flex-col">
-                <span className="text-xl font-extrabold text-white leading-tight drop-shadow-md">Home Grounds</span>
+                <span className="text-xl font-extrabold text-white leading-tight drop-shadow-md">Indian Roasters</span>
                 <span className="text-xs text-cream opacity-90 leading-tight drop-shadow-sm">Indian Coffee Library</span>
               </div>
             </div>

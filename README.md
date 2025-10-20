@@ -1,4 +1,4 @@
-# ☕ IndianRoasters
+# ☕ Indian Roasters
 
 **Discover, filter, and explore India's finest specialty coffee roasters through a seamless, interactive web experience.**
 
@@ -8,7 +8,7 @@
 
 ## 🚀 Live Demo
 
-Explore IndianRoasters online: [indian-roasters.vercel.app](https://indian-roasters.vercel.app)
+Explore Indian Roasters online: [indian-roasters.vercel.app](https://indian-roasters.vercel.app)
 
 ---
 
@@ -249,8 +249,8 @@ MIT
 ## 🙏 Credits
 
 Built by Dhruv Chawla.  
-Coffee data sourced from top Indian roasters, including Bluetokaicoffee.
+Coffee data sourced from top Indian roasters, including Blue Tokai Coffee, Corridor Seven, Fraction9, Bloom Coffee, and more.
 
 ---
 
-**Brew better. Discover deeper. Welcome to IndianRoasters.**
+**Brew better. Discover deeper. Welcome to Indian Roasters.**

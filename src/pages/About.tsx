@@ -4,7 +4,7 @@ function About() {
   return (
     <div className="min-h-screen bg-cream-light">
       <PageHero 
-        title="About Homegrounds"
+        title="About Indian Roasters"
         subtitle="Your Ultimate Indian Coffee Library"
         icon="📖"
       />
@@ -14,7 +14,7 @@ function About() {
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             <h2 className="text-2xl font-bold text-coffee-dark mb-4">Our Mission</h2>
             <p className="text-coffee-medium leading-relaxed mb-4">
-              Homegrounds is dedicated to making India's specialty coffee scene accessible to everyone.
+              Indian Roasters is dedicated to making India's specialty coffee scene accessible to everyone.
               We aggregate coffee offerings from 30+ premium roasters across India, providing a 
               centralized platform to discover, compare, and purchase exceptional coffee beans.
             </p>
@@ -25,7 +25,7 @@ function About() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-            <h2 className="text-2xl font-bold text-coffee-dark mb-4">Why Homegrounds?</h2>
+            <h2 className="text-2xl font-bold text-coffee-dark mb-4">Why Indian Roasters?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <div className="flex items-start space-x-3 mb-4">
@@ -78,7 +78,7 @@ function About() {
             <h2 className="text-2xl font-bold text-coffee-dark mb-4">Technology</h2>
             <p className="text-coffee-medium leading-relaxed mb-4">
               Built with modern web technologies including React, TypeScript, and Tailwind CSS,
-              Homegrounds delivers a fast, responsive, and delightful user experience.
+              Indian Roasters delivers a fast, responsive, and delightful user experience.
             </p>
             <p className="text-coffee-medium leading-relaxed">
               Our automated scraping system keeps the coffee database fresh and accurate,

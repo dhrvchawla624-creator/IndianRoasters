@@ -66,7 +66,7 @@ function Contact() {
                 Partnerships
               </h3>
               <p className="text-sm text-coffee-medium mb-2">
-                Interested in collaborating with Homegrounds?
+                Interested in collaborating with Indian Roasters?
               </p>
               <p className="text-sm text-coffee-medium">
                 Let's explore opportunities together.

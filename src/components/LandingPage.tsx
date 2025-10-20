@@ -16,7 +16,7 @@ function LandingPage({ show }: LandingPageProps) {
             <span className="block w-2 h-8 bg-white/40 rounded-full animate-steam [animation-delay:0.6s]"></span>
           </div>
         </div>
-        <h1 className="text-5xl font-bold mb-2.5 tracking-tight">Homegrounds</h1>
+        <h1 className="text-5xl font-bold mb-2.5 tracking-tight">Indian Roasters</h1>
         <p className="text-lg opacity-90 mb-8">Discover India's Finest Specialty Coffee</p>
         <div className="w-[200px] h-1 bg-white/20 rounded-sm mx-auto overflow-hidden">
           <div className="h-full bg-gold rounded-sm animate-progress"></div>
