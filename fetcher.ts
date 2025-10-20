@@ -66,40 +66,63 @@ function extractTastingNotes(title: string, tags: string[], body?: string): stri
 
 // --- Shopify Fetcher ---
 export async function fetchShopifyCollection(collectionUrl: string, roasterName: string): Promise<CoffeeBean[]> {
-  const jsonUrl = collectionUrl.endsWith('/') ?
-    `${collectionUrl}products.json?limit=250`
-    : `${collectionUrl}/products.json?limit=250`;
-  const res = await fetch(jsonUrl);
-  if (!res.ok) {
-    console.error(`Error fetching ${roasterName}: ${res.status} from ${collectionUrl}`);
+  try {
+    const jsonUrl = collectionUrl.endsWith('/') ?
+      `${collectionUrl}products.json?limit=250`
+      : `${collectionUrl}/products.json?limit=250`;
+    
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    
+    const res = await fetch(jsonUrl, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    
+    if (!res.ok) {
+      console.error(`❌ Error fetching ${roasterName}: ${res.status} from ${collectionUrl}`);
+      return [];
+    }
+    
+    const data = await res.json() as { products: ShopifyProduct[] };
+    
+    if (!data.products || !Array.isArray(data.products)) {
+      console.error(`❌ Invalid data format from ${roasterName}`);
+      return [];
+    }
+    
+    return data.products.filter((p: ShopifyProduct) => p.variants.length > 0)
+      .map((p: ShopifyProduct) => {
+        const variant = p.variants[0];
+        const lowerTitle = p.title.toLowerCase();
+        const tags = Array.isArray(p.tags) ? p.tags : [];
+        const body = p.body_html || "";
+        return {
+          id: `${roasterName}-${p.id}`,
+          name: cleanTitle(p.title),
+          roaster: roasterName,
+          price: parseFloat(variant.price),
+          currency: "INR",
+          weight: variant.title,
+          roastLevel: cleanMatch(lowerTitle + " " + tags.join(" "), ["light", "medium", "dark", "filter", "espresso", "omni"]),
+          origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
+            "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri", 
+            "andhra", "araku", "sidamo", "ethiopia", "yirgacheffe", "honduras", "colombia" ]),
+          process: cleanMatch(lowerTitle + " " + tags.join(" "), [
+            "washed", "natural", "anaerobic", "carbonic", "honey", "dry", "semi-washed", "experimental", "barrel-aged" ]),
+          tastingNotes: extractTastingNotes(p.title, tags, body),
+          image: p.images[0]?.src,
+          url: `${collectionUrl}/products/${p.handle}`,
+          inStock: variant.available,
+        };
+      });
+  } catch (error: any) {
+    if (error.name === 'AbortError') {
+      console.error(`⏱️  Timeout fetching ${roasterName} from ${collectionUrl}`);
+    } else {
+      console.error(`❌ Exception fetching ${roasterName}:`, error.message);
+    }
     return [];
   }
-  const data = await res.json() as { products: ShopifyProduct[] };
-  return data.products.filter((p: ShopifyProduct) => p.variants.length > 0)
-    .map((p: ShopifyProduct) => {
-      const variant = p.variants[0];
-      const lowerTitle = p.title.toLowerCase();
-      const tags = Array.isArray(p.tags) ? p.tags : [];
-      const body = p.body_html || "";
-      return {
-        id: `${roasterName}-${p.id}`,
-        name: cleanTitle(p.title),
-        roaster: roasterName,
-        price: parseFloat(variant.price),
-        currency: "INR",
-        weight: variant.title,
-        roastLevel: cleanMatch(lowerTitle + " " + tags.join(" "), ["light", "medium", "dark", "filter", "espresso", "omni"]),
-        origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
-          "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri", 
-          "andhra", "araku", "sidamo", "ethiopia", "yirgacheffe", "honduras", "colombia" ]),
-        process: cleanMatch(lowerTitle + " " + tags.join(" "), [
-          "washed", "natural", "anaerobic", "carbonic", "honey", "dry", "semi-washed", "experimental", "barrel-aged" ]),
-        tastingNotes: extractTastingNotes(p.title, tags, body),
-        image: p.images[0]?.src,
-        url: `${collectionUrl}/products/${p.handle}`,
-        inStock: variant.available,
-      };
-    });
 }
 
 // --- All Roasters & Collections ---
@@ -142,15 +165,61 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
 
 // --- Aggregator ---
 export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
-  let allBeans: CoffeeBean[] = [];
+  console.log(`⏳ Starting parallel fetch from ${ROASTER_COLLECTIONS.length} roasters...`);
+  const startTime = Date.now();
+  
+  // Create array of all fetch promises
+  const allFetchPromises: Promise<{ roaster: string; url: string; beans: CoffeeBean[] }>[] = [];
+  
   for (const roasterObj of ROASTER_COLLECTIONS) {
     for (const url of roasterObj.collections) {
-      const beans = await fetchShopifyCollection(url, roasterObj.roaster);ttps://theindianbean.com/collections/coffee
-      allBeans = allBeans.concat(beans);
-      console.log(`Fetched ${beans.length} products from: ${roasterObj.roaster} - ${url}`);
+      // Each fetch is a separate promise
+      const fetchPromise = fetchShopifyCollection(url, roasterObj.roaster)
+        .then(beans => ({
+          roaster: roasterObj.roaster,
+          url,
+          beans
+        }))
+        .catch(error => {
+          console.error(`❌ Error fetching ${roasterObj.roaster} from ${url}:`, error.message);
+          return {
+            roaster: roasterObj.roaster,
+            url,
+            beans: [] as CoffeeBean[]
+          };
+        });
+      
+      allFetchPromises.push(fetchPromise);
     }
   }
-  console.log(`Total products fetched: ${allBeans.length}`);
+  
+  // Fetch all roasters in parallel
+  console.log(`🚀 Fetching ${allFetchPromises.length} collections in parallel...`);
+  const results = await Promise.all(allFetchPromises);
+  
+  // Aggregate all beans
+  let allBeans: CoffeeBean[] = [];
+  let successCount = 0;
+  let failureCount = 0;
+  
+  for (const result of results) {
+    allBeans = allBeans.concat(result.beans);
+    if (result.beans.length > 0) {
+      successCount++;
+      console.log(`✅ ${result.roaster}: ${result.beans.length} products`);
+    } else {
+      failureCount++;
+      console.log(`⚠️  ${result.roaster}: 0 products (failed or empty)`);
+    }
+  }
+  
+  const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+  console.log(`\n📊 Fetch Summary:`);
+  console.log(`   ✅ Successful: ${successCount} collections`);
+  console.log(`   ⚠️  Failed/Empty: ${failureCount} collections`);
+  console.log(`   📦 Total products: ${allBeans.length}`);
+  console.log(`   ⏱️  Time taken: ${duration}s\n`);
+  
   return allBeans;
 }
 

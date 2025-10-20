@@ -32,6 +32,7 @@ app.get('/api/coffee', async (req, res) => {
   
   // Return cached data if fresh
   if (cache.data && (now - cache.timestamp) < CACHE_DURATION) {
+    console.log('📦 Serving cached data');
     return res.json({
       data: cache.data,
       cached: true,
@@ -41,20 +42,26 @@ app.get('/api/coffee', async (req, res) => {
 
   // Fetch fresh data
   try {
-    console.log('Fetching fresh coffee data...');
+    console.log('🔄 Cache expired or empty, fetching fresh data...');
+    const startTime = Date.now();
     const data = await fetchAllCoffee();
+    const fetchDuration = ((Date.now() - startTime) / 1000).toFixed(2);
+    
     cache = { data, timestamp: now };
     
+    console.log(`✅ Fresh data fetched and cached (${fetchDuration}s)`);
     res.json({
       data: cache.data,
       cached: false,
-      lastUpdate: new Date(cache.timestamp).toISOString()
+      lastUpdate: new Date(cache.timestamp).toISOString(),
+      fetchTime: `${fetchDuration}s`
     });
   } catch (error) {
-    console.error('Failed to fetch coffee:', error);
+    console.error('❌ Failed to fetch coffee:', error);
     
     // Return stale cache if available
     if (cache.data) {
+      console.log('⚠️  Returning stale cache data due to fetch error');
       return res.json({
         data: cache.data,
         cached: true,
@@ -70,11 +77,22 @@ app.get('/api/coffee', async (req, res) => {
 // Force refresh endpoint (optional, for manual cache invalidation)
 app.post('/api/coffee/refresh', async (req, res) => {
   try {
-    console.log('Manual refresh triggered...');
+    console.log('🔄 Manual refresh triggered...');
+    const startTime = Date.now();
     const data = await fetchAllCoffee();
+    const fetchDuration = ((Date.now() - startTime) / 1000).toFixed(2);
+    
     cache = { data, timestamp: Date.now() };
-    res.json({ success: true, count: data.length });
+    
+    console.log(`✅ Cache refreshed successfully (${fetchDuration}s)`);
+    res.json({ 
+      success: true, 
+      count: data.length,
+      fetchTime: `${fetchDuration}s`,
+      lastUpdate: new Date(cache.timestamp).toISOString()
+    });
   } catch (error) {
+    console.error('❌ Refresh failed:', error);
     res.status(500).json({ error: 'Refresh failed' });
   }
 });
