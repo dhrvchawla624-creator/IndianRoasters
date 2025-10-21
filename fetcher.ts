@@ -143,7 +143,7 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Devan's Coffee", collections: [ "https://www.devans.in/collections/coffee" ] },
   { roaster: "Korebi Coffee", collections: [ "https://korebi.coffee/collections/coffee" ] },
   { roaster: "Maverick & Farmer", collections: [ "https://www.maverickandfarmer.com/collections/shop-all" ] },
-  { roaster: "Tariero", collections: [ "https://tariero.com/collections/all-gourmet-coffees" ] },
+  
   { roaster: "Naked Coffee", collections: [ "https://nakedcoffee.in/collections/whole-beans-ground" ] },
   { roaster: "Caarabi Coffee", collections: [ "https://caarabicoffee.com/collections/shop-coffee" ] },
   { roaster: "Caffnary", collections: [ "https://caffinary.com/collections/specialty-single-estate-origin" , "https://caffinary.com/collections/freshly-roasted-ground-beans-freshly-roasted-whole-beans"] },
