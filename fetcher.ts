@@ -64,68 +64,89 @@ function extractTastingNotes(title: string, tags: string[], body?: string): stri
   return notes;
 }
 
-// --- Shopify Fetcher ---
-export async function fetchShopifyCollection(collectionUrl: string, roasterName: string): Promise<CoffeeBean[]> {
-  try {
-    const jsonUrl = collectionUrl.endsWith('/') ?
-      `${collectionUrl}products.json?limit=250`
-      : `${collectionUrl}/products.json?limit=250`;
-    
-    // Add timeout to prevent hanging requests
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-    
-    const res = await fetch(jsonUrl, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    
-    if (!res.ok) {
-      console.error(`❌ Error fetching ${roasterName}: ${res.status} from ${collectionUrl}`);
-      return [];
-    }
-    
-    const data = await res.json() as { products: ShopifyProduct[] };
-    
-    if (!data.products || !Array.isArray(data.products)) {
-      console.error(`❌ Invalid data format from ${roasterName}`);
-      return [];
-    }
-    
-    return data.products.filter((p: ShopifyProduct) => p.variants.length > 0)
-      .map((p: ShopifyProduct) => {
-        const variant = p.variants[0];
-        const lowerTitle = p.title.toLowerCase();
-        const tags = Array.isArray(p.tags) ? p.tags : [];
-        const body = p.body_html || "";
-        return {
-          id: `${roasterName}-${p.id}`,
-          name: cleanTitle(p.title),
-          roaster: roasterName,
-          price: parseFloat(variant.price),
-          currency: "INR",
-          weight: variant.title,
-          roastLevel: cleanMatch(lowerTitle + " " + tags.join(" "), ["light", "medium", "dark", "filter", "espresso", "omni"]),
-          origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
-            "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri", 
-            "andhra", "araku", "sidamo", "ethiopia", "yirgacheffe", "honduras", "colombia" ]),
-          process: cleanMatch(lowerTitle + " " + tags.join(" "), [
-            "washed", "natural", "anaerobic", "carbonic", "honey", "dry", "semi-washed", "experimental", "barrel-aged" ]),
-          tastingNotes: extractTastingNotes(p.title, tags, body),
-          image: p.images[0]?.src,
-          url: `${collectionUrl}/products/${p.handle}`,
-          inStock: variant.available,
-        };
+// --- Shopify Fetcher with Retry Logic ---
+export async function fetchShopifyCollection(
+  collectionUrl: string, 
+  roasterName: string,
+  retries: number = 2
+): Promise<CoffeeBean[]> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const jsonUrl = collectionUrl.endsWith('/') ?
+        `${collectionUrl}products.json?limit=250`
+        : `${collectionUrl}/products.json?limit=250`;
+      
+      // Increased timeout to 15 seconds
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      
+      const res = await fetch(jsonUrl, { 
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; CoffeeAggregator/1.0)'
+        }
       });
-  } catch (error: any) {
-    if (error.name === 'AbortError') {
-      console.error(`⏱️  Timeout fetching ${roasterName} from ${collectionUrl}`);
-    } else {
-      console.error(`❌ Exception fetching ${roasterName}:`, error.message);
+      clearTimeout(timeoutId);
+      
+      if (!res.ok) {
+        console.error(`❌ Error fetching ${roasterName} (attempt ${attempt + 1}/${retries + 1}): ${res.status} from ${collectionUrl}`);
+        if (attempt < retries) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); // Exponential backoff
+          continue;
+        }
+        return [];
+      }
+      
+      const data = await res.json() as { products: ShopifyProduct[] };
+      
+      if (!data.products || !Array.isArray(data.products)) {
+        console.error(`❌ Invalid data format from ${roasterName}`);
+        return [];
+      }
+      
+      return data.products.filter((p: ShopifyProduct) => p.variants.length > 0)
+        .map((p: ShopifyProduct) => {
+          const variant = p.variants[0];
+          const lowerTitle = p.title.toLowerCase();
+          const tags = Array.isArray(p.tags) ? p.tags : [];
+          const body = p.body_html || "";
+          return {
+            id: `${roasterName}-${p.id}`,
+            name: cleanTitle(p.title),
+            roaster: roasterName,
+            price: parseFloat(variant.price),
+            currency: "INR",
+            weight: variant.title,
+            roastLevel: cleanMatch(lowerTitle + " " + tags.join(" "), ["light", "medium", "dark", "filter", "espresso", "omni"]),
+            origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
+              "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri", 
+              "andhra", "araku", "sidamo", "ethiopia", "yirgacheffe", "honduras", "colombia" ]),
+            process: cleanMatch(lowerTitle + " " + tags.join(" "), [
+              "washed", "natural", "anaerobic", "carbonic", "honey", "dry", "semi-washed", "experimental", "barrel-aged" ]),
+            tastingNotes: extractTastingNotes(p.title, tags, body),
+            image: p.images[0]?.src,
+            url: `${collectionUrl}/products/${p.handle}`,
+            inStock: variant.available,
+          };
+        });
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        console.error(`⏱️  Timeout fetching ${roasterName} (attempt ${attempt + 1}/${retries + 1}) from ${collectionUrl}`);
+      } else {
+        console.error(`❌ Exception fetching ${roasterName} (attempt ${attempt + 1}/${retries + 1}):`, error.message);
+      }
+      
+      if (attempt < retries) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); // Exponential backoff
+        continue;
+      }
+      return [];
     }
-    return [];
   }
+  return [];
 }
 
-// --- All Roasters & Collections ---
+// --- All Roasters & Collections (DUPLICATES REMOVED) ---
 const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: 'Blue Tokai Coffee Roasters', collections: [ 'https://bluetokaicoffee.com/collections/roasted-and-ground-coffee-beans' ] },
   { roaster: 'Savourworks', collections: [ 'https://www.savorworksroasters.com/collections/coffee' ] },
@@ -143,10 +164,9 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Devan's Coffee", collections: [ "https://www.devans.in/collections/coffee" ] },
   { roaster: "Korebi Coffee", collections: [ "https://korebi.coffee/collections/coffee" ] },
   { roaster: "Maverick & Farmer", collections: [ "https://www.maverickandfarmer.com/collections/shop-all" ] },
-  
   { roaster: "Naked Coffee", collections: [ "https://nakedcoffee.in/collections/whole-beans-ground" ] },
   { roaster: "Caarabi Coffee", collections: [ "https://caarabicoffee.com/collections/shop-coffee" ] },
-  { roaster: "Caffnary", collections: [ "https://caffinary.com/collections/specialty-single-estate-origin" , "https://caffinary.com/collections/freshly-roasted-ground-beans-freshly-roasted-whole-beans"] },
+  { roaster: "Caffnary", collections: [ "https://caffinary.com/collections/specialty-single-estate-origin", "https://caffinary.com/collections/freshly-roasted-ground-beans-freshly-roasted-whole-beans"] },
   { roaster: "Hill Tiger", collections: [ "https://hilltiller.com/collections/hill-tiller-coffee-roaster" ] },
   { roaster: "Beachville", collections: [ "https://beachvillecoffee.com/collections/all" ] },
   { roaster: "Coffeeverse", collections: [ "https://coffeeverse.co.in/collections/shop-all" ] },
@@ -160,27 +180,44 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Genetics", collections: [ "https://genetics.coffee/collections/single-origins" ] },
   { roaster: "Roast Coffee", collections: [ "https://roastcoffee.in/collections/roasted-coffee-bean" ] },
   { roaster: "Karma Kaapi", collections: [ "https://karmakaapi.com/collections/buy-coffee-online" ] },
- { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
-  { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
   { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
   { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
   { roaster: "Coffee Bean Project", collections: [ "https://coffeebeanproject.com/collections/all" ] },
-
-
 ];
 
-// --- Aggregator ---
+// --- Batch Fetcher with Concurrency Limit ---
+async function fetchInBatches<T>(
+  tasks: (() => Promise<T>)[],
+  batchSize: number = 5
+): Promise<T[]> {
+  const results: T[] = [];
+  
+  for (let i = 0; i < tasks.length; i += batchSize) {
+    const batch = tasks.slice(i, i + batchSize);
+    console.log(`📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(tasks.length / batchSize)}...`);
+    const batchResults = await Promise.all(batch.map(task => task()));
+    results.push(...batchResults);
+    
+    // Small delay between batches to avoid overwhelming servers
+    if (i + batchSize < tasks.length) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+  }
+  
+  return results;
+}
+
+// --- Aggregator with Batching ---
 export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
-  console.log(`⏳ Starting parallel fetch from ${ROASTER_COLLECTIONS.length} roasters...`);
+  console.log(`⏳ Starting batch fetch from ${ROASTER_COLLECTIONS.length} roasters...`);
   const startTime = Date.now();
   
-  // Create array of all fetch promises
-  const allFetchPromises: Promise<{ roaster: string; url: string; beans: CoffeeBean[] }>[] = [];
+  // Create array of all fetch tasks
+  const allFetchTasks: (() => Promise<{ roaster: string; url: string; beans: CoffeeBean[] }>)[] = [];
   
   for (const roasterObj of ROASTER_COLLECTIONS) {
     for (const url of roasterObj.collections) {
-      // Each fetch is a separate promise
-      const fetchPromise = fetchShopifyCollection(url, roasterObj.roaster)
+      const fetchTask = () => fetchShopifyCollection(url, roasterObj.roaster)
         .then(beans => ({
           roaster: roasterObj.roaster,
           url,
@@ -195,13 +232,13 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
           };
         });
       
-      allFetchPromises.push(fetchPromise);
+      allFetchTasks.push(fetchTask);
     }
   }
   
-  // Fetch all roasters in parallel
-  console.log(`🚀 Fetching ${allFetchPromises.length} collections in parallel...`);
-  const results = await Promise.all(allFetchPromises);
+  // Fetch in batches of 5 to avoid overwhelming servers
+  console.log(`🚀 Fetching ${allFetchTasks.length} collections in batches of 5...`);
+  const results = await fetchInBatches(allFetchTasks, 5);
   
   // Aggregate all beans
   let allBeans: CoffeeBean[] = [];
@@ -230,7 +267,6 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
 }
 
 // --- FILTERS ---
-// Includes priceMin, priceMax, and returns paginated results per page
 export function filterBeans(
   beans: CoffeeBean[],
   filters: {
@@ -242,8 +278,8 @@ export function filterBeans(
     priceMax?: number,
     inStock?: boolean,
     tastingNotes?: string,
-    page?: number,             // 1-based
-    perPage?: number           // defaults to 12
+    page?: number,
+    perPage?: number
   }
 ): { beans: CoffeeBean[]; pageCount: number; total: number;} {
   let filtered = beans.filter(bean => {
@@ -258,13 +294,11 @@ export function filterBeans(
     return true;
   });
 
-  // Pagination logic
   const page      = filters.page ?? 1;
   const perPage   = filters.perPage ?? 12;
   const total     = filtered.length;
   const pageCount = Math.max(1, Math.ceil(total / perPage));
 
-  // Paginate results
   const startIdx = (page - 1) * perPage;
   const paged    = filtered.slice(startIdx, startIdx + perPage);
 
@@ -274,16 +308,13 @@ export function filterBeans(
 // --- Example Runner ---
 fetchAllCoffee().then(beans => {
   console.log(`\n=== Fetched ${beans.length} beans combined ===`);
-  // Print sample tasting notes for each bean
-  beans.forEach(bean => {
-    console.log(`Bean: ${bean.name} | Roaster: ${bean.roaster} | Tasting Notes: ${bean.tastingNotes?.join(', ')}`);
-  });
-
-  // Example: Chocolate beans, page 1, 12 per page, ₹400-₹1000 budget
+  
   const { beans: chocolatePaged, pageCount, total } = filterBeans(
     beans,
     { tastingNotes: "chocolate", page: 1, perPage: 12, priceMin: 400, priceMax: 1000 }
   );
+  console.log(`\nChocolate beans | Price ₹400-₹1000 | Page 1/${pageCount}, showing ${chocolatePaged.length} of ${total}`);
+});
   console.log(`\nChocolate beans | Price ₹400-₹1000 | Page 1/${pageCount}, showing ${chocolatePaged.length} of ${total}:`);
   console.log(chocolatePaged);
 
