@@ -10,6 +10,7 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -91,6 +92,7 @@ function App() {
         </Routes>
         <Footer lastUpdate={lastUpdate} />
         <Analytics />
+        <SpeedInsights />
       </div>
     </Router>
   );
