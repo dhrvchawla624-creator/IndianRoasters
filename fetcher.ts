@@ -160,7 +160,11 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Genetics", collections: [ "https://genetics.coffee/collections/single-origins" ] },
   { roaster: "Roast Coffee", collections: [ "https://roastcoffee.in/collections/roasted-coffee-bean" ] },
   { roaster: "Karma Kaapi", collections: [ "https://karmakaapi.com/collections/buy-coffee-online" ] },
-  { roaster: "Tariero", collections: [ "https://tariero.com/collections/all-gourmet-coffees", "https://tariero.com/collections/all-flavoured-coffees",  ] },
+  { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
+  { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
+  { roaster: "Coffee Bean Project", collections: [ "https://coffeebeanproject.com/collections/all" ] },
+  { roaster: "Tariero", collections: [ "https://tariero.com/collections/all-gourmet-coffees" ] }
+
 ];
 
 // --- Aggregator ---
