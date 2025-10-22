@@ -293,3 +293,4 @@ fetchAllCoffee().then(beans => {
 
   // You can use filterBeans for paginated UI in frontend as well!
 });
+
