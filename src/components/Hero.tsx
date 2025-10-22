@@ -37,7 +37,7 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
           </div>
           <div className="text-center">
             <div className="text-4xl font-bold text-gold dark:text-dark-accent mb-1">100%</div>
-            <div className="text-sm opacity-80 uppercase tracking-wider">Specialty Grade</div>
+            <div className="text-sm opacity-80 uppercase tracking-wider">Third wave Culture</div>
           </div>
         </div>
       </div>
