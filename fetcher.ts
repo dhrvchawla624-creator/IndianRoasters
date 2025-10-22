@@ -162,6 +162,8 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Karma Kaapi", collections: [ "https://karmakaapi.com/collections/buy-coffee-online" ] },
     { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
   { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
+  { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
+  { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
   { roaster: "Coffee Bean Project", collections: [ "https://coffeebeanproject.com/collections/all" ] },
 
 
