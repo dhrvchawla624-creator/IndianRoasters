@@ -9,6 +9,7 @@ import About from './pages/About';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -89,6 +90,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer lastUpdate={lastUpdate} />
+        <Analytics />
       </div>
     </Router>
   );
