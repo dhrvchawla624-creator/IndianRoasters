@@ -163,7 +163,7 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
   { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
   { roaster: "Coffee Bean Project", collections: [ "https://coffeebeanproject.com/collections/all" ] },
-  { roaster: "Tariero", collections: [ "https://tariero.com/collections/all-gourmet-coffees" ] }
+
 
 ];
 
