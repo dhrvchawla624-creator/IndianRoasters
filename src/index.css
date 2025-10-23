@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Configure dark mode to use class-based strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Custom theme configuration */
 @theme {
   /* Coffee color palette - Light Mode */
