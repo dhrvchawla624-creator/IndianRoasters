@@ -24,18 +24,19 @@ interface FilterSectionProps {
   roasters: string[];
   origins: string[];
   roastLevels: string[];
-  processOptions: string[]; // Keep this but it will be ignored
+  processOptions: string[];
   tastingNoteOptions: string[];
 }
 
-// Hardcoded process options - these are your categories
+// Simplified consolidated process categories
 const processOptions = [
-  "washed", "natural", "honey", "anaerobic", "fermentation",
-  "pineapple fermentation", "cherry fermentation", "double fermentation",
-  "intenso fermentation", "yeast fermentation", "yeast anaerobic naturals",
-  "bio reactor thermal shock naturals", "thermal shock", "thermal shock naturals",
-  "cultured naturals", "wine yeast fermented anaerobic naturals", "CM natural",
-  "rum barrel aged", "koji fermented naturals", "coferment naturals"
+  "washed",
+  "natural", 
+  "honey",
+  "anaerobic",
+  "fermentation",  // ALL fermentation types go here
+  "barrel aged",   // ALL barrel aged types go here
+  "experimental"
 ];
 
 function FilterSection(props: FilterSectionProps) {

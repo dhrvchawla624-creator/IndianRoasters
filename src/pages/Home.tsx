@@ -15,7 +15,7 @@ function normalizeProcessToCategory(process: string): string {
   
   const normalized = process.toLowerCase().trim();
   
-  // Map variations to your standard categories
+  // Washed variations
   if (
     normalized.includes('wash') || 
     normalized.includes('wet') ||
@@ -25,6 +25,7 @@ function normalizeProcessToCategory(process: string): string {
     return 'washed';
   }
   
+  // Natural variations
   if (
     normalized.includes('natural') || 
     normalized.includes('dry') ||
@@ -34,6 +35,7 @@ function normalizeProcessToCategory(process: string): string {
     return 'natural';
   }
   
+  // Honey variations
   if (
     normalized.includes('honey') ||
     normalized.includes('pulped natural') ||
@@ -42,6 +44,7 @@ function normalizeProcessToCategory(process: string): string {
     return 'honey';
   }
   
+  // Anaerobic variations (check before fermentation to prioritize anaerobic)
   if (
     normalized.includes('anaerobic') ||
     normalized.includes('anerobic') // handle typo
@@ -49,26 +52,46 @@ function normalizeProcessToCategory(process: string): string {
     return 'anaerobic';
   }
   
+  // ALL Barrel Aged variations - catch them ALL!
+  if (
+    normalized.includes('barrel') ||
+    normalized.includes('aged') ||
+    normalized.includes('whisky') ||
+    normalized.includes('whiskey') ||
+    normalized.includes('rum') ||
+    normalized.includes('wine barrel') ||
+    normalized.includes('oak')
+  ) {
+    return 'barrel aged';
+  }
+  
+  // ALL Fermentation variations - consolidate EVERYTHING under one category
   if (
     normalized.includes('ferment') ||
-    normalized.includes('fermentation')
+    normalized.includes('fermentation') ||
+    normalized.includes('pineapple') ||
+    normalized.includes('cherry ferment') ||
+    normalized.includes('double ferment') ||
+    normalized.includes('intenso') ||
+    normalized.includes('yeast') ||
+    normalized.includes('cultured') ||
+    normalized.includes('koji') ||
+    normalized.includes('coferment') ||
+    normalized.includes('co-ferment') ||
+    normalized.includes('carbonic') ||
+    normalized.includes('thermal shock') ||
+    normalized.includes('bio reactor')
   ) {
     return 'fermentation';
   }
   
-  // Specific fermentation types
-  if (normalized.includes('pineapple')) return 'pineapple fermentation';
-  if (normalized.includes('cherry ferment')) return 'cherry fermentation';
-  if (normalized.includes('double ferment')) return 'double fermentation';
-  if (normalized.includes('intenso ferment')) return 'intenso fermentation';
-  if (normalized.includes('yeast ferment') || normalized.includes('yeast anaerobic')) return 'yeast fermentation';
-  if (normalized.includes('bio reactor') || normalized.includes('thermal shock')) return 'thermal shock';
-  if (normalized.includes('cultured')) return 'cultured naturals';
-  if (normalized.includes('wine yeast')) return 'wine yeast fermented anaerobic naturals';
-  if (normalized.includes('cm natural')) return 'CM natural';
-  if (normalized.includes('rum barrel')) return 'rum barrel aged';
-  if (normalized.includes('koji')) return 'koji fermented naturals';
-  if (normalized.includes('coferment')) return 'coferment naturals';
+  // Experimental/Special processes
+  if (
+    normalized.includes('experimental') ||
+    normalized.includes('special')
+  ) {
+    return 'experimental';
+  }
   
   // Return empty if no match (won't be filtered)
   return '';
@@ -81,7 +104,7 @@ function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolea
   
   // Split bean's process field by common separators
   const beanProcesses = bean.process
-    .split(/[,/|&+]/)
+    .split(/[,/|&+\-]/)
     .map(p => p.trim())
     .filter(p => p.length > 0);
   
