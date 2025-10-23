@@ -171,7 +171,9 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Coffee Bean Project", collections: [ "https://coffeebeanproject.com/collections/all" ] },
   { roaster: "Kafeido", collections: [ "https://www.kafeido.com/collections/coffee-beans" ] },
   { roaster: "Vui Vui", collections: [ "https://vuivui.in/collections/all" ] },
-  { roaster: "Dolshyne", collections: [ "https://www.dolshyne.com/collections/specialty-coffee" ] }
+  { roaster: "Dolshyne", collections: [ "https://www.dolshyne.com/collections/specialty-coffee" ] },
+  { roaster: "Humble Bean", collections: [ "https://humblebean.com/collections/our-coffee-cart" ] },
+  { roaster: "Siolim", collections: [ "https://www.siolim.coffee/collections/roasted-coffee-shop-all", "https://www.siolim.coffee/collections/madeera-shop-all" ] }
 ];
 
 
