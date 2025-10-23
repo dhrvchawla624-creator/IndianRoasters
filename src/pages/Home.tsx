@@ -9,6 +9,50 @@ function getAllTastingNotes(beans: CoffeeBean[]): string[] {
   return Array.from(new Set(allNotes.map(note => note.trim()))).sort();
 }
 
+// NEW: Normalize process names for consistent filtering
+function normalizeProcess(process: string): string {
+  if (!process) return '';
+  return process.toLowerCase().trim();
+}
+
+// NEW: Extract all unique processes from beans
+function getAllProcesses(beans: CoffeeBean[]): string[] {
+  const processSet = new Set<string>();
+  
+  beans.forEach(bean => {
+    if (bean.process) {
+      // Split by common separators to handle multiple processes
+      const processes = bean.process
+        .split(/[,/|&+]/)
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
+      
+      processes.forEach(p => {
+        processSet.add(p);
+      });
+    }
+  });
+  
+  // Convert to array and sort alphabetically
+  return Array.from(processSet).sort();
+}
+
+// NEW: Check if bean matches the selected process
+function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolean {
+  if (selectedProcess === 'all') return true;
+  if (!bean.process) return false;
+  
+  // Split bean's process field by common separators
+  const beanProcesses = bean.process
+    .split(/[,/|&+]/)
+    .map(p => normalizeProcess(p));
+  
+  const selectedNormalized = normalizeProcess(selectedProcess);
+  
+  // Check if any of the bean's processes match the selected one
+  return beanProcesses.some(p => p === selectedNormalized);
+}
+
 function beanSearchText(bean: CoffeeBean): string {
   return [
     bean.name,
@@ -44,6 +88,9 @@ function Home() {
   const origins = useMemo(() => Array.from(new Set(beans.map(b => b.origin).filter((o): o is string => Boolean(o)))).sort(), [beans]);
   const roastLevels = useMemo(() => Array.from(new Set(beans.map(b => b.roastLevel).filter((r): r is string => Boolean(r)))).sort(), [beans]);
   const tastingNoteOptions = useMemo(() => ['all', ...getAllTastingNotes(beans)], [beans]);
+  
+  // NEW: Extract process options dynamically from actual data
+  const processOptions = useMemo(() => getAllProcesses(beans), [beans]);
 
   useEffect(() => {
     fetchCoffee();
@@ -89,7 +136,10 @@ function Home() {
       const matchesRoaster = selectedRoaster === 'all' || bean.roaster === selectedRoaster;
       const matchesOrigin = selectedOrigin === 'all' || bean.origin === selectedOrigin;
       const matchesRoast = selectedRoast === 'all' || bean.roastLevel === selectedRoast;
-      const matchesProcess = selectedProcess === 'all' || bean.process === selectedProcess;
+      
+      // FIXED: Use the new process matching function
+      const matchesProcess = matchesProcessFilter(bean, selectedProcess);
+      
       const matchesTasting =
         selectedTastingNote === 'all' ||
         (bean.tastingNotes &&
@@ -185,6 +235,7 @@ function Home() {
         roasters={roasters}
         origins={origins}
         roastLevels={roastLevels}
+        processOptions={processOptions} // NEW: Pass dynamic process options
         tastingNoteOptions={tastingNoteOptions}
       />
 
