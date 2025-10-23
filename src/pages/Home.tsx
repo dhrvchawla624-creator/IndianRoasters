@@ -9,35 +9,72 @@ function getAllTastingNotes(beans: CoffeeBean[]): string[] {
   return Array.from(new Set(allNotes.map(note => note.trim()))).sort();
 }
 
-// NEW: Normalize process names for consistent filtering
-function normalizeProcess(process: string): string {
+// Map various process names to standard categories
+function normalizeProcessToCategory(process: string): string {
   if (!process) return '';
-  return process.toLowerCase().trim();
+  
+  const normalized = process.toLowerCase().trim();
+  
+  // Map variations to your standard categories
+  if (
+    normalized.includes('wash') || 
+    normalized.includes('wet') ||
+    normalized.includes('lavado') ||
+    normalized.includes('fully washed')
+  ) {
+    return 'washed';
+  }
+  
+  if (
+    normalized.includes('natural') || 
+    normalized.includes('dry') ||
+    normalized.includes('sun') ||
+    normalized.includes('naturals')
+  ) {
+    return 'natural';
+  }
+  
+  if (
+    normalized.includes('honey') ||
+    normalized.includes('pulped natural') ||
+    normalized.includes('semi')
+  ) {
+    return 'honey';
+  }
+  
+  if (
+    normalized.includes('anaerobic') ||
+    normalized.includes('anerobic') // handle typo
+  ) {
+    return 'anaerobic';
+  }
+  
+  if (
+    normalized.includes('ferment') ||
+    normalized.includes('fermentation')
+  ) {
+    return 'fermentation';
+  }
+  
+  // Specific fermentation types
+  if (normalized.includes('pineapple')) return 'pineapple fermentation';
+  if (normalized.includes('cherry ferment')) return 'cherry fermentation';
+  if (normalized.includes('double ferment')) return 'double fermentation';
+  if (normalized.includes('intenso ferment')) return 'intenso fermentation';
+  if (normalized.includes('yeast ferment') || normalized.includes('yeast anaerobic')) return 'yeast fermentation';
+  if (normalized.includes('bio reactor') || normalized.includes('thermal shock')) return 'thermal shock';
+  if (normalized.includes('cultured')) return 'cultured naturals';
+  if (normalized.includes('wine yeast')) return 'wine yeast fermented anaerobic naturals';
+  if (normalized.includes('cm natural')) return 'CM natural';
+  if (normalized.includes('rum barrel')) return 'rum barrel aged';
+  if (normalized.includes('koji')) return 'koji fermented naturals';
+  if (normalized.includes('coferment')) return 'coferment naturals';
+  
+  // Return empty if no match (won't be filtered)
+  return '';
 }
 
-// NEW: Extract all unique processes from beans
-function getAllProcesses(beans: CoffeeBean[]): string[] {
-  const processSet = new Set<string>();
-  
-  beans.forEach(bean => {
-    if (bean.process) {
-      // Split by common separators to handle multiple processes
-      const processes = bean.process
-        .split(/[,/|&+]/)
-        .map(p => p.trim())
-        .filter(p => p.length > 0);
-      
-      processes.forEach(p => {
-        processSet.add(p);
-      });
-    }
-  });
-  
-  // Convert to array and sort alphabetically
-  return Array.from(processSet).sort();
-}
-
-// NEW: Check if bean matches the selected process
+// Check if bean matches the selected process category
 function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolean {
   if (selectedProcess === 'all') return true;
   if (!bean.process) return false;
@@ -45,12 +82,14 @@ function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolea
   // Split bean's process field by common separators
   const beanProcesses = bean.process
     .split(/[,/|&+]/)
-    .map(p => normalizeProcess(p));
+    .map(p => p.trim())
+    .filter(p => p.length > 0);
   
-  const selectedNormalized = normalizeProcess(selectedProcess);
-  
-  // Check if any of the bean's processes match the selected one
-  return beanProcesses.some(p => p === selectedNormalized);
+  // Check if any of the bean's processes match the selected category
+  return beanProcesses.some(p => {
+    const category = normalizeProcessToCategory(p);
+    return category === selectedProcess.toLowerCase();
+  });
 }
 
 function beanSearchText(bean: CoffeeBean): string {
@@ -88,9 +127,6 @@ function Home() {
   const origins = useMemo(() => Array.from(new Set(beans.map(b => b.origin).filter((o): o is string => Boolean(o)))).sort(), [beans]);
   const roastLevels = useMemo(() => Array.from(new Set(beans.map(b => b.roastLevel).filter((r): r is string => Boolean(r)))).sort(), [beans]);
   const tastingNoteOptions = useMemo(() => ['all', ...getAllTastingNotes(beans)], [beans]);
-  
-  // NEW: Extract process options dynamically from actual data
-  const processOptions = useMemo(() => getAllProcesses(beans), [beans]);
 
   useEffect(() => {
     fetchCoffee();
@@ -137,7 +173,7 @@ function Home() {
       const matchesOrigin = selectedOrigin === 'all' || bean.origin === selectedOrigin;
       const matchesRoast = selectedRoast === 'all' || bean.roastLevel === selectedRoast;
       
-      // FIXED: Use the new process matching function
+      // FIXED: Use the new process matching function with category mapping
       const matchesProcess = matchesProcessFilter(bean, selectedProcess);
       
       const matchesTasting =
@@ -235,7 +271,7 @@ function Home() {
         roasters={roasters}
         origins={origins}
         roastLevels={roastLevels}
-        processOptions={processOptions} // NEW: Pass dynamic process options
+        processOptions={[]}
         tastingNoteOptions={tastingNoteOptions}
       />
 
