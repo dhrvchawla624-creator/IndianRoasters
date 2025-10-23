@@ -315,3 +315,13 @@ fetchAllCoffee().then(beans => {
   );
   console.log(`\nChocolate beans | Price ₹400-₹1000 | Page 1/${pageCount}, showing ${chocolatePaged.length} of ${total}`);
 });
+  console.log(`\nChocolate beans | Price ₹400-₹1000 | Page 1/${pageCount}, showing ${chocolatePaged.length} of ${total}:`);
+  console.log(chocolatePaged);
+
+  // Example: Page 2 of all beans, 12 per page
+  const { beans: page2Beans } = filterBeans(beans, { page: 2, perPage: 12 });
+  console.log("\nPage 2 beans:", page2Beans);
+
+  // You can use filterBeans for paginated UI in frontend as well!
+});
+
