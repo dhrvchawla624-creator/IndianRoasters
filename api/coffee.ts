@@ -169,6 +169,9 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Kumaradhara", collections: [ "https://www.kumaradharacoffee.com/collections/specialty-coffees" ] },
   { roaster: "The Caffine Baar", collections: [ "https://www.thecaffeinebaar.com/collections/packaged-coffee" ] },
   { roaster: "Coffee Bean Project", collections: [ "https://coffeebeanproject.com/collections/all" ] },
+  { roaster: "Kafeido", collections: [ "https://www.kafeido.com/collections/coffee-beans" ] },
+  { roaster: "Vui Vui", collections: [ "https://vuivui.in/collections/all" ] },
+  { roaster: "Dolshyne", collections: [ "https://www.dolshyne.com/collections/specialty-coffee" ] }
 ];
 
 
