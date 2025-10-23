@@ -187,7 +187,10 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Vui Vui", collections: [ "https://vuivui.in/collections/all" ] },
   { roaster: "Dolshyne", collections: [ "https://www.dolshyne.com/collections/specialty-coffee" ] },
   { roaster: "Humble Bean", collections: [ "https://humblebean.com/collections/our-coffee-cart" ] },
-  { roaster: "Siolim", collections: [ "https://www.siolim.coffee/collections/roasted-coffee-shop-all", "https://www.siolim.coffee/collections/madeera-shop-all" ] }
+  { roaster: "Siolim", collections: [ "https://www.siolim.coffee/collections/roasted-coffee-shop-all", "https://www.siolim.coffee/collections/madeera-shop-all" ] },
+  { roaster: "Kohi Roasters", collections: [ "https://kohiroasters.in/collections/frontpage" ] }
+
+  
 ];
 
 // --- Batch Fetcher with Concurrency Limit ---
