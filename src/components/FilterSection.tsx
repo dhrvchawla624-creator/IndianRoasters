@@ -24,9 +24,19 @@ interface FilterSectionProps {
   roasters: string[];
   origins: string[];
   roastLevels: string[];
-  processOptions: string[]; // ADD THIS - make it dynamic like roasters/origins
+  processOptions: string[]; // Keep this but it will be ignored
   tastingNoteOptions: string[];
 }
+
+// Hardcoded process options - these are your categories
+const processOptions = [
+  "washed", "natural", "honey", "anaerobic", "fermentation",
+  "pineapple fermentation", "cherry fermentation", "double fermentation",
+  "intenso fermentation", "yeast fermentation", "yeast anaerobic naturals",
+  "bio reactor thermal shock naturals", "thermal shock", "thermal shock naturals",
+  "cultured naturals", "wine yeast fermented anaerobic naturals", "CM natural",
+  "rum barrel aged", "koji fermented naturals", "coferment naturals"
+];
 
 function FilterSection(props: FilterSectionProps) {
   return (
@@ -130,8 +140,8 @@ function FilterSection(props: FilterSectionProps) {
             className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
           >
             <option value="all">All Processes</option>
-            {props.processOptions.map(p => (
-              <option key={p} value={p}>{p}</option>
+            {processOptions.map(p => (
+              <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>
             ))}
           </select>
         </div>
@@ -146,7 +156,7 @@ function FilterSection(props: FilterSectionProps) {
             className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
           >
             {props.tastingNoteOptions.map(n => (
-              <option key={n} value={n}>{n}</option>
+              <option key={n} value={n}>{n.charAt(0).toUpperCase() + n.slice(1)}</option>
             ))}
           </select>
         </div>
