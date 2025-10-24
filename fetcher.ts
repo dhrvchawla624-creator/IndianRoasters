@@ -188,7 +188,18 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Dolshyne", collections: [ "https://www.dolshyne.com/collections/specialty-coffee" ] },
   { roaster: "Humble Bean", collections: [ "https://humblebean.com/collections/our-coffee-cart" ] },
   { roaster: "Siolim", collections: [ "https://www.siolim.coffee/collections/roasted-coffee-shop-all", "https://www.siolim.coffee/collections/madeera-shop-all" ] },
-  { roaster: "Kohi Roasters", collections: [ "https://kohiroasters.in/collections/frontpage" ] }
+  { roaster: "Kohi Roasters", collections: [ "https://kohiroasters.in/collections/frontpage" ] },
+  { roaster: "Mokka Farms", collections: [ "https://www.mokkafarms.com/collections/roasted-coffee-beans","https://www.mokkafarms.com/collections/premium-ground-coffee-1", "https://www.mokkafarms.com/collections/premium-ground-coffee-2" ] },
+  { roaster: "Kup Coffee", collections: [ "https://www.kup.world/collections/globofilter-best-selling-products-index" ] },
+  { roaster: "Landour Coffee", collections: [ "https://www.landourcoffee.com/collections/coffee" ] },
+  { roaster: "Drum Coffee", collections: [ "https://drumcoffeeroasters.in/collections/all-coffee-1" ] },
+  { roaster: "Hermit Coffee", collections: [ "https://hermitcoffee.in/collections/beans" ] },
+  { roaster: "Eata Coffee", collections: [ "https://shop.ekatacoffee.com/collections/shop-now" ] },
+  { roaster: "First Crack", collections: [ "https://firstcrackcoffeeroasters.com/collections/coffee-cups" ] },
+  { roaster: "Seven Beans", collections: [ "https://sevenbeans.co/collections/coffee" ] },
+  { roaster: "93 Degree", collections: [ "https://93degreescoffeeroasters.com/collections/coffee" ] },
+  { roaster: "Dope Coffee", collections: [ "https://dopecoffee.in/collections/coffee" ] },
+  { roaster: "Kaveri Coffee", collections: [ "https://www.kavericoffee.com/collections/coffee" ] },
 
   
 ];
