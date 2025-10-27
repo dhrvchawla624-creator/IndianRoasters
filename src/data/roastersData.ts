@@ -575,11 +575,7 @@ export const LOCATION_DATA: LocationData[] = [
     cities: ['Goa'],
     roasterCount: ROASTERS_DATA.filter(r => r.state === 'Goa').length
   },
-  {
-    state: 'Kerala',
-    cities: ['Kochi'],
-    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Kerala').length
-  },
+
   {
     state: 'Telangana',
     cities: ['Hyderabad'],
@@ -620,9 +616,5 @@ export const LOCATION_DATA: LocationData[] = [
     cities: ['Ahmedabad', 'Surat'],
     roasterCount: ROASTERS_DATA.filter(r => r.state === 'Gujarat').length
   },
-  {
-    state: 'Madhya Pradesh',
-    cities: ['Indore', 'Bhopal'],
-    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Madhya Pradesh').length
-  }
+  
 ];
