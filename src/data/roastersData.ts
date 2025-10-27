@@ -13,8 +13,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Savourworks',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://www.savorworksroasters.com',
     collections: ['https://www.savorworksroasters.com/collections/coffee'],
     description: 'Artisanal coffee roasting with focus on sustainability',
@@ -23,8 +23,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Quick Brown Fox',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://qbfcoffee.com',
     collections: ['https://qbfcoffee.com/collections/all-coffees'],
     description: 'Specialty coffee with unique packaging and branding',
@@ -33,8 +33,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'GreySoul',
-    city: 'Chennai',
-    state: 'Tamil Nadu',
+    city: 'Mumbai',
+    state: 'Maharashtra',
     website: 'https://greysoul.coffee',
     collections: ['https://greysoul.coffee/collections/coffee'],
     description: 'Modern approach to traditional South Indian coffee',
@@ -43,8 +43,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Home Blends',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Noida',
+    state: 'Uttar Pradesh',
     website: 'https://homeblendcoffee.com',
     collections: [
       'https://homeblendcoffee.com/collections/ground',
@@ -90,8 +90,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Corridor Seven',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Nagpur',
+    state: 'Maharashtra',
     website: 'https://corridorseven.coffee',
     collections: ['https://corridorseven.coffee/collections/all'],
     description: 'Specialty coffee with focus on traceability and quality',
@@ -100,8 +100,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Broot',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://brootcoffee.com',
     collections: ['https://brootcoffee.com/collections/all-coffees'],
     description: 'Urban coffee roastery with modern approach',
@@ -110,7 +110,7 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Baarbara Coffee',
-    city: 'Bangalore',
+    city: 'Chikmagalur',
     state: 'Karnataka',
     website: 'https://www.baarbaracoffee.com',
     collections: [
@@ -134,8 +134,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Bloom Coffee',
-    city: 'Delhi',
-    state: 'Delhi',
+    city: 'Panchkula',
+    state: 'Haryana',
     website: 'https://bloomcoffeeroasters.in',
     collections: ['https://bloomcoffeeroasters.in/collections/coffee'],
     description: 'Fresh roasting with focus on bloom and extraction',
@@ -144,8 +144,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: "Devan's Coffee",
-    city: 'Kochi',
-    state: 'Kerala',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://www.devans.in',
     collections: ['https://www.devans.in/collections/coffee'],
     description: 'Kerala spice-influenced coffee roasting',
@@ -154,8 +154,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Korebi Coffee',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Ahmedabad',
+    state: 'Gujarat',
     website: 'https://korebi.coffee',
     collections: ['https://korebi.coffee/collections/coffee'],
     description: 'Modern coffee roastery with Korean influence',
@@ -164,8 +164,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Maverick & Farmer',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://www.maverickandfarmer.com',
     collections: ['https://www.maverickandfarmer.com/collections/shop-all'],
     description: 'Farm-to-cup coffee with maverick approach',
@@ -174,7 +174,7 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Naked Coffee',
-    city: 'Pune',
+    city: 'Mumbai',
     state: 'Maharashtra',
     website: 'https://nakedcoffee.in',
     collections: ['https://nakedcoffee.in/collections/whole-beans-ground'],
@@ -184,8 +184,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Caarabi Coffee',
-    city: 'Hyderabad',
-    state: 'Telangana',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://caarabicoffee.com',
     collections: ['https://caarabicoffee.com/collections/shop-coffee'],
     description: 'Arabic coffee traditions with Indian touch',
@@ -193,7 +193,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     established: '2018'
   },
   {
-    name: 'Caffnary',
+    name: 'Caffinary',
     city: 'Mumbai',
     state: 'Maharashtra',
     website: 'https://caffinary.com',
@@ -227,8 +227,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Coffeeverse',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Ahemedabad',
+    state: 'Gujarat',
     website: 'https://coffeeverse.co.in',
     collections: ['https://coffeeverse.co.in/collections/shop-all'],
     description: 'Exploring the universe of coffee possibilities',
@@ -237,8 +237,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Rossette',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://rossettecoffee.com',
     collections: ['https://rossettecoffee.com/collections/coffee'],
     description: 'Elegant coffee roasting with artistic approach',
@@ -247,8 +247,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Black Baza',
-    city: 'Delhi',
-    state: 'Delhi',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://www.blackbazacoffee.com',
     collections: ['https://www.blackbazacoffee.com/collections/coffee'],
     description: 'Bird-inspired coffee roasting with natural focus',
@@ -267,8 +267,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Half Light',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Jaipur',
+    state: 'Rajasthan',
     website: 'https://halflightcoffee.com',
     collections: ['https://halflightcoffee.com/collections/coffee'],
     description: 'Coffee for the in-between moments of the day',
@@ -277,8 +277,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Ikkis Coffee',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Chandigarh',
+    state: 'Punjab',
     website: 'https://ikkis.coffee',
     collections: ['https://ikkis.coffee/collections/roasted-coffees'],
     description: '21st century coffee roasting techniques',
@@ -287,8 +287,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Kaffacerrado',
-    city: 'Pune',
-    state: 'Maharashtra',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://kaffacerrado.com',
     collections: [
       'https://kaffacerrado.com/collections/international-coffee',
@@ -301,8 +301,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Capulus',
-    city: 'Chennai',
-    state: 'Tamil Nadu',
+    city: 'Jaipur',
+    state: 'Rajasthan',
     website: 'https://capulusbeans.com',
     collections: ['https://capulusbeans.com/collections/roasted-coffee'],
     description: 'Premium coffee beans with meticulous selection',
@@ -321,8 +321,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Roast Coffee',
-    city: 'Delhi',
-    state: 'Delhi',
+    city: 'Hyderabad',
+    state: 'Telangana',
     website: 'https://roastcoffee.in',
     collections: ['https://roastcoffee.in/collections/roasted-coffee-bean'],
     description: 'Simple name, exceptional roasted coffee beans',
@@ -341,8 +341,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Kumaradhara',
-    city: 'Mangalore',
-    state: 'Karnataka',
+    city: 'Pune',
+    state: 'Maharashtra',
     website: 'https://www.kumaradharacoffee.com',
     collections: ['https://www.kumaradharacoffee.com/collections/specialty-coffees'],
     description: 'River-inspired specialty coffee from coastal Karnataka',
@@ -351,8 +351,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'The Caffeine Baar',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://www.thecaffeinebaar.com',
     collections: ['https://www.thecaffeinebaar.com/collections/packaged-coffee'],
     description: 'Caffeine-focused coffee bar and roastery',
@@ -361,8 +361,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Coffee Bean Project',
-    city: 'Pune',
-    state: 'Maharashtra',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://coffeebeanproject.com',
     collections: ['https://coffeebeanproject.com/collections/all'],
     description: 'Project-based approach to coffee bean selection',
@@ -371,8 +371,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Kafeido',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Gurgaon',
+    state: 'Haryana',
     website: 'https://www.kafeido.com',
     collections: ['https://www.kafeido.com/collections/coffee-beans'],
     description: 'Kaleidoscope of coffee flavors and experiences',
@@ -381,8 +381,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Vui Vui',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Mysore',
+    state: 'Karnataka',
     website: 'https://vuivui.in',
     collections: ['https://vuivui.in/collections/all'],
     description: 'Joy-focused coffee with Vietnamese influence',
@@ -391,8 +391,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Dolshyne',
-    city: 'Shillong',
-    state: 'Meghalaya',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://www.dolshyne.com',
     collections: ['https://www.dolshyne.com/collections/specialty-coffee'],
     description: 'Northeast Indian specialty coffee with local terroir',
@@ -401,8 +401,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Humble Bean',
-    city: 'Gurgaon',
-    state: 'Haryana',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://humblebean.com',
     collections: ['https://humblebean.com/collections/our-coffee-cart'],
     description: 'Humble approach to exceptional coffee beans',
@@ -424,8 +424,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Kohi Roasters',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://kohiroasters.in',
     collections: ['https://kohiroasters.in/collections/frontpage'],
     description: 'Japanese-inspired coffee roasting techniques',
@@ -434,7 +434,7 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Mokka Farms',
-    city: 'Coorg',
+    city: 'Bangalore',
     state: 'Karnataka',
     website: 'https://www.mokkafarms.com',
     collections: [
@@ -448,8 +448,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Kup Coffee',
-    city: 'Bangalore',
-    state: 'Karnataka',
+    city: 'Chennai',
+    state: 'Tamil Nadu',
     website: 'https://www.kup.world',
     collections: ['https://www.kup.world/collections/globofilter-best-selling-products-index'],
     description: 'Global coffee in a cup with filter focus',
@@ -468,8 +468,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Drum Coffee',
-    city: 'Chennai',
-    state: 'Tamil Nadu',
+    city: 'Mumbai',
+    state: 'Maharashtra',
     website: 'https://drumcoffeeroasters.in',
     collections: ['https://drumcoffeeroasters.in/collections/all-coffee-1'],
     description: 'Rhythmic approach to coffee roasting',
@@ -478,8 +478,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Hermit Coffee',
-    city: 'Goa',
-    state: 'Goa',
+    city: 'Delhi',
+    state: 'Delhi',
     website: 'https://hermitcoffee.in',
     collections: ['https://hermitcoffee.in/collections/beans'],
     description: 'Solitary focus on perfect coffee beans',
@@ -488,7 +488,7 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Ekata Coffee',
-    city: 'Bangalore',
+    city: 'Chikmagalur',
     state: 'Karnataka',
     website: 'https://shop.ekatacoffee.com',
     collections: ['https://shop.ekatacoffee.com/collections/shop-now'],
@@ -498,8 +498,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'First Crack',
-    city: 'Mumbai',
-    state: 'Maharashtra',
+    city: 'Jodhpur',
+    state: 'Rajasthan',
     website: 'https://firstcrackcoffeeroasters.com',
     collections: ['https://firstcrackcoffeeroasters.com/collections/coffee-cups'],
     description: 'First crack perfection in every roast',
@@ -508,8 +508,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Seven Beans',
-    city: 'Delhi',
-    state: 'Delhi',
+    city: 'Bangalore',
+    state: 'Karnataka',
     website: 'https://sevenbeans.co',
     collections: ['https://sevenbeans.co/collections/coffee'],
     description: 'Seven perfect beans make the perfect cup',
@@ -518,8 +518,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: '93 Degree',
-    city: 'Pune',
-    state: 'Maharashtra',
+    city: 'Gurgaon',
+    state: 'Haryana',
     website: 'https://93degreescoffeeroasters.com',
     collections: ['https://93degreescoffeeroasters.com/collections/coffee'],
     description: 'Perfect temperature for perfect coffee extraction',
@@ -557,7 +557,7 @@ export const LOCATION_DATA: LocationData[] = [
   },
   {
     state: 'Maharashtra',
-    cities: ['Mumbai', 'Pune'],
+    cities: ['Mumbai', 'Pune', 'Nagpur'],
     roasterCount: ROASTERS_DATA.filter(r => r.state === 'Maharashtra').length
   },
   {
@@ -591,18 +591,38 @@ export const LOCATION_DATA: LocationData[] = [
     roasterCount: ROASTERS_DATA.filter(r => r.state === 'West Bengal').length
   },
   {
-    state: 'Meghalaya',
-    cities: ['Shillong'],
-    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Meghalaya').length
+    state: 'Rajasthan',
+    cities: ['Jodhpur', 'Jaipur', 'Udaipur'],
+    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Rajasthan').length
   },
   {
     state: 'Haryana',
-    cities: ['Gurgaon'],
+    cities: ['Gurgaon', 'Panchkula'],
     roasterCount: ROASTERS_DATA.filter(r => r.state === 'Haryana').length
   },
   {
     state: 'Uttarakhand',
     cities: ['Mussoorie'],
     roasterCount: ROASTERS_DATA.filter(r => r.state === 'Uttarakhand').length
+  },
+  {
+    state: 'Uttar Pradesh',
+    cities: ['Noida', 'Ghaziabad', 'Lucknow'],
+    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Uttar Pradesh').length
+  },
+  {
+    state: 'Punjab',
+    cities: ['Chandigarh', 'Ludhiana'],
+    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Punjab').length
+  },
+  {
+    state: 'Gujarat',
+    cities: ['Ahmedabad', 'Surat'],
+    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Gujarat').length
+  },
+  {
+    state: 'Madhya Pradesh',
+    cities: ['Indore', 'Bhopal'],
+    roasterCount: ROASTERS_DATA.filter(r => r.state === 'Madhya Pradesh').length
   }
 ];
