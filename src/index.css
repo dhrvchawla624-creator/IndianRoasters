@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
-/* Configure dark mode to use class-based strategy */
+/* ===========================
+   COFFEE THEME VARIABLES
+   =========================== */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Custom theme configuration */
 @theme {
   /* Coffee color palette - Light Mode */
   --color-coffee-dark: #2c1810;
@@ -33,25 +34,25 @@
   --color-background: 35 25% 96%;
   --color-foreground: 30 35% 15%;
   --color-border: 30 20% 88%;
-  
+
   --color-card: 30 20% 98%;
   --color-card-foreground: 30 35% 15%;
-  
+
   --color-primary: 25 85% 45%;
   --color-primary-foreground: 35 25% 98%;
-  
+
   --color-secondary: 30 15% 90%;
   --color-secondary-foreground: 30 35% 25%;
-  
+
   --color-muted: 30 12% 92%;
   --color-muted-foreground: 30 25% 45%;
-  
+
   --color-accent: 30 18% 89%;
   --color-accent-foreground: 30 35% 25%;
-  
+
   --color-destructive: 0 84% 60%;
   --color-destructive-foreground: 0 0% 98%;
-  
+
   --color-input: 30 25% 75%;
   --color-ring: 25 85% 55%;
 
@@ -63,14 +64,15 @@
   --radius-xl: 1rem;
 }
 
-/* LIGHT MODE - Additional CSS Variables */
+/* ===========================
+   LIGHT MODE VARIABLES
+   =========================== */
 :root {
-  --button-outline: rgba(0, 0, 0, 0.10);
-  --badge-outline: rgba(0, 0, 0, 0.05);
+  --button-outline: rgba(0,0,0,0.10);
+  --badge-outline: rgba(0,0,0,0.05);
   --opaque-button-border-intensity: -8;
-  
-  --elevate-1: rgba(0, 0, 0, 0.03);
-  --elevate-2: rgba(0, 0, 0, 0.08);
+  --elevate-1: rgba(0,0,0,0.03);
+  --elevate-2: rgba(0,0,0,0.08);
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -80,39 +82,39 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
-/* DARK MODE */
+/* ===========================
+   DARK MODE VARIABLES
+   =========================== */
 .dark {
   color-scheme: dark;
-
-  --button-outline: rgba(255, 255, 255, 0.10);
-  --badge-outline: rgba(255, 255, 255, 0.05);
+  --button-outline: rgba(255,255,255,0.10);
+  --badge-outline: rgba(255,255,255,0.05);
   --opaque-button-border-intensity: 9;
-  
-  --elevate-1: rgba(255, 255, 255, 0.04);
-  --elevate-2: rgba(255, 255, 255, 0.09);
+  --elevate-1: rgba(255,255,255,0.04);
+  --elevate-2: rgba(255,255,255,0.09);
 
   --color-background: 15 8% 8%;
   --color-foreground: 35 15% 88%;
   --color-border: 20 12% 18%;
-  
+
   --color-card: 20 12% 12%;
   --color-card-foreground: 35 15% 88%;
-  
+
   --color-primary: 25 85% 55%;
   --color-primary-foreground: 15 8% 8%;
-  
+
   --color-secondary: 22 12% 20%;
   --color-secondary-foreground: 35 12% 80%;
-  
+
   --color-muted: 20 10% 16%;
   --color-muted-foreground: 30 15% 65%;
-  
+
   --color-accent: 22 12% 18%;
   --color-accent-foreground: 35 12% 80%;
-  
+
   --color-destructive: 0 62% 50%;
   --color-destructive-foreground: 0 0% 98%;
-  
+
   --color-input: 25 20% 35%;
   --color-ring: 25 85% 55%;
 
@@ -124,321 +126,153 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
 }
 
-/* Custom keyframe animations */
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
+/* ===========================
+   ANIMATIONS & UTILITIES
+   =========================== */
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
+@keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
+@keyframes bounce { 0%,100% {transform:translateY(0);} 50%{transform:translateY(-20px);} }
+@keyframes steam { 0%{opacity:0.6;transform:translateY(0) scale(1);} 50%{opacity:0.3;} 100%{opacity:0;transform:translateY(-30px) scale(0.5);} }
+@keyframes progress { 0%{width:0%;} 50%{width:70%;} 100%{width:100%;} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+@keyframes slideUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+@keyframes scaleIn { from{opacity:0;transform:scale(0.9);} to{opacity:1;transform:scale(1);} }
+@keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(10deg);} }
+@keyframes shake { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(-5deg);} 75%{transform:rotate(5deg);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-@keyframes steam {
-  0% {
-    opacity: 0.6;
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.5);
-  }
-}
+.animate-fadeOut      { animation: fadeOut 0.5s ease 2.5s forwards; }
+.animate-bounce-custom{ animation: bounce 2s ease-in-out infinite; }
+.animate-steam        { animation: steam 2s ease-in-out infinite; }
+.animate-progress     { animation: progress 2s ease-in-out infinite; }
+.animate-slideDown    { animation: slideDown 0.6s ease; }
+.animate-slideUp      { animation: slideUp 0.8s ease; }
+.animate-scaleIn      { animation: scaleIn 0.5s ease both; }
+.animate-float        { animation: float 6s ease-in-out infinite; }
+.animate-shake        { animation: shake 0.5s ease infinite; }
+.animate-fadeIn       { animation: fadeIn 0.5s ease; }
 
-@keyframes progress {
-  0% {
-    width: 0%;
-  }
-  50% {
-    width: 70%;
-  }
-  100% {
-    width: 100%;
-  }
-}
+html { scroll-behavior: smooth; }
+::selection            { background: #6b4423; color: white; }
+.dark ::selection      { background: #e8b84d; color: #1a1410; }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-30px) rotate(10deg);
-  }
-}
-
-@keyframes shake {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-5deg);
-  }
-  75% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Apply animations */
-.animate-fadeOut {
-  animation: fadeOut 0.5s ease 2.5s forwards;
-}
-
-.animate-bounce-custom {
-  animation: bounce 2s ease-in-out infinite;
-}
-
-.animate-steam {
-  animation: steam 2s ease-in-out infinite;
-}
-
-.animate-progress {
-  animation: progress 2s ease-in-out infinite;
-}
-
-.animate-slideDown {
-  animation: slideDown 0.6s ease;
-}
-
-.animate-slideUp {
-  animation: slideUp 0.8s ease;
-}
-
-.animate-scaleIn {
-  animation: scaleIn 0.5s ease both;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-shake {
-  animation: shake 0.5s ease infinite;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Selection colors */
-::selection {
-  background: #6b4423;
-  color: white;
-}
-
-.dark ::selection {
-  background: #e8b84d;
-  color: #1a1410;
-}
-
-/* Focus visible */
-button:focus-visible,
-a:focus-visible {
+/* ===========================
+   FOCUS STATES
+   =========================== */
+button:focus-visible, a:focus-visible {
   outline: 3px solid #d4af37;
   outline-offset: 2px;
 }
-
-.dark button:focus-visible,
-.dark a:focus-visible {
+.dark button:focus-visible, .dark a:focus-visible {
   outline: 3px solid #e8b84d;
   outline-offset: 2px;
 }
-
-/* Subtle focus styling for form inputs */
-input:focus-visible,
-select:focus-visible {
+input:focus-visible, select:focus-visible {
   outline: none;
   border-color: #d4af37;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
 }
-
-.dark input:focus-visible,
-.dark select:focus-visible {
+.dark input:focus-visible, .dark select:focus-visible {
   outline: none;
   border-color: #e8b84d;
   box-shadow: 0 0 0 3px rgba(232, 184, 77, 0.25);
 }
-
-/* Remove focus styling from input inside search container */
 .search-container input:focus-visible {
   border-color: transparent;
   box-shadow: none;
 }
-
-/* Focus styling for search field container */
 .search-container:focus-within {
   border-color: #d4af37 !important;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15),
-    0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.15), 0 4px 6px -1px rgba(0,0,0,0.1) !important;
 }
-
 .dark .search-container:focus-within {
   border-color: #e8b84d !important;
-  box-shadow: 0 0 0 3px rgba(232, 184, 77, 0.25),
-    0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 0 0 3px rgba(232,184,77,0.25), 0 4px 6px -1px rgba(0,0,0,0.3) !important;
 }
 
-/* Custom scrollbar for tags section */
-.overflow-y-auto::-webkit-scrollbar {
-  width: 6px;
-}
+/* ===========================
+   CUSTOM SCROLLBAR
+   =========================== */
+.overflow-y-auto::-webkit-scrollbar       { width: 6px; }
+.overflow-y-auto::-webkit-scrollbar-track { background: #f5e6d3; border-radius: 10px; }
+.dark .overflow-y-auto::-webkit-scrollbar-track { background: #2a2116; border-radius: 10px;}
+.overflow-y-auto::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+.dark .overflow-y-auto::-webkit-scrollbar-thumb { background: #e8b84d; border-radius: 10px;}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #6b4423; }
+.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #d4a03d; }
 
-.overflow-y-auto::-webkit-scrollbar-track {
-  background: #f5e6d3;
-  border-radius: 10px;
-}
-
-.dark .overflow-y-auto::-webkit-scrollbar-track {
-  background: #2a2116;
-  border-radius: 10px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb {
-  background: #d4af37;
-  border-radius: 10px;
-}
-
-.dark .overflow-y-auto::-webkit-scrollbar-thumb {
-  background: #e8b84d;
-  border-radius: 10px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: #6b4423;
-}
-
-.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: #d4a03d;
-}
-
-/* Elevation system utilities */
+/* ===========================
+   ELEVATION UTILITIES
+   =========================== */
 @layer utilities {
-  /* Hide ugly search cancel button in Chrome until we can style it properly */
-  input[type="search"]::-webkit-search-cancel-button {
-    display: none;
-  }
+  input[type="search"]::-webkit-search-cancel-button { display: none; }
 
-  /* Placeholder styling for contentEditable div */
   [contenteditable][data-placeholder]:empty::before {
     content: attr(data-placeholder);
     color: hsl(var(--color-muted-foreground));
     pointer-events: none;
   }
 
-  /* Escape hatches for default hover/active elevation */
   .no-default-hover-elevate {}
   .no-default-active-elevate {}
-
-  /* Toggleable backgrounds */
   .toggle-elevate::before,
   .toggle-elevate-2::before {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    border-radius: inherit;
-    z-index: -1;
+    content:"";
+    pointer-events:none;
+    position:absolute;
+    inset:0px;
+    border-radius:inherit;
+    z-index:-1;
   }
-
   .toggle-elevate.toggle-elevated::before {
     background-color: var(--elevate-2);
   }
+  .border.toggle-elevate::before { inset:-1px; }
 
-  .border.toggle-elevate::before {
-    inset: -1px;
-  }
-
-  /* Hover and active elevation */
   .hover-elevate:not(.no-default-hover-elevate),
   .active-elevate:not(.no-default-active-elevate),
   .hover-elevate-2:not(.no-default-hover-elevate),
   .active-elevate-2:not(.no-default-active-elevate) {
-    position: relative;
-    z-index: 0;
+    position:relative;
+    z-index:0;
   }
 
   .hover-elevate:not(.no-default-hover-elevate)::after,
   .active-elevate:not(.no-default-active-elevate)::after,
   .hover-elevate-2:not(.no-default-hover-elevate)::after,
   .active-elevate-2:not(.no-default-active-elevate)::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0px;
-    border-radius: inherit;
-    z-index: 999;
+    content:"";
+    pointer-events:none;
+    position:absolute;
+    inset:0px;
+    border-radius:inherit;
+    z-index:999;
   }
 
   .hover-elevate:hover:not(.no-default-hover-elevate)::after,
   .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
+    background-color:var(--elevate-1);
   }
-
   .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
   .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
+    background-color:var(--elevate-2);
   }
-
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after {
     inset: -1px;
   }
+}
+
+/* ===========================
+   HELPER CLASSES
+   =========================== */
+
+/* Clamp to two lines for card descriptions, etc. */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
