@@ -1,4 +1,4 @@
-import type { RoasterData, LocationData } from '../types/roasters';
+import type { RoasterData, LocationData, } from '../types/roasters';
 
 export const ROASTERS_DATA: RoasterData[] = [
   {
