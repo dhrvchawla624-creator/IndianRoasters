@@ -6,7 +6,7 @@ function LandingPage({ show }: LandingPageProps) {
   if (!show) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen bg-gradient-to-br from-coffee-dark to-coffee-brown flex items-center justify-center z-[9999] animate-fadeOut">
+    <div className="fixed top-0 left-0 w-screen h-screen bg-linear-to-br from-coffee-dark to-coffee-brown flex items-center justify-center z-9999 animate-fadeOut">
       <div className="text-center text-white">
         <div className="relative mb-8">
           <div className="text-8xl animate-bounce-custom">☕</div>
