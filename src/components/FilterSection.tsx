@@ -42,53 +42,45 @@ const processOptions = [
 function FilterSection(props: FilterSectionProps) {
   return (
     <div className="max-w-7xl mx-auto px-5 py-10">
-      <div className="flex flex-wrap items-center gap-7 mb-5">
-        <div className="min-w-[250px] flex-1 flex flex-col justify-center h-[90px]">
-          <label className="text-lg font-medium mb-1 block dark:text-dark-text">Price Range (₹)</label>
-          <div className="w-full">
-            <div className="flex justify-between mb-1.5 font-medium text-base text-[#AB6E36] dark:text-dark-accent">
-              <span>₹{props.priceRange[0].toLocaleString()}</span>
-              <span>₹{props.priceRange[1].toLocaleString()}</span>
-            </div>
-            <Slider
-              range
-              min={0}
-              max={10000}
-              value={props.priceRange}
-              onChange={(val) => props.setPriceRange(val as [number, number])}
-              step={50}
-              marks={{}}
-              styles={{
-                rail: { backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 },
-                track: { backgroundColor: '#D87330', height: 10, borderRadius: 7 },
-                handle: {
-                  borderColor: '#D87330',
-                  backgroundColor: '#FFF',
-                  boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)',
-                  width: 26,
-                  height: 26,
-                  marginTop: -8,
-                }
-              }}
-            />
-          </div>
-        </div>
-        
-        <div className="min-w-[320px] flex-1 flex items-center h-[50px]">
-          <div className="search-container flex items-center w-full h-[50px] shadow-md rounded-lg bg-white dark:bg-dark-surface border border-[#efe7dd] dark:border-dark-border px-4 transition-all duration-300">
-            <span className="text-[#AB6E36] dark:text-dark-accent text-xl mr-1">🔍</span>
-            <input
-              type="text"
-              placeholder="Search for coffee beans, roasters, origins..."
-              value={props.searchTerm}
-              onChange={(e) => props.setSearchTerm(e.target.value)}
-              className="text-[#111] dark:text-dark-text bg-transparent w-full h-10 text-lg border-none outline-none placeholder:text-gray-400 dark:placeholder:text-dark-text-muted"
-            />
-          </div>
+      {/* Search Bar - Full Width */}
+      <div className="mb-8">
+        <div className="relative max-w-3xl mx-auto">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#AB6E36] dark:text-dark-accent text-xl">🔍</span>
+          <input
+            type="text"
+            placeholder="Search for coffee beans, roasters, origins..."
+            value={props.searchTerm}
+            onChange={(e) => props.setSearchTerm(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg transition-all duration-300 shadow-md text-lg"
+          />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-3">
+      {/* Price Slider - Full Width */}
+      <div className="mb-8">
+        <div className="max-w-3xl mx-auto">
+          <label className="block text-lg font-medium text-coffee-dark dark:text-dark-text mb-2 text-center">Price Range (₹)</label>
+          <div className="flex justify-between mb-1.5 font-medium text-base text-[#AB6E36] dark:text-dark-accent">
+            <span>₹{props.priceRange[0].toLocaleString()}</span>
+            <span>₹{props.priceRange[1].toLocaleString()}</span>
+          </div>
+          <Slider
+            range
+            min={0}
+            max={10000}
+            value={props.priceRange}
+            onChange={(val) => props.setPriceRange(val as [number, number])}
+            step={50}
+            styles={{
+              rail: { backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 },
+              track: { backgroundColor: '#D87330', height: 10, borderRadius: 7 },
+              handle: { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 mb-3">
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🏪 Roaster
@@ -179,7 +171,7 @@ function FilterSection(props: FilterSectionProps) {
         </div>
       </div>
       
-      <div className="mt-1 mb-2">
+      <div className="mt-6 flex justify-center">
         <label className="font-medium text-base flex items-center gap-2 cursor-pointer dark:text-dark-text">
           <input
             type="checkbox"

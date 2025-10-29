@@ -145,7 +145,7 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Tariero", collections: [ "https://tariero.com/collections/all-gourmet-coffees" ] },
   { roaster: "Naked Coffee", collections: [ "https://nakedcoffee.in/collections/whole-beans-ground" ] },
   { roaster: "Caarabi Coffee", collections: [ "https://caarabicoffee.com/collections/shop-coffee" ] },
-  { roaster: "Caffnary", collections: [
+  { roaster: "Caffinary", collections: [
     "https://caffinary.com/collections/specialty-single-estate-origin",
     "https://caffinary.com/collections/freshly-roasted-ground-beans-freshly-roasted-whole-beans"
   ] },
@@ -180,7 +180,7 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
   { roaster: "Landour Coffee", collections: [ "https://www.landourcoffee.com/collections/coffee" ] },
   { roaster: "Drum Coffee", collections: [ "https://drumcoffeeroasters.in/collections/all-coffee-1" ] },
   { roaster: "Hermit Coffee", collections: [ "https://hermitcoffee.in/collections/beans" ] },
-  { roaster: "Eata Coffee", collections: [ "https://shop.ekatacoffee.com/collections/shop-now" ] },
+  { roaster: "Ekata Coffee", collections: [ "https://shop.ekatacoffee.com/collections/shop-now" ] },
   { roaster: "First Crack", collections: [ "https://firstcrackcoffeeroasters.com/collections/coffee-cups" ] },
   { roaster: "Seven Beans", collections: [ "https://sevenbeans.co/collections/coffee" ] },
   { roaster: "93 Degree", collections: [ "https://93degreescoffeeroasters.com/collections/coffee" ] },

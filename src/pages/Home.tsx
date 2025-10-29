@@ -141,7 +141,7 @@ function Home() {
   const [selectedRoast, setSelectedRoast] = useState('all');
   const [selectedProcess, setSelectedProcess] = useState('all');
   const [selectedTastingNote, setSelectedTastingNote] = useState('all');
-  const [showOutOfStock, setShowOutOfStock] = useState(true);
+  const [showOutOfStock, setShowOutOfStock] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('name');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [page, setPage] = useState(1);
