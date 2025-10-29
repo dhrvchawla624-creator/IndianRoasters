@@ -42,7 +42,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
       <nav 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-gradient-to-br from-coffee-dark via-coffee-brown to-coffee-medium shadow-lg dark:from-dark-surface-elevated dark:via-dark-surface dark:to-dark-bg-secondary' 
+            ? 'bg-linear-to-br from-coffee-dark via-coffee-brown to-coffee-medium shadow-lg dark:from-dark-surface-elevated dark:via-dark-surface dark:to-dark-bg-secondary' 
             : 'bg-transparent'
         }`}
       >
@@ -115,7 +115,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
 
       {/* Mobile Drawer Menu */}
       <div
-        className={`fixed inset-0 z-[60] md:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-60 md:hidden transition-all duration-300 ${
           isMobileMenuOpen ? 'visible' : 'invisible'
         }`}
       >
@@ -129,7 +129,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
 
         {/* Drawer */}
         <div
-          className={`absolute top-0 right-0 h-full w-72 bg-gradient-to-br from-coffee-dark via-coffee-brown to-coffee-medium dark:from-dark-surface-elevated dark:via-dark-surface dark:to-dark-bg-secondary shadow-2xl transition-transform duration-300 ${
+          className={`absolute top-0 right-0 h-full w-72 bg-linear-to-br from-coffee-dark via-coffee-brown to-coffee-medium dark:from-dark-surface-elevated dark:via-dark-surface dark:to-dark-bg-secondary shadow-2xl transition-transform duration-300 ${
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >

@@ -7,7 +7,7 @@ interface CoffeeCardProps {
 function CoffeeCard({ bean }: CoffeeCardProps) {
   return (
     <div className={`bg-white dark:bg-dark-surface rounded-2xl overflow-hidden shadow-lg dark:shadow-dark-surface-elevated/30 transition-all duration-300 hover:-translate-y-2.5 hover:shadow-2xl dark:hover:shadow-dark-surface-elevated/50 animate-scaleIn h-[520px] md:h-[560px] lg:h-[580px] flex flex-col ${!bean.inStock ? 'opacity-70' : ''}`}>
-      <div className="relative w-full h-48 md:h-52 lg:h-56 flex-shrink-0 overflow-hidden bg-gradient-to-br from-cream to-cream-light dark:from-dark-bg-secondary dark:to-dark-surface">
+      <div className="relative w-full h-48 md:h-52 lg:h-56 shrink-0 overflow-hidden bg-linear-to-br from-cream to-cream-light dark:from-dark-bg-secondary dark:to-dark-surface">
         {bean.image && (
           <img 
             src={bean.image} 
@@ -30,7 +30,7 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
         <div className="text-xs font-bold text-coffee-medium dark:text-dark-accent uppercase tracking-wider mb-2">
           {bean.roaster}
         </div>
-        <h3 className="text-lg md:text-xl font-bold text-coffee-dark dark:text-dark-text mb-3 md:mb-4 leading-snug line-clamp-2 min-h-[3rem] md:min-h-[3.5rem]">
+        <h3 className="text-lg md:text-xl font-bold text-coffee-dark dark:text-dark-text mb-3 md:mb-4 leading-snug line-clamp-2 min-h-12 md:min-h-14">
           {bean.name}
         </h3>
         
@@ -67,7 +67,7 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
             href={bean.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={`px-4 md:px-6 py-2.5 md:py-3 bg-gradient-to-br from-coffee-medium to-coffee-brown dark:from-dark-accent dark:to-dark-accent/80 text-white rounded-xl font-bold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg shadow-coffee-medium/30 dark:shadow-dark-accent/30 ${!bean.inStock ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed shadow-none' : ''}`}
+            className={`px-4 md:px-6 py-2.5 md:py-3 bg-linear-to-br from-coffee-medium to-coffee-brown dark:from-dark-accent dark:to-dark-accent/80 text-white rounded-xl font-bold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg shadow-coffee-medium/30 dark:shadow-dark-accent/30 ${!bean.inStock ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed shadow-none' : ''}`}
           >
             Buy Now →
           </a>
