@@ -8,6 +8,8 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
     <header className="relative bg-linear-to-br from-coffee-dark via-coffee-brown to-coffee-medium dark:from-dark-bg-secondary dark:via-dark-surface dark:to-dark-surface-elevated text-white px-5 pt-28 pb-24 overflow-hidden -mb-12 transition-colors duration-300">
       {/* Curved bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-cream-light dark:bg-dark-bg rounded-t-[50%] transition-colors duration-300"></div>
+    <header className="relative bg-linear-to-br from-coffee-dark to-coffee-brown dark:from-dark-surface-elevated dark:to-dark-surface pt-28 pb-20 md:pt-32 md:pb-24 text-center text-white overflow-hidden">
+      <div/> className="relative z-10 max-w-4xl mx-auto px-5" 
       
       <div className="relative z-10 max-w-7xl mx-auto text-center">
         <div className="inline-block px-5 py-2 bg-white/15 backdrop-blur-md rounded-full text-sm font-semibold mb-5 animate-slideDown dark:bg-white/10">
