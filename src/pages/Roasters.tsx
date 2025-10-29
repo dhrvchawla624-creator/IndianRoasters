@@ -11,9 +11,11 @@ function Roasters() {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Filter roasters based on selected location and search term
+  // Filter roasters based on search term. Location filter is applied separately if needed.
   const filteredRoasters = useMemo(() => {
     let filtered = ROASTERS_DATA;
 
+    
     if (selectedLocation) {
       filtered = filtered.filter(roaster => roaster.state === selectedLocation.state);
     }
@@ -29,6 +31,9 @@ function Roasters() {
     }
     return filtered;
   }, [selectedLocation, searchTerm]);
+
+  // Determine if we should show search results for roasters instead of locations
+  const showRoasterSearchResults = searchTerm.length > 0 && !selectedLocation;
 
   const handleLocationClick = (location: LocationData) => {
     setSelectedLocation(selectedLocation?.state === location.state ? null : location);
@@ -76,7 +81,7 @@ function Roasters() {
 
         {/* Main Content */}
         <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
-          {!selectedLocation ? (
+          {!selectedLocation && !showRoasterSearchResults ? (
             <>
               {/* Location Selection View */}
               <div className="text-center mb-8">
@@ -106,12 +111,12 @@ function Roasters() {
                 }
               </div>
             </>
-          ) : (
+          ) : ( // This block now handles both "selected location" and "global search results" views
             <>
-              {/* Roasters View for Selected Location */}
+              {/* Roasters View Title */}
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">
-                  Coffee Roasters in {selectedLocation.state}
+                  {selectedLocation ? `Coffee Roasters in ${selectedLocation.state}` : 'Search Results'}
                 </h2>
                 <p className="text-coffee-medium dark:text-dark-text-secondary">
                   {filteredRoasters.length} roaster{filteredRoasters.length !== 1 ? 's' : ''} found
