@@ -6,30 +6,17 @@ interface PageHeroProps {
 
 function PageHero({ title, subtitle, icon = '☕' }: PageHeroProps) {
   return (
-    <header className="relative bg-linear-to-br from-coffee-dark via-coffee-brown to-coffee-medium dark:from-dark-bg-secondary dark:via-dark-surface dark:to-dark-surface-elevated text-white px-5 pt-28 pb-24 overflow-hidden -mb-12 transition-colors duration-300">
-      {/* Curved bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-cream-light dark:bg-dark-bg rounded-t-[50%] transition-colors duration-300"></div>
-      
+    <header className="relative bg-linear-to-br from-coffee-dark to-coffee-brown dark:from-dark-surface-elevated dark:to-dark-surface pt-28 pb-20 md:pt-32 md:pb-24 text-center text-white overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto text-center">
-        <div className="text-6xl mb-5 animate-float">{icon}</div>
+        <div className="text-5xl mb-4">{icon}</div>
         
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-5 animate-slideUp">
-          <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
-            {title}
-          </span>
+        <h1 className="text-4xl md:text-5xl font-bold mb-3">
+          {title}
         </h1>
         
-        <p className="text-lg opacity-90 max-w-2xl mx-auto mb-6 animate-slideUp [animation-delay:0.2s] [animation-fill-mode:both]">
+        <p className="text-lg opacity-80 max-w-2xl mx-auto">
           {subtitle}
         </p>
-      </div>
-      
-      {/* Floating coffee beans */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[15%] left-[10%] text-5xl opacity-10 animate-float">☕</div>
-        <div className="absolute top-[25%] right-[12%] text-5xl opacity-10 animate-float [animation-delay:2s]">☕</div>
-        <div className="absolute bottom-[25%] left-[15%] text-5xl opacity-10 animate-float [animation-delay:4s]">☕</div>
-        <div className="absolute bottom-[30%] right-[18%] text-5xl opacity-10 animate-float [animation-delay:3s]">☕</div>
       </div>
     </header>
   );
