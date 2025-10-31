@@ -1,10 +1,11 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { 
-  User,
   onAuthStateChanged,
   signInWithPopup,
   signOut as firebaseSignOut
 } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 import { auth, googleProvider, githubProvider } from '../firebase';
 
 interface AuthContextType {
@@ -79,3 +80,4 @@ export function useAuth() {
   }
   return context;
 }
+
