@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider, githubProvider } from '../firebase';
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -7,9 +9,32 @@ interface LoginPageProps {
 function LoginPage({ onLogin }: LoginPageProps) {
   const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    onLogin();
-    navigate('/profile');
+  const handleSocialLogin = async (provider: typeof googleProvider | typeof githubProvider) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      // The user is signed in.
+      console.log('User signed in:', result.user);
+      onLogin();
+      navigate('/profile');
+    } catch (error: any) {
+      // Handle Errors here.
+      console.error("Authentication Error:", error);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      // Handle specific common errors for a better user experience.
+      if (errorCode === 'auth/account-exists-with-different-credential') {
+        // The email of the user's account used.
+        const email = error.customData?.email;
+        alert(`An account with the email '${email}' already exists. Please sign in using the method you originally used.`);
+      } else if (errorCode === 'auth/popup-closed-by-user') {
+        // The user closed the popup, no need to show an error.
+        console.log('Sign-in popup closed by user.');
+      } else {
+        // For other errors, show a generic message.
+        alert(`Login failed: ${errorMessage}`);
+      }
+    }
   };
 
   return (
@@ -27,6 +52,7 @@ function LoginPage({ onLogin }: LoginPageProps) {
           <div className="space-y-4 mb-8">
             <button
               type="button"
+              onClick={() => handleSocialLogin(googleProvider)}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-dark-surface border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
             >
               <svg className="w-5 h-5" viewBox="0 0 48 48">
@@ -39,6 +65,7 @@ function LoginPage({ onLogin }: LoginPageProps) {
             </button>
             <button
               type="button"
+              onClick={() => handleSocialLogin(githubProvider)}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-dark-surface border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
             >
               <svg className="w-5 h-5 text-coffee-dark dark:text-dark-text" viewBox="0 0 24 24" fill="currentColor">
@@ -48,18 +75,6 @@ function LoginPage({ onLogin }: LoginPageProps) {
             </button>
           </div>
 
-          <div className="flex items-center my-8">
-            <div className="grow border-t border-gray-300 dark:border-gray-600"></div>
-            <span className="shrink mx-4 text-sm text-coffee-medium dark:text-dark-text-secondary">OR</span>
-            <div className="grow border-t border-gray-300 dark:border-gray-600"></div>
-          </div>
-          
-          <button
-            onClick={handleLoginClick}
-            className="w-full px-8 py-3 bg-coffee-medium text-white font-bold rounded-lg shadow-md hover:bg-coffee-dark transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-dark focus:ring-opacity-50 dark:bg-dark-accent dark:hover:bg-dark-accent-hover"
-          >
-            Simulate Login
-          </button>
         </div>
       </div>
     </div>
