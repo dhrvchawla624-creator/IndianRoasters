@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import PageHero from '../components/PageHero';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -23,22 +22,16 @@ function ProfilePage({ onLogout, isLoggedIn }: ProfilePageProps) {
   };
 
   return (
-    <div className="bg-cream-light dark:bg-dark-bg min-h-screen">
-      <PageHero 
-        title="My Profile" 
-        subtitle="This is your personal space. Manage your details and preferences here."
-        icon="👤"
-      />
-      
-      <main className="max-w-4xl mx-auto px-5 py-10">
-        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-8 text-center flex flex-col items-center">
+    <div className="bg-cream-light dark:bg-dark-bg min-h-screen flex items-center justify-center p-4 pt-24">
+      <div className="w-full max-w-md text-center">
+        <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-xl p-8 md:p-10 flex flex-col items-center">
           {user && (
-            <img src={user.photoURL || ''} alt="Profile" className="w-24 h-24 rounded-full mb-4 border-4 border-coffee-light" />
+            <img src={user.photoURL || ''} alt="Profile" className="w-24 h-24 rounded-full mb-4 border-4 border-cream-dark dark:border-dark-border" />
           )}
-          <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6">
+          <h2 className="text-3xl font-bold text-coffee-dark dark:text-dark-text mb-2">
             Welcome, {user?.displayName || 'Coffee Lover'}!
           </h2>
-          <p className="text-coffee-medium dark:text-dark-text-secondary mb-8">
+          <p className="text-coffee-medium dark:text-dark-text-secondary mb-6">
             {user?.email}
           </p>
           <p className="text-coffee-medium dark:text-dark-text-secondary mb-8">
@@ -53,7 +46,7 @@ function ProfilePage({ onLogout, isLoggedIn }: ProfilePageProps) {
             </button>
           )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

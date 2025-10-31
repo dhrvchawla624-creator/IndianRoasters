@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useLocation, NavLink } from 'react-router-dom';
 
 interface NavbarProps {
   onThemeToggle?: () => void;
@@ -9,17 +9,7 @@ interface NavbarProps {
 
 function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -47,11 +37,7 @@ function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: Navba
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-linear-to-br from-coffee-dark via-coffee-brown to-coffee-medium shadow-lg dark:from-dark-surface-elevated dark:via-dark-surface dark:to-dark-bg-secondary' 
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-linear-to-br from-coffee-dark via-coffee-brown to-coffee-medium shadow-lg dark:from-dark-surface-elevated dark:via-dark-surface dark:to-dark-bg-secondary"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -170,17 +156,17 @@ function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: Navba
           {/* Drawer Navigation Links */}
           <div className="flex flex-col p-4 space-y-2">
             {navLinks.map((link, index) => (
-              <Link
+              <NavLink
                 key={link.name}
                 to={link.href}
                 onClick={toggleMobileMenu}
-                className={`flex items-center px-5 py-4 text-white hover:bg-white/20 dark:hover:bg-white/15 rounded-xl transition-all duration-300 font-medium text-lg animate-slideDown ${
-                  isActive(link.href) ? 'bg-white/20 dark:bg-white/15' : ''
-                }`}
+                className={({ isActive: mobileIsActive }) =>
+                  `flex items-center px-5 py-4 text-white hover:bg-white/20 dark:hover:bg-white/15 rounded-xl transition-all duration-300 font-medium text-lg animate-slideDown ${mobileIsActive ? 'bg-white/20 dark:bg-white/15' : ''}`
+                }
                 style={{ animationDelay: `${index * 0.1}s`, animationFillMode: 'both' }}
               >
                 {link.name}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
