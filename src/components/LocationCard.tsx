@@ -12,7 +12,8 @@ const LocationCard: React.FC<LocationCardProps> = ({ location, onClick, isSelect
     <div
       onClick={onClick}
       className={`
-        bg-white dark:bg-dark-surface rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-lg
+        bg-white dark:bg-dark-surface rounded-xl p-6 cursor-pointer transition-all duration-300 
+        border border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:border-transparent dark:hover:border-transparent
         ${isSelected ? 'ring-2 ring-coffee-dark shadow-lg' : 'hover:shadow-md'}
       `}
     >
