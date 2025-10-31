@@ -15,3 +15,10 @@ export interface CoffeeBean {
 }
 
 export type SortOption = 'name' | 'price-low' | 'price-high' | 'roaster' | 'newest';
+
+// Add this interface
+export interface UserFavorite {
+  userId: string;
+  coffeeId: string;
+  addedAt: string;
+}

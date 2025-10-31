@@ -1,14 +1,18 @@
+import { useFavorites } from '../contexts/FavoritesContext';
 import type { CoffeeBean } from '../types/coffee';
 
 interface CoffeeCardProps {
   bean: CoffeeBean;
-  isFavorite: boolean;
-  onToggleFavorite: (beanId: string) => void;
 }
 
-function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
-  const handleFavoriteClick = () => {
-    onToggleFavorite(bean.id);
+function CoffeeCard({ bean }: CoffeeCardProps) {
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const isLiked = isFavorite(bean.id);
+
+  const handleFavoriteClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    await toggleFavorite(bean.id);
   };
 
   return (
@@ -71,10 +75,27 @@ function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
           <div className="flex items-center gap-2">
             <button
               onClick={handleFavoriteClick}
-              title={isFavorite ? "Remove from Favourites" : "Add to Favourites"}
-              className="p-3 rounded-full bg-cream dark:bg-dark-bg-secondary hover:bg-red-100 dark:hover:bg-red-500/20 transition-colors duration-200"
+              title={isLiked ? "Remove from Favourites" : "Add to Favourites"}
+              className={`p-3 rounded-full transition-all duration-200 ${
+                isLiked 
+                  ? 'bg-red-100 dark:bg-red-500/20 hover:bg-red-200 dark:hover:bg-red-500/30' 
+                  : 'bg-cream dark:bg-dark-bg-secondary hover:bg-red-50 dark:hover:bg-red-500/10'
+              }`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className={`transition-all duration-200 ${isFavorite ? 'text-red-500 fill-current stroke-current' : 'fill-none stroke-coffee-medium dark:stroke-dark-text-secondary'}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                className={`transition-all duration-200 ${
+                  isLiked 
+                    ? 'text-red-500 fill-current stroke-current' 
+                    : 'fill-none stroke-coffee-medium dark:stroke-dark-text-secondary'
+                }`} 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
             </button>
@@ -98,3 +119,4 @@ function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
 }
 
 export default CoffeeCard;
+
