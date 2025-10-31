@@ -9,6 +9,8 @@ interface CoffeeGridProps {
   pageCount: number;
   setPage: (page: number) => void;
   onResetFilters: () => void;
+  favorites: string[];
+  onToggleFavorite: (beanId: string) => void;
 }
 
 function CoffeeGrid({
@@ -18,6 +20,8 @@ function CoffeeGrid({
   pageCount,
   setPage,
   onResetFilters,
+  favorites = [],
+  onToggleFavorite,
 }: CoffeeGridProps) {
   const paginationPages = useMemo(() => {
     const pages: (number | string)[] = [];
@@ -54,7 +58,12 @@ function CoffeeGrid({
       {/* Coffee beans grid */}
       <div className="max-w-7xl mx-auto px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
         {pagedBeans.map(bean => (
-          <CoffeeCard key={bean.id} bean={bean} />
+          <CoffeeCard 
+            key={bean.id} 
+            bean={bean} 
+            isFavorite={favorites.includes(bean.id)}
+            onToggleFavorite={onToggleFavorite}
+          />
         ))}
       </div>
 

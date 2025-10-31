@@ -151,7 +151,12 @@ function beanSearchText(bean: CoffeeBean): string {
 
 const BEANS_PER_PAGE = 12;
 
-function Home() {
+interface HomeProps {
+  favorites: string[];
+  onToggleFavorite: (beanId: string) => void;
+}
+
+function Home({ favorites, onToggleFavorite }: HomeProps) {
   const [beans, setBeans] = useState<CoffeeBean[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -339,6 +344,8 @@ function Home() {
         pageCount={pageCount}
         setPage={setPage}
         onResetFilters={handleResetFilters}
+        favorites={favorites}
+        onToggleFavorite={onToggleFavorite}
       />
     </>
   );

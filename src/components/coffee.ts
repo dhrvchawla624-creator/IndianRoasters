@@ -1,17 +1,17 @@
-export type SortOption = 'name' | 'price-low' | 'price-high' | 'roaster' | 'newest';
-
 export interface CoffeeBean {
   id: string;
   name: string;
   roaster: string;
-  origin?: string;
+  price: number;
+  currency?: string;
+  weight?: string;
   roastLevel?: string;
+  origin?: string;
   process?: string;
   tastingNotes?: string[];
-  price: number;
-  weight?: number;
   image?: string;
   url: string;
   inStock: boolean;
-  description?: string;
 }
+
+export type SortOption = 'name' | 'price-low' | 'price-high' | 'roaster' | 'newest';
