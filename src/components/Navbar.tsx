@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 interface NavbarProps {
   onThemeToggle?: () => void;
   isDarkMode?: boolean;
+  isLoggedIn?: boolean;
 }
 
-function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
+function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -31,6 +32,12 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  if (isLoggedIn) {
+    navLinks.push({ name: 'Profile', href: '/profile' });
+  } else {
+    navLinks.push({ name: 'Login', href: '/login' });
+  }
 
   const isActive = (href: string) => {
     if (href === '/') return location.pathname === '/';

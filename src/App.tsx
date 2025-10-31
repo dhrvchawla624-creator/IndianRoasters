@@ -8,6 +8,9 @@ import Roasters from './pages/Roasters';
 import About from './pages/About';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import Profile from './pages/Profile';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './pages/NotFound';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -15,6 +18,9 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 function App() {
   const [loading, setLoading] = useState(true);
   const [showLanding, setShowLanding] = useState(false);
+  // For now, let's simulate the user being logged out.
+  // You can change this to `true` to see the "Profile" link.
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Initialize from localStorage or system preference
     const saved = localStorage.getItem('darkMode');
@@ -71,6 +77,16 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    // Navigation will be handled in the LoginPage component
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    // Navigation will be handled in the ProfilePage component
+  };
+
   // Landing page
   if (showLanding && loading) {
     return <LandingPage show={true} />;
@@ -81,13 +97,17 @@ function App() {
       <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${
         isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
       }`}>
-        <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
+        <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isLoggedIn={isLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/roasters" element={<Roasters />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+            <Route path="/profile" element={<Profile onLogout={handleLogout} isLoggedIn={isLoggedIn} />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer lastUpdate={lastUpdate} />
@@ -99,4 +119,3 @@ function App() {
 }
 
 export default App;
-
