@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { FavoritesProvider } from './contexts/FavoritesContext';
 import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -18,9 +20,6 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 function App() {
   const [loading, setLoading] = useState(true);
   const [showLanding, setShowLanding] = useState(false);
-  // For now, let's simulate the user being logged out.
-  // You can change this to `true` to see the "Profile" link.
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Initialize from localStorage or system preference
     const saved = localStorage.getItem('darkMode');
@@ -77,16 +76,6 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    // Navigation will be handled in the LoginPage component
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    // Navigation will be handled in the ProfilePage component
-  };
-
   // Landing page
   if (showLanding && loading) {
     return <LandingPage show={true} />;
@@ -94,26 +83,30 @@ function App() {
 
   return (
     <Router>
-      <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${
-        isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
-      }`}>
-        <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} isLoggedIn={isLoggedIn} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/roasters" element={<Roasters />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
-            <Route path="/profile" element={<Profile onLogout={handleLogout} isLoggedIn={isLoggedIn} />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer lastUpdate={lastUpdate} />
-        <Analytics />
-        <SpeedInsights />
-      </div>
+      <AuthProvider>
+        <FavoritesProvider>
+          <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${
+            isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
+          }`}>
+            <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/roasters" element={<Roasters />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer lastUpdate={lastUpdate} />
+            <Analytics />
+            <SpeedInsights />
+          </div>
+        </FavoritesProvider>
+      </AuthProvider>
     </Router>
   );
 }

@@ -1,8 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-// Replace this with the config object you copied from the Firebase console
 const firebaseConfig = {
   apiKey: "AIzaSyBstXWH5nwld2EsVnqfJw7rvyti9IQzhw4",
   authDomain: "indian-roasters.firebaseapp.com",
@@ -14,6 +14,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize services
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+// Auth providers
 export const googleProvider = new GoogleAuthProvider();
 export const githubProvider = new GithubAuthProvider();

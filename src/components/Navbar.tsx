@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Link, useLocation, NavLink } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 interface NavbarProps {
   onThemeToggle?: () => void;
   isDarkMode?: boolean;
-  isLoggedIn?: boolean;
 }
 
-function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: NavbarProps) {
+function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -23,7 +24,8 @@ function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: Navba
     { name: 'Contact', href: '/contact' },
   ];
 
-  if (isLoggedIn) {
+  // Conditionally add Profile or Login based on auth state
+  if (user) {
     navLinks.push({ name: 'Profile', href: '/profile' });
   } else {
     navLinks.push({ name: 'Login', href: '/login' });
@@ -63,6 +65,16 @@ function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: Navba
                   {link.name}
                 </Link>
               ))}
+              {/* User Avatar (if logged in) */}
+              {user && user.photoURL && (
+                <Link to="/profile" className="ml-2">
+                  <img
+                    src={user.photoURL}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full border-2 border-white/30 hover:border-white/60 transition-all duration-300 object-cover"
+                  />
+                </Link>
+              )}
             </div>
 
             {/* Theme Toggle & Mobile Menu Button */}
@@ -131,7 +143,28 @@ function Navbar({ onThemeToggle, isDarkMode = false, isLoggedIn = false }: Navba
           }`}
         >
           {/* Drawer Header */}
-          <div className="flex items-center justify-end p-5 border-b border-white/10 dark:border-white/5">
+          <div className="flex items-center justify-between p-5 border-b border-white/10 dark:border-white/5">
+            {/* User Info (if logged in) */}
+            {user && (
+              <div className="flex items-center space-x-3">
+                {user.photoURL && (
+                  <img
+                    src={user.photoURL}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full border-2 border-white/30 object-cover"
+                  />
+                )}
+                <div className="flex flex-col">
+                  <span className="text-white text-sm font-semibold">
+                    {user.displayName || 'Coffee Lover'}
+                  </span>
+                  <span className="text-cream/70 text-xs">
+                    {user.email}
+                  </span>
+                </div>
+              </div>
+            )}
+            {!user && <div className="flex-1"></div>}
             <button
               onClick={toggleMobileMenu}
               className="p-2 text-white hover:bg-white/10 rounded-lg transition-all duration-300 dark:hover:bg-white/5"
