@@ -119,7 +119,9 @@ function FilterSection(props: FilterSectionProps) {
             className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
           >
             <option value="all">All Roasts</option>
-            {props.roastLevels.map(r => <option key={r} value={r}>{r}</option>)}
+            {props.roastLevels.map(r => (
+              <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>
+            ))}
           </select>
         </div>
         
@@ -163,6 +165,7 @@ function FilterSection(props: FilterSectionProps) {
             onChange={e => props.setSortBy(e.target.value as SortOption)}
             className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
           >
+            <option value="newest">Newest First</option>
             <option value="name">Name</option>
             <option value="price-low">Price: Low to High</option>
             <option value="price-high">Price: High to Low</option>

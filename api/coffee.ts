@@ -45,6 +45,7 @@ const TASTING_NOTE_LIST = [
 function cleanTitle(title: string): string {
   return title.replace(/\(.*?\)/g, '').replace(/\d{2,4}\s?g/gi, '').trim();
 }
+
 function cleanMatch(text: string, options: string[]): string | undefined {
   const txt = text.toLowerCase();
   for (const opt of options) {
@@ -52,6 +53,43 @@ function cleanMatch(text: string, options: string[]): string | undefined {
   }
   return undefined;
 }
+
+function findRoastLevel(text: string): string | undefined {
+  const lowerText = text.toLowerCase();
+  const found = [];
+
+  if (lowerText.includes('light')) found.push('Light');
+  if (lowerText.includes('medium')) found.push('Medium');
+  if (lowerText.includes('dark')) found.push('Dark');
+
+  // Handle specific combinations
+  if (found.includes('Medium') && found.includes('Light')) return 'Medium Light';
+  if (found.includes('Medium') && found.includes('Dark')) return 'Medium Dark';
+
+  // Return single roast level or other keywords
+  if (found.length === 1) return found[0];
+  if (lowerText.includes('filter')) return 'Filter';
+  if (lowerText.includes('espresso')) return 'Espresso';
+  if (lowerText.includes('omni')) return 'Omni';
+
+  return undefined;
+}
+
+function findProcess(text: string): string | undefined {
+  const lowerText = text.toLowerCase();
+  const keywords = [
+    "washed", "natural", "anaerobic", "carbonic", "honey", "dry", 
+    "semi-washed", "experimental", "barrel aged", "fermentation", "yeast", "koji"
+  ];
+  const found: string[] = [];
+  for (const keyword of keywords) {
+    if (lowerText.includes(keyword) && !found.some(f => f.includes(keyword))) {
+      found.push(keyword.charAt(0).toUpperCase() + keyword.slice(1));
+    }
+  }
+  return found.length > 0 ? found.join(', ') : undefined;
+}
+
 function extractTastingNotes(title: string, tags: string[], body?: string): string[] {
   const notes: string[] = [];
   const allText = [title, ...tags, body || ""].join(" ").toLowerCase();
@@ -94,14 +132,12 @@ async function fetchShopifyCollection(collectionUrl: string, roasterName: string
           price: parseFloat(variant.price),
           currency: "INR",
           weight: variant.title,
-          roastLevel: cleanMatch(lowerTitle + " " + tags.join(" "), ["light", "medium", "dark", "filter", "espresso", "omni"]),
-          origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
+          roastLevel: findRoastLevel(lowerTitle + " " + tags.join(" ")),
+          origin: cleanMatch(lowerTitle + " " + tags.join(" "), [ // cleanMatch is fine for single-word properties
             "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri",
             "andhra", "araku", "sidamo", "ethiopia", "yirgacheffe", "honduras", "colombia"
           ]),
-          process: cleanMatch(lowerTitle + " " + tags.join(" "), [
-            "washed", "natural", "anaerobic", "carbonic", "honey", "dry", "semi-washed", "experimental", "barrel-aged"
-          ]),
+          process: findProcess(lowerTitle + " " + tags.join(" ")),
           tastingNotes: extractTastingNotes(p.title, tags, body),
           image: p.images[0]?.src,
           url: `${collectionUrl}/products/${p.handle}`,

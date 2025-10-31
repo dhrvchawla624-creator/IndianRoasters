@@ -103,16 +103,38 @@ function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolea
   if (!bean.process) return false;
   
   // Split bean's process field by common separators
-  const beanProcesses = bean.process
-    .split(/[,/|&+\-]/)
-    .map(p => p.trim())
-    .filter(p => p.length > 0);
+  const beanProcesses = bean.process.toLowerCase().split(/,\s*|\s*\/\s*|\s*&\s*\+\s*/);
   
   // Check if any of the bean's processes match the selected category
   return beanProcesses.some(p => {
-    const category = normalizeProcessToCategory(p);
-    return category === selectedProcess.toLowerCase();
+    const category = normalizeProcessToCategory(p.trim());
+    // Direct match or category match
+    return p.trim() === selectedProcess.toLowerCase() || category === selectedProcess.toLowerCase();
   });
+}
+function matchesRoastFilter(bean: CoffeeBean, selectedRoast: string): boolean {
+  if (selectedRoast === 'all') return true;
+  const beanRoast = bean.roastLevel?.toLowerCase();
+  if (!beanRoast) return false;
+  
+  const selected = selectedRoast.toLowerCase();
+  
+  if (selected === 'medium light') {
+    // Matches "Medium Light", "Light to Medium", etc.
+    return beanRoast.includes('medium') && beanRoast.includes('light');
+  }
+  if (selected === 'medium dark') {
+    // Matches "Medium Dark", "Dark Medium", etc.
+    return beanRoast.includes('medium') && beanRoast.includes('dark');
+  }
+  if (selected === 'medium') {
+    // Exclusively match "Medium", but not "Medium Light" or "Medium Dark"
+    return beanRoast.includes('medium') && !beanRoast.includes('light') && !beanRoast.includes('dark');
+  }
+  
+  // For "Light", "Dark", "Espresso", etc.
+  // This will match "Light" but not "Medium Light" because of the earlier checks.
+  return beanRoast.includes(selected);
 }
 
 function beanSearchText(bean: CoffeeBean): string {
@@ -148,7 +170,13 @@ function Home() {
 
   const roasters = useMemo(() => Array.from(new Set(beans.map(b => b.roaster))).sort(), [beans]);
   const origins = useMemo(() => Array.from(new Set(beans.map(b => b.origin).filter((o): o is string => Boolean(o)))).sort(), [beans]);
-  const roastLevels = useMemo(() => Array.from(new Set(beans.map(b => b.roastLevel).filter((r): r is string => Boolean(r)))).sort(), [beans]);
+  const roastLevels = useMemo(() => {
+    const dynamicLevels = Array.from(new Set(beans.map(b => b.roastLevel).filter((r): r is string => Boolean(r))));
+    const staticLevels = ['Light', 'Medium Light', 'Medium', 'Medium Dark', 'Dark', 'Filter', 'Espresso', 'Omni'];
+    const combined = new Set([...staticLevels, ...dynamicLevels.map(l => l.charAt(0).toUpperCase() + l.slice(1))]);
+    // Ensure a specific order
+    return staticLevels.filter(level => combined.has(level));
+  }, [beans]);
   const tastingNoteOptions = useMemo(() => ['all', ...getAllTastingNotes(beans)], [beans]);
 
   useEffect(() => {
@@ -194,11 +222,8 @@ function Home() {
         : searchWords.every(word => beanText.includes(word));
       const matchesRoaster = selectedRoaster === 'all' || bean.roaster === selectedRoaster;
       const matchesOrigin = selectedOrigin === 'all' || bean.origin === selectedOrigin;
-      const matchesRoast = selectedRoast === 'all' || bean.roastLevel === selectedRoast;
-      
-      // FIXED: Use the new process matching function with category mapping
+      const matchesRoast = matchesRoastFilter(bean, selectedRoast);
       const matchesProcess = matchesProcessFilter(bean, selectedProcess);
-      
       const matchesTasting =
         selectedTastingNote === 'all' ||
         (bean.tastingNotes &&
@@ -212,6 +237,10 @@ function Home() {
     });
 
     filtered.sort((a, b) => {
+      if (sortBy === 'newest') {
+        // The sorting is handled by reversing the array after filtering.
+        return 0;
+      }
       switch (sortBy) {
         case 'price-low': return a.price - b.price;
         case 'price-high': return b.price - a.price;
@@ -219,6 +248,11 @@ function Home() {
         default: return a.name.localeCompare(b.name);
       }
     });
+
+    if (sortBy === 'newest') {
+      // Reverse the array to show the newest items first, assuming API returns newest first.
+      return filtered.reverse();
+    }
 
     return filtered;
   }, [
