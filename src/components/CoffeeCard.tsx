@@ -76,16 +76,12 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
             <button
               onClick={handleFavoriteClick}
               title={isLiked ? "Remove from Favourites" : "Add to Favourites"}
-              className={`p-3 rounded-full transition-all duration-200 ${
-                isLiked 
-                  ? 'bg-red-100 dark:bg-red-500/20 hover:bg-red-200 dark:hover:bg-red-500/30' 
-                  : 'bg-cream dark:bg-dark-bg-secondary hover:bg-red-50 dark:hover:bg-red-500/10'
-              }`}
+              className={`p-3 transition-transform duration-200 ease-in-out hover:scale-110 active:scale-95 focus:outline-none rounded-full`}
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
-                width="20" 
-                height="20" 
+                width="22" 
+                height="22" 
                 viewBox="0 0 24 24" 
                 className={`transition-all duration-200 ${
                   isLiked 
@@ -119,4 +115,3 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
 }
 
 export default CoffeeCard;
-
