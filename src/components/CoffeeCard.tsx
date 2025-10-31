@@ -2,18 +2,26 @@ import type { CoffeeBean } from '../types/coffee';
 
 interface CoffeeCardProps {
   bean: CoffeeBean;
+  isFavorite: boolean;
+  onToggleFavorite: (beanId: string) => void;
 }
 
-function CoffeeCard({ bean }: CoffeeCardProps) {
+function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
+  const handleFavoriteClick = () => {
+    onToggleFavorite(bean.id);
+  };
+
   return (
     <div className={`bg-white dark:bg-dark-surface rounded-2xl overflow-hidden shadow-lg dark:shadow-dark-surface-elevated/30 transition-all duration-300 hover:-translate-y-2.5 hover:shadow-2xl dark:hover:shadow-dark-surface-elevated/50 animate-scaleIn h-[520px] md:h-[560px] lg:h-[580px] flex flex-col ${!bean.inStock ? 'opacity-70' : ''}`}>
       <div className="relative w-full h-48 md:h-52 lg:h-56 shrink-0 overflow-hidden bg-linear-to-br from-cream to-cream-light dark:from-dark-bg-secondary dark:to-dark-surface flex items-center justify-center">
         {bean.image && (
           <img 
-            src={bean.image} 
-            alt={bean.name} 
+            src={bean.image}
+            alt={bean.name}
             className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110" 
-            loading="lazy" 
+            loading="lazy"
+            width="300"
+            height="224"
           />
         )}
         {!bean.inStock && (
@@ -60,18 +68,29 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
               ₹{bean.price.toFixed(0)}
             </span>
           </div>
-          <a
-            href={bean.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-4 md:px-6 py-2.5 md:py-3 text-white rounded-xl font-bold text-sm transition-all duration-300 ${
-              bean.inStock
-                ? 'bg-linear-to-br from-emerald-500 to-emerald-600 hover:-translate-y-0.5 hover:shadow-lg shadow-emerald-500/40'
-                : 'bg-red-500 cursor-not-allowed shadow-none'
-            }`}
-          >
-            Buy Now →
-          </a>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleFavoriteClick}
+              title={isFavorite ? "Remove from Favourites" : "Add to Favourites"}
+              className="p-3 rounded-full bg-cream dark:bg-dark-bg-secondary hover:bg-red-100 dark:hover:bg-red-500/20 transition-colors duration-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className={`transition-all duration-200 ${isFavorite ? 'text-red-500 fill-current stroke-current' : 'fill-none stroke-coffee-medium dark:stroke-dark-text-secondary'}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </button>
+            <a
+              href={bean.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`px-4 md:px-6 py-2.5 md:py-3 text-white rounded-xl font-bold text-sm transition-all duration-300 ${
+                bean.inStock
+                  ? 'bg-linear-to-br from-emerald-500 to-emerald-600 hover:-translate-y-0.5 hover:shadow-lg shadow-emerald-500/40'
+                  : 'bg-red-500 cursor-not-allowed shadow-none'
+              }`}
+            >
+              Buy Now →
+            </a>
+          </div>
         </div>
       </div>
     </div>
