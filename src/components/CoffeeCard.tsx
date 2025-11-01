@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useFavorites } from '../contexts/FavoritesContext';
+import { optimizeImage, generateSrcSet } from '../utils/imageOptimizer';
 import type { CoffeeBean } from '../types/coffee';
 
 interface CoffeeCardProps {
@@ -8,6 +10,7 @@ interface CoffeeCardProps {
 function CoffeeCard({ bean }: CoffeeCardProps) {
   const { toggleFavorite, isFavorite } = useFavorites();
   const isLiked = isFavorite(bean.id);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -15,21 +18,51 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
     await toggleFavorite(bean.id);
   };
 
+  // Safely handle potentially undefined image
+  const imageUrl = bean.image || '';
+  const hasImage = imageUrl.length > 0;
+
   return (
     <div className={`bg-white dark:bg-dark-surface rounded-2xl overflow-hidden shadow-lg dark:shadow-dark-surface-elevated/30 transition-all duration-300 hover:-translate-y-2.5 hover:shadow-2xl dark:hover:shadow-dark-surface-elevated/50 animate-scaleIn h-[520px] md:h-[560px] lg:h-[580px] flex flex-col ${!bean.inStock ? 'opacity-70' : ''}`}>
       <div className="relative w-full h-48 md:h-52 lg:h-56 shrink-0 overflow-hidden bg-linear-to-br from-cream to-cream-light dark:from-dark-bg-secondary dark:to-dark-surface flex items-center justify-center">
-        {bean.image && (
+        {hasImage ? (
           <img 
-            src={bean.image}
+            src={optimizeImage(imageUrl, {
+              width: 600,
+              height: 450,
+              quality: 85,
+              format: 'auto',
+              fit: 'cover',
+            })}
+            srcSet={generateSrcSet(imageUrl, [400, 600, 800])}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             alt={bean.name}
-            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110" 
+            className={`w-full h-full object-cover object-center transition-all duration-500 hover:scale-110 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
             loading="lazy"
-            width="300"
-            height="224"
+            width="600"
+            height="450"
+            onLoad={() => setImageLoaded(true)}
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement;
+              target.src = imageUrl;
+              setImageLoaded(true);
+            }}
           />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-coffee-medium dark:text-dark-text-secondary text-4xl">
+            ☕
+          </div>
         )}
+        
+        {/* Loading placeholder */}
+        {!imageLoaded && hasImage && (
+          <div className="absolute inset-0 bg-cream dark:bg-dark-bg-secondary animate-pulse" />
+        )}
+        
         {!bean.inStock && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-lg tracking-wide">
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-lg tracking-wide z-10">
             Out of Stock
           </div>
         )}
