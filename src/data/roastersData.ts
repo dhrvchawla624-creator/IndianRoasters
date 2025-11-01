@@ -67,8 +67,8 @@ export const ROASTERS_DATA: RoasterData[] = [
   },
   {
     name: 'Tulum',
-    city: 'Goa',
-    state: 'Goa',
+    city: 'Mumbai',
+    state: 'Maharashtra',
     website: 'https://www.tulum.coffee',
     collections: ['https://www.tulum.coffee/collections/roasted-coffees'],
     description: 'Coastal coffee culture with international influence',
