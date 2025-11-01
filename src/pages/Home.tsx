@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { CoffeeBean, SortOption } from '../types/coffee';
+import { useFavorites } from '../contexts/FavoritesContext';
 import Hero from '../components/Hero';
 import FilterSection from '../components/FilterSection';
 import CoffeeGrid from '../components/CoffeeGrid';
@@ -112,6 +113,7 @@ function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolea
     return p.trim() === selectedProcess.toLowerCase() || category === selectedProcess.toLowerCase();
   });
 }
+
 function matchesRoastFilter(bean: CoffeeBean, selectedRoast: string): boolean {
   if (selectedRoast === 'all') return true;
   const beanRoast = bean.roastLevel?.toLowerCase();
@@ -151,12 +153,10 @@ function beanSearchText(bean: CoffeeBean): string {
 
 const BEANS_PER_PAGE = 12;
 
-interface HomeProps {
-  favorites: string[];
-  onToggleFavorite: (beanId: string) => void;
-}
-
-function Home({ favorites, onToggleFavorite }: HomeProps) {
+function Home() {
+  // Get favorites from context instead of props
+  const { favorites, toggleFavorite } = useFavorites();
+  
   const [beans, setBeans] = useState<CoffeeBean[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -344,8 +344,8 @@ function Home({ favorites, onToggleFavorite }: HomeProps) {
         pageCount={pageCount}
         setPage={setPage}
         onResetFilters={handleResetFilters}
-        favorites={favorites}
-        onToggleFavorite={onToggleFavorite}
+        favorites={Array.from(favorites)}
+        onToggleFavorite={toggleFavorite}
       />
     </>
   );
