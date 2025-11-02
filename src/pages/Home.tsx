@@ -371,8 +371,8 @@ function Home() {
         pageCount={pageCount}
         setPage={setPage}
         onResetFilters={handleResetFilters}
-        favorites={Array.from(favorites)}
-        onToggleFavorite={toggleFavorite}
+        favorites={favorites}
+        toggleFavorite={toggleFavorite}
       />
     </>
   );

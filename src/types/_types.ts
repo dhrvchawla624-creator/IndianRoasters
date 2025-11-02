@@ -1,21 +1,18 @@
-export type SortOption = 'name' | 'price-low' | 'price-high' | 'roaster' | 'newest';
-
 export interface CoffeeBean {
   id: string;
   name: string;
   roaster: string;
-  origin?: string;
+  price?: number;
+  currency?: string;
+  weight?: string;
   roastLevel?: string;
+  origin?: string;
   process?: string;
   tastingNotes?: string[];
-  price: number;
-  weight?: number;
   image?: string;
   url: string;
-  inStock: boolean;
-  description?: string;
+  inStock?: boolean;
 }
-
 export interface ShopifyProduct {
   id: number;
   title: string;
@@ -25,7 +22,6 @@ export interface ShopifyProduct {
   body_html?: string;
   variants: ShopifyVariant[];
 }
-
 export interface ShopifyVariant {
   price: string;
   available: boolean;

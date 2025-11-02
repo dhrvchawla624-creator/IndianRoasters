@@ -1,36 +1,7 @@
 import fetch from 'node-fetch';
+import { ROASTERS_DATA } from './src/data/roasters.js';
+import type { CoffeeBean, ShopifyProduct } from './src/types/coffee.js';
 
-// --- Types ---
-export interface CoffeeBean {
-  id: string;
-  name: string;
-  roaster: string;
-  price?: number;
-  currency?: string;
-  weight?: string;
-  roastLevel?: string;
-  origin?: string;
-  process?: string;
-  tastingNotes?: string[];
-  image?: string;
-  url: string;
-  inStock?: boolean;
-}
-
-interface ShopifyProduct {
-  id: number;
-  title: string;
-  tags: string[];
-  images: { src: string }[];
-  handle: string;
-  body_html?: string;
-  variants: ShopifyVariant[];
-}
-interface ShopifyVariant {
-  price: string;
-  available: boolean;
-  title: string;
-}
 
 /** Common coffee tasting notes */
 const TASTING_NOTE_LIST = [
@@ -98,6 +69,22 @@ function extractTastingNotes(title: string, tags: string[], body?: string): stri
   return notes;
 }
 
+/** Extract weight in grams from a string like "250g" or "1kg" */
+function parseWeight(weightString: string): number | undefined {
+  if (!weightString) return undefined;
+  const lowerWeightString = weightString.toLowerCase();
+
+  // Look for "kg" first and convert to grams
+  const kgMatch = lowerWeightString.match(/(\d+\.?\d*)\s*kg/);
+  if (kgMatch && kgMatch[1]) {
+    return parseFloat(kgMatch[1]) * 1000;
+  }
+
+  // Look for "g" or "gms"
+  const gMatch = lowerWeightString.match(/(\d+)\s*(g|gm|gms)/);
+  return gMatch && gMatch[1] ? parseInt(gMatch[1], 10) : undefined;
+}
+
 // --- Shopify Fetcher with Retry Logic ---
 export async function fetchShopifyCollection(
   collectionUrl: string, 
@@ -149,8 +136,7 @@ export async function fetchShopifyCollection(
             name: cleanTitle(p.title),
             roaster: roasterName,
             price: parseFloat(variant.price),
-            currency: "INR",
-            weight: variant.title,
+            weight: parseWeight(variant.title),
             roastLevel: findRoastLevel(lowerTitle + " " + tags.join(" ")),
             origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
               "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri", 
@@ -179,15 +165,6 @@ export async function fetchShopifyCollection(
   return [];
 }
 
-import { ROASTERS_DATA } from './src/data/roastersData';
-
-// --- All Roasters & Collections (Generated from single source of truth) ---
-const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTERS_DATA.map(
-  roaster => ({
-    roaster: roaster.name,
-    collections: roaster.collections,
-  })
-);
 
 // --- Batch Fetcher with Concurrency Limit ---
 async function fetchInBatches<T>(
@@ -210,6 +187,14 @@ async function fetchInBatches<T>(
   
   return results;
 }
+
+// --- All Roasters & Collections (Generated from single source of truth) ---
+const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTERS_DATA.map(
+  roaster => ({
+    roaster: roaster.name,
+    collections: roaster.collections,
+  })
+);
 
 // --- Aggregator with Batching ---
 export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
@@ -268,43 +253,4 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
   console.log(`   ⏱️  Time taken: ${duration}s\n`);
   
   return allBeans;
-}
-
-// --- FILTERS ---
-export function filterBeans(
-  beans: CoffeeBean[],
-  filters: {
-    roaster?: string,
-    roastLevel?: string,
-    origin?: string,
-    process?: string,
-    priceMin?: number,
-    priceMax?: number,
-    inStock?: boolean,
-    tastingNotes?: string,
-    page?: number,
-    perPage?: number
-  }
-): { beans: CoffeeBean[]; pageCount: number; total: number;} {
-  let filtered = beans.filter(bean => {
-    if (filters.roaster && bean.roaster !== filters.roaster) return false;
-    if (filters.roastLevel && bean.roastLevel !== filters.roastLevel) return false;
-    if (filters.origin && bean.origin !== filters.origin) return false;
-    if (filters.process && bean.process !== filters.process) return false;
-    if (filters.tastingNotes && !bean.tastingNotes?.some(note => note.toLowerCase() === filters.tastingNotes?.toLowerCase())) return false;
-    if (filters.priceMin !== undefined && (bean.price ?? 0) < filters.priceMin) return false;
-    if (filters.priceMax !== undefined && (bean.price ?? 0) > filters.priceMax) return false;
-    if (filters.inStock !== undefined && bean.inStock !== filters.inStock) return false;
-    return true;
-  });
-
-  const page      = filters.page ?? 1;
-  const perPage   = filters.perPage ?? 12;
-  const total     = filtered.length;
-  const pageCount = Math.max(1, Math.ceil(total / perPage));
-
-  const startIdx = (page - 1) * perPage;
-  const paged    = filtered.slice(startIdx, startIdx + perPage);
-
-  return { beans: paged, pageCount, total };
 }
