@@ -170,13 +170,10 @@ const BEANS_PER_PAGE = 12;
 
 // Helper function to get the correct API URL for both local and production
 function getApiUrl(): string {
-  // Check if we're in development mode
-  if (import.meta.env.DEV) {
-    return 'http://localhost:3000';
-  }
-  // In production (Vercel), use relative URLs
+  // Always use relative URLs - Vite proxy handles routing in dev, Vercel handles in production
   return '';
 }
+
 
 function Home() {
   // Get favorites from context instead of props
