@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
-import { ROASTERS_DATA } from './src/data/roastersData.js';
-import type { CoffeeBean, ShopifyProduct } from './src/types/coffee.js';
-
+import { ROASTERS_DATA } from '../../src/data/roastersData.js';
+import type { CoffeeBean, ShopifyProduct } from './coffee';
 
 /** Common coffee tasting notes */
 const TASTING_NOTE_LIST = [
@@ -85,11 +84,12 @@ function parseWeight(weightString: string): number | undefined {
   return gMatch && gMatch[1] ? parseInt(gMatch[1], 10) : undefined;
 }
 
-// --- Shopify Fetcher with Retry Logic ---
+// --- Shopify Fetcher with Enhanced Error Handling ---
 export async function fetchShopifyCollection(
   collectionUrl: string, 
   roasterName: string,
-  retries: number = 2
+  retries: number = 2,
+  timeout: number = 10000 // 10 seconds
 ): Promise<CoffeeBean[]> {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
@@ -97,22 +97,24 @@ export async function fetchShopifyCollection(
         `${collectionUrl}products.json?limit=250`
         : `${collectionUrl}/products.json?limit=250`;
       
-      // Increased timeout to 15 seconds
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000);
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
       
       const res = await fetch(jsonUrl, { 
         signal: controller.signal,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; CoffeeAggregator/1.0)'
+          'User-Agent': 'Mozilla/5.0 (compatible; CoffeeAggregator/1.0)',
+          'Accept': 'application/json',
+          'Accept-Encoding': 'gzip, deflate'
         }
       });
+      
       clearTimeout(timeoutId);
       
       if (!res.ok) {
-        console.error(`❌ Error fetching ${roasterName} (attempt ${attempt + 1}/${retries + 1}): ${res.status} from ${collectionUrl}`);
-        if (attempt < retries) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); // Exponential backoff
+        console.error(`❌ ${roasterName} HTTP ${res.status} (attempt ${attempt + 1}/${retries + 1})`);
+        if (attempt < retries && res.status >= 500) {
+          await new Promise(resolve => setTimeout(resolve, 500 * Math.pow(2, attempt)));
           continue;
         }
         return [];
@@ -121,16 +123,18 @@ export async function fetchShopifyCollection(
       const data = await res.json() as { products: ShopifyProduct[] };
       
       if (!data.products || !Array.isArray(data.products)) {
-        console.error(`❌ Invalid data format from ${roasterName}`);
+        console.error(`❌ ${roasterName}: Invalid data format`);
         return [];
       }
       
-      return data.products.filter((p: ShopifyProduct) => p.variants.length > 0)
+      const beans = data.products
+        .filter((p: ShopifyProduct) => p.variants && p.variants.length > 0)
         .map((p: ShopifyProduct) => {
           const variant = p.variants[0];
           const lowerTitle = p.title.toLowerCase();
           const tags = Array.isArray(p.tags) ? p.tags : [];
           const body = p.body_html || "";
+          
           return {
             id: `${roasterName}-${p.id}`,
             name: cleanTitle(p.title),
@@ -139,8 +143,10 @@ export async function fetchShopifyCollection(
             weight: parseWeight(variant.title),
             roastLevel: findRoastLevel(lowerTitle + " " + tags.join(" ")),
             origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
-              "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", "bababudangiri", "basarikatte", "ratnagiri", 
-              "andhra", "araku", "sidamo", "ethiopia", "yirgacheffe", "honduras", "colombia" ]),
+              "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", 
+              "bababudangiri", "basarikatte", "ratnagiri", "andhra", "araku", "sidamo", "ethiopia", 
+              "yirgacheffe", "honduras", "colombia"
+            ]),
             process: findProcess(lowerTitle + " " + tags.join(" ")),
             tastingNotes: extractTastingNotes(p.title, tags, body),
             image: p.images[0]?.src,
@@ -148,15 +154,19 @@ export async function fetchShopifyCollection(
             inStock: variant.available,
           };
         });
+      
+      console.log(`✅ ${roasterName}: ${beans.length} products`);
+      return beans;
+      
     } catch (error: any) {
       if (error.name === 'AbortError') {
-        console.error(`⏱️  Timeout fetching ${roasterName} (attempt ${attempt + 1}/${retries + 1}) from ${collectionUrl}`);
+        console.error(`⏱️  ${roasterName} timeout (attempt ${attempt + 1}/${retries + 1})`);
       } else {
-        console.error(`❌ Exception fetching ${roasterName} (attempt ${attempt + 1}/${retries + 1}):`, error.message);
+        console.error(`❌ ${roasterName} error (attempt ${attempt + 1}/${retries + 1}):`, error.message);
       }
       
       if (attempt < retries) {
-        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); // Exponential backoff
+        await new Promise(resolve => setTimeout(resolve, 500 * Math.pow(2, attempt)));
         continue;
       }
       return [];
@@ -165,30 +175,36 @@ export async function fetchShopifyCollection(
   return [];
 }
 
-
 // --- Batch Fetcher with Concurrency Limit ---
 async function fetchInBatches<T>(
   tasks: (() => Promise<T>)[],
-  batchSize: number = 5
+  batchSize: number = 8
 ): Promise<T[]> {
   const results: T[] = [];
+  const totalBatches = Math.ceil(tasks.length / batchSize);
   
   for (let i = 0; i < tasks.length; i += batchSize) {
     const batch = tasks.slice(i, i + batchSize);
-    console.log(`📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(tasks.length / batchSize)}...`);
-    const batchResults = await Promise.all(batch.map(task => task()));
-    results.push(...batchResults);
+    const batchNum = Math.floor(i / batchSize) + 1;
     
-    // Small delay between batches to avoid overwhelming servers
-    if (i + batchSize < tasks.length) {
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
+    console.log(`📦 Batch ${batchNum}/${totalBatches} (${batch.length} requests)...`);
+    
+    const batchResults = await Promise.all(
+      batch.map(task => 
+        task().catch(error => {
+          console.error('Batch task error:', error.message);
+          return null;
+        })
+      )
+    );
+    
+    results.push(...batchResults.filter(r => r !== null) as T[]);
   }
   
   return results;
 }
 
-// --- All Roasters & Collections (Generated from single source of truth) ---
+// --- Roaster Collections ---
 const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTERS_DATA.map(
   roaster => ({
     roaster: roaster.name, 
@@ -196,61 +212,69 @@ const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTE
   })
 );
 
-// --- Aggregator with Batching ---
+// --- Main Aggregator ---
 export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
-  console.log(`⏳ Starting batch fetch from ${ROASTER_COLLECTIONS.length} roasters...`);
   const startTime = Date.now();
+  console.log(`\n🚀 Starting fetch from ${ROASTER_COLLECTIONS.length} roasters...`);
+  console.log(`⏰ Max execution time: Consider Vercel limits (10s Hobby / 60s Pro)\n`);
   
-  // Create array of all fetch tasks
   const allFetchTasks: (() => Promise<{ roaster: string; url: string; beans: CoffeeBean[] }>)[] = [];
   
   for (const roasterObj of ROASTER_COLLECTIONS) {
     for (const url of roasterObj.collections) {
-      const fetchTask = () => fetchShopifyCollection(url, roasterObj.roaster)
-        .then(beans => ({
-          roaster: roasterObj.roaster,
-          url,
-          beans
-        }))
-        .catch(error => {
-          console.error(`❌ Error fetching ${roasterObj.roaster} from ${url}:`, error.message);
-          return {
-            roaster: roasterObj.roaster,
-            url,
-            beans: [] as CoffeeBean[]
-          };
-        });
+      const fetchTask = async () => {
+        try {
+          const beans = await fetchShopifyCollection(url, roasterObj.roaster);
+          return { roaster: roasterObj.roaster, url, beans };
+        } catch (error: any) {
+          console.error(`❌ ${roasterObj.roaster} failed:`, error.message);
+          return { roaster: roasterObj.roaster, url, beans: [] as CoffeeBean[] };
+        }
+      };
       
       allFetchTasks.push(fetchTask);
     }
   }
   
-  // Fetch in batches of 5 to avoid overwhelming servers
-  console.log(`🚀 Fetching ${allFetchTasks.length} collections in batches of 5...`);
-  const results = await fetchInBatches(allFetchTasks, 5);
+  console.log(`📊 Total collections to fetch: ${allFetchTasks.length}`);
+  console.log(`🔄 Fetching in batches of 8 for optimal performance...\n`);
   
-  // Aggregate all beans
+  const results = await fetchInBatches(allFetchTasks, 8);
+  
   let allBeans: CoffeeBean[] = [];
   let successCount = 0;
   let failureCount = 0;
+  let totalProducts = 0;
   
   for (const result of results) {
-    allBeans = allBeans.concat(result.beans);
     if (result.beans.length > 0) {
+      allBeans = allBeans.concat(result.beans);
       successCount++;
-      console.log(`✅ ${result.roaster}: ${result.beans.length} products`);
+      totalProducts += result.beans.length;
     } else {
       failureCount++;
-      console.log(`⚠️  ${result.roaster}: 0 products (failed or empty)`);
     }
   }
   
   const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-  console.log(`\n📊 Fetch Summary:`);
-  console.log(`   ✅ Successful: ${successCount} collections`);
-  console.log(`   ⚠️  Failed/Empty: ${failureCount} collections`);
-  console.log(`   📦 Total products: ${allBeans.length}`);
-  console.log(`   ⏱️  Time taken: ${duration}s\n`);
+  
+  console.log(`\n${'='.repeat(50)}`);
+  console.log(`📊 FETCH SUMMARY`);
+  console.log(`${'='.repeat(50)}`);
+  console.log(`✅ Successful:     ${successCount}/${results.length} collections`);
+  console.log(`⚠️  Failed/Empty:   ${failureCount}/${results.length} collections`);
+  console.log(`📦 Total Products: ${totalProducts}`);
+  console.log(`⏱️  Duration:       ${duration}s`);
+  console.log(`🎯 Avg Speed:      ${(totalProducts / parseFloat(duration)).toFixed(1)} products/sec`);
+  console.log(`${'='.repeat(50)}\n`);
+  
+  if (parseFloat(duration) > 50) {
+    console.warn(`⚠️  WARNING: Fetch took ${duration}s - approaching Vercel timeout limits!`);
+  }
   
   return allBeans;
 }
+
+export const config = {
+  maxDuration: 60,
+};

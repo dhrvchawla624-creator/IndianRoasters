@@ -3,10 +3,10 @@ export interface RoasterData {
   city: string;
   state: string;
   website: string;
-  established?: number;
-  specialties?: string[];
   collections: string[];
-  description?: string;
+  description: string;
+  specialties: string[];
+  established: string;
 }
 
 export interface LocationData {

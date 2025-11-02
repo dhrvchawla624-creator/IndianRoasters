@@ -9,7 +9,7 @@ export interface CoffeeBean {
   roastLevel?: string;
   origin?: string;
   process?: string;
-  tastingNotes?: string[];  // Made optional to match API
+  tastingNotes?: string[];
   image?: string;
   url: string;
   inStock: boolean;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import type { CoffeeBean, SortOption } from '../../../api/_lib/coffee';
+import type { CoffeeBean, SortOption } from '../types/coffee';
 import { useFavorites } from '../contexts/FavoritesContext';
 import Hero from '../components/Hero';
 import FilterSection from '../components/FilterSection';
@@ -107,7 +107,7 @@ function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolea
   const beanProcesses = bean.process.toLowerCase().split(/,\s*|\s*\/\s*|\s*&\s*\+\s*/);
   
   // Check if any of the bean's processes match the selected category
-  return beanProcesses.some(p => {
+  return beanProcesses.some((p: string) => {
     const category = normalizeProcessToCategory(p.trim());
     // Direct match or category match
     return p.trim() === selectedProcess.toLowerCase() || category === selectedProcess.toLowerCase();
@@ -143,7 +143,7 @@ function getAllProcessCategories(beans: CoffeeBean[]): string[] {
   const allProcesses = beans.flatMap(b => b.process?.split(/,\s*|\s*\/\s*|\s*&\s*\+\s*/) ?? []);
   const categories = new Set<string>();
 
-  allProcesses.forEach(p => {
+  allProcesses.forEach((p: string) => {
     const category = normalizeProcessToCategory(p);
     if (category) {
       categories.add(category);
@@ -153,7 +153,6 @@ function getAllProcessCategories(beans: CoffeeBean[]): string[] {
   // Sort alphabetically for consistent order
   return Array.from(categories).sort();
 }
-
 
 function beanSearchText(bean: CoffeeBean): string {
   return [
@@ -168,6 +167,16 @@ function beanSearchText(bean: CoffeeBean): string {
 }
 
 const BEANS_PER_PAGE = 12;
+
+// Helper function to get the correct API URL for both local and production
+function getApiUrl(): string {
+  // Check if we're in development mode
+  if (import.meta.env.DEV) {
+    return 'http://localhost:3000';
+  }
+  // In production (Vercel), use relative URLs
+  return '';
+}
 
 function Home() {
   // Get favorites from context instead of props
@@ -233,13 +242,38 @@ function Home() {
   const fetchCoffee = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/coffee');
+      
+      // Use the helper function to get the correct API URL
+      const apiUrl = `${getApiUrl()}/api/coffee`;
+      
+      console.log('Fetching from:', apiUrl); // Debug log
+      
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result = await response.json();
+      
+      // Check if data exists in the response
+      if (!result.data || !Array.isArray(result.data)) {
+        throw new Error('Invalid data format received from API');
+      }
+
       setBeans(result.data);
       setError(null);
+      
+      console.log('Successfully loaded', result.data.length, 'coffee beans'); // Debug log
     } catch (err) {
-      setError('Failed to load coffee data');
-      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load coffee data';
+      setError(errorMessage);
+      console.error('Error fetching coffee:', err);
     } finally {
       setLoading(false);
     }
@@ -259,7 +293,7 @@ function Home() {
       const matchesTasting =
         selectedTastingNote === 'all' ||
         (bean.tastingNotes &&
-          bean.tastingNotes.map(n => n.toLowerCase()).includes(selectedTastingNote.toLowerCase())
+          bean.tastingNotes.map((n: string) => n.toLowerCase()).includes(selectedTastingNote.toLowerCase())
         );
       const matchesStock = showOutOfStock || bean.inStock;
       const matchesPrice = bean.price >= priceRange[0] && bean.price <= priceRange[1];
