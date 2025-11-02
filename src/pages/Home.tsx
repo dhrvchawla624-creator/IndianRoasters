@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import type { CoffeeBean, SortOption } from '../types/coffee';
+import type { CoffeeBean, SortOption } from '../../../api/_lib/coffee';
 import { useFavorites } from '../contexts/FavoritesContext';
 import Hero from '../components/Hero';
 import FilterSection from '../components/FilterSection';

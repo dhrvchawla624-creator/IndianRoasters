@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { fetchAllCoffee } from '../fetcher';
-import type { CoffeeBean } from '../src/types/coffee.js';
+import { fetchAllCoffee } from './_lib/fetcher.js';
+import type { CoffeeBean } from './_lib/coffee.js';
 
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
 let cache: { data: CoffeeBean[] | null; timestamp: number } = { data: null, timestamp: 0 };

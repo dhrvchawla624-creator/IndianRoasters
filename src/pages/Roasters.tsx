@@ -2,7 +2,7 @@ import { useState, useMemo, } from 'react';
 import type { FC } from 'react';
 import PageHero from '../components/PageHero';
 
-import { LOCATION_DATA, ROASTERS_DATA } from '../data/roasters';
+import { LOCATION_DATA, ROASTERS_DATA } from '../../../api/roasters';
 import RoasterCard from '../components/RoastersCard';
 import type { RoasterData } from '../types/roasters';
 
@@ -144,8 +144,7 @@ function Roasters() {
                       key={location.state}
                       location={location}
                       onClick={() => handleLocationClick(location)}
-                      isSelected={false}
-                    />
+                      isSelected={selectedLocation?.state === location.state}
                   ))
                 }
               </div>

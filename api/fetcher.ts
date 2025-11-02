@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { ROASTERS_DATA } from './api/_lib/roasters.js';
-import type { CoffeeBean, ShopifyProduct } from './api/_lib/coffee.js';
+import { ROASTERS_DATA } from './_lib/roasters.js';
+import type { CoffeeBean, ShopifyProduct } from './_lib/coffee.js';
 
 
 /** Common coffee tasting notes */
