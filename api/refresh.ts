@@ -149,59 +149,15 @@ async function fetchShopifyCollection(collectionUrl: string, roasterName: string
   }
 }
 
-// --- All Roasters & Collections ---
-const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = [
-  { roaster: 'Blue Tokai Coffee Roasters', collections: [ 'https://bluetokaicoffee.com/collections/roasted-and-ground-coffee-beans' ] },
-  { roaster: 'Savourworks', collections: [ 'https://www.savorworksroasters.com/collections/coffee' ] },
-  { roaster: 'Quick Brown Fox', collections: [ 'https://qbfcoffee.com/collections/all-coffees' ] },
-  { roaster: 'GreySoul', collections: [ 'https://greysoul.coffee/collections/coffee' ] },
-  { roaster: 'Home Blends', collections: [
-    'https://homeblendcoffee.com/collections/ground',
-    'https://homeblendcoffee.com/collections/whole-bean-coffee',
-    'https://homeblendcoffee.com/collections/international-specialty-coffee'
-  ] },
-  { roaster: 'Kaapi Kottai', collections: [ 'https://kapikottai.coffee/collections/all' ] },
-  { roaster: 'Tulum', collections: [ 'https://www.tulum.coffee/collections/roasted-coffees' ] },
-  { roaster: 'Classic Coffees', collections: [
-    'https://www.classiccoffees.in/collections/roast-ground-custom-grind',
-    'https://www.classiccoffees.in/collections/micro-lots'
-  ] },
-  { roaster: 'Corridor Seven', collections: [ 'https://corridorseven.coffee/collections/all' ] },
-  { roaster: 'Broot', collections: [ 'https://brootcoffee.com/collections/all-coffees' ] },
-  { roaster: "Baarbara Coffee", collections: [
-    "https://www.baarbaracoffee.com/collections/premium-blends",
-    "https://www.baarbaracoffee.com/collections/signature-collection",
-    "https://www.baarbaracoffee.com/collections/specialty-coffee"
-  ] },
-  { roaster: "Fraction9", collections: [ "https://www.fraction9coffee.com/collections/all" ] },
-  { roaster: "Bloom Coffee", collections: [ "https://bloomcoffeeroasters.in/collections/coffee" ] },
-  { roaster: "Devan's Coffee", collections: [ "https://www.devans.in/collections/coffee" ] },
-  { roaster: "Korebi Coffee", collections: [ "https://korebi.coffee/collections/coffee" ] },
-  { roaster: "Maverick & Farmer", collections: [ "https://www.maverickandfarmer.com/collections/shop-all" ] },
-  { roaster: "Tariero", collections: [ "https://tariero.com/collections/all-gourmet-coffees" ] },
-  { roaster: "Naked Coffee", collections: [ "https://nakedcoffee.in/collections/whole-beans-ground" ] },
-  { roaster: "Caarabi Coffee", collections: [ "https://caarabicoffee.com/collections/shop-coffee" ] },
-  { roaster: "Caffnary", collections: [
-    "https://caffinary.com/collections/specialty-single-estate-origin",
-    "https://caffinary.com/collections/freshly-roasted-ground-beans-freshly-roasted-whole-beans"
-  ] },
-  { roaster: "Hill Tiger", collections: [ "https://hilltiller.com/collections/hill-tiller-coffee-roaster" ] },
-  { roaster: "Beachville", collections: [ "https://beachvillecoffee.com/collections/all" ] },
-  { roaster: "Coffeeverse", collections: [ "https://coffeeverse.co.in/collections/shop-all" ] },
-  { roaster: "Rossette", collections: [ "https://rossettecoffee.com/collections/coffee" ] },
-  { roaster: "Black Baza", collections: [ "https://www.blackbazacoffee.com/collections/coffee" ] },
-  { roaster: "Bombay Island", collections: [ "https://www.bombayisland.com/collections/coffee" ] },
-  { roaster: "Half Light", collections: [ "https://halflightcoffee.com/collections/coffee" ] },
-  { roaster: "Ikkis Coffee", collections: [ "https://ikkis.coffee/collections/roasted-coffees" ] },
-  { roaster: "Kaffacerrado", collections: [
-    "https://kaffacerrado.com/collections/international-coffee",
-    "https://kaffacerrado.com/collections/indian-coffee",
-    "https://kaffacerrado.com/collections/tasting-packs"
-  ] },
-  { roaster: "Capulus", collections: [ "https://capulusbeans.com/collections/roasted-coffee" ] },
-  { roaster: "Genetics", collections: [ "https://genetics.coffee/collections/single-origins" ] },
-  { roaster: "Roast Coffee", collections: [ "https://roastcoffee.in/collections/roasted-coffee-bean" ] }
-];
+import { ROASTERS_DATA } from '../src/data/roastersData';
+
+// --- All Roasters & Collections (Generated from single source of truth) ---
+const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTERS_DATA.map(
+  roaster => ({
+    roaster: roaster.name,
+    collections: roaster.collections,
+  })
+);
 
 // --- Aggregator ---
 async function fetchAllCoffee(): Promise<CoffeeBean[]> {

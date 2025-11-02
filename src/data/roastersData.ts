@@ -545,7 +545,28 @@ export const ROASTERS_DATA: RoasterData[] = [
     description: 'River-blessed coffee from the Kaveri delta',
     specialties: ['River Delta', 'Regional Terroir', 'Traditional Processing'],
     established: '2015'
-  }
+  },
+  {
+    name: 'Caffe Birraio',
+    city: 'Jaipur',
+    state: 'Rajasthan',
+    website: 'https://caffebirraio.com',
+    collections: ['https://caffebirraio.com/collections/coffee'],
+    description: 'Italian-inspired coffee roasting from the Pink City.',
+    specialties: ['Espresso Blends', 'Italian Roast', 'Artisanal Coffee'],
+    established: '2020'
+  },
+  {
+    name: 'Sutra Coffee',
+    city: 'Jaipur',
+    state: 'Rajasthan',
+    website: 'https://sutracoffee.com',
+    collections: ['https://sutracoffee.com/collections/coffee'],
+    description: 'Coffee that connects, following a thread of quality.',
+    specialties: ['Single Origins', 'Mindful Roasting', 'Community Blends'],
+    established: '2021'
+  },
+  
 ];
 
 // Generate location data from roasters
