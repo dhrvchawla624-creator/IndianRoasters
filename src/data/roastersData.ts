@@ -546,6 +546,16 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['River Delta', 'Regional Terroir', 'Traditional Processing'],
     established: '2015'
   }
+    {
+    name: 'Sutra Coffee',
+    city: 'Jaipur',
+    state: 'Rajasthan',
+    website: 'https://www.kavericoffee.com',
+    collections: ['https://www.kavericoffee.com/collections/coffee'],
+    description: 'River-blessed coffee from the Kaveri delta',
+    specialties: ['River Delta', 'Regional Terroir', 'Traditional Processing'],
+    established: '2015'
+  }
 ];
 
 export const LOCATION_DATA: LocationData[] = [
@@ -556,7 +566,7 @@ export const LOCATION_DATA: LocationData[] = [
   { state: 'Goa', cities: ['Goa'], roasterCount: 2 },
   { state: 'Telangana', cities: ['Hyderabad'], roasterCount: 1 },
   { state: 'West Bengal', cities: ['Darjeeling', 'Kolkata'], roasterCount: 1 },
-  { state: 'Rajasthan', cities: ['Jodhpur', 'Jaipur', 'Udaipur'], roasterCount: 3 },
+  { state: 'Rajasthan', cities: ['Jodhpur', 'Jaipur', 'Udaipur'], roasterCount: 4 },
   { state: 'Haryana', cities: ['Gurgaon', 'Panchkula'], roasterCount: 3 },
   { state: 'Uttarakhand', cities: ['Mussoorie', 'Dehradun'], roasterCount: 1 },
   { state: 'Uttar Pradesh', cities: ['Noida', 'Ghaziabad', 'Lucknow'], roasterCount: 1 },
