@@ -147,6 +147,7 @@ function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
                   ? 'bg-linear-to-br from-emerald-500 to-emerald-600 hover:-translate-y-0.5 hover:shadow-lg shadow-emerald-500/40'
                   : 'bg-red-500 cursor-not-allowed shadow-none'
               }`}
+              onClick={(e) => e.stopPropagation()} // Prevent card click if it's wrapped in a link
             >
               Buy Now →
             </a>

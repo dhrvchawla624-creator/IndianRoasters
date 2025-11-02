@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { ROASTERS_DATA } from './api/_lib/roasters.js';
-import type { CoffeeBean, ShopifyProduct } from './api/_lib/coffee.js';
+import { ROASTERS_DATA } from './src/data/roastersData.js';
+import type { CoffeeBean, ShopifyProduct } from './src/types/coffee.js';
 
 
 /** Common coffee tasting notes */
@@ -191,7 +191,7 @@ async function fetchInBatches<T>(
 // --- All Roasters & Collections (Generated from single source of truth) ---
 const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTERS_DATA.map(
   roaster => ({
-    roaster: roaster.name,
+    roaster: roaster.name, 
     collections: roaster.collections,
   })
 );

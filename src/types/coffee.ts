@@ -19,3 +19,20 @@ export interface CoffeeApiResponse {
   data: CoffeeBean[];
   lastUpdate: string;
 }
+
+export interface ShopifyProduct {
+  id: number;
+  title: string;
+  handle: string;
+  body_html: string;
+  tags: string[] | string;
+  variants: {
+    id: number;
+    price: string;
+    available: boolean;
+    title: string;
+  }[];
+  images: {
+    src: string;
+  }[];
+}

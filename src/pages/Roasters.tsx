@@ -1,41 +1,10 @@
-import { useState, useMemo, } from 'react';
-import type { FC } from 'react';
+import { useState, useMemo } from 'react';
+
 import PageHero from '../components/PageHero';
-
-import { LOCATION_DATA, ROASTERS_DATA } from '../../../api/roasters';
+import LocationCard from '../components/LocationCard';
 import RoasterCard from '../components/RoastersCard';
-import type { RoasterData } from '../types/roasters';
-
-interface LocationData {
-  state: string;
-  cities: string[];
-  roasterCount: number;
-}
-
-const LocationCard: FC<{ location: LocationData; onClick: () => void; isSelected: boolean }> = ({ location, onClick, isSelected }) => (
-  <div
-    onClick={onClick}
-    className={`
-      bg-white dark:bg-dark-surface rounded-xl p-6 cursor-pointer transition-all duration-300 
-      border border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:border-transparent dark:hover:border-transparent
-      ${isSelected ? "ring-2 ring-coffee-dark shadow-lg" : "hover:shadow-md"}
-    `}
-  >
-    <div className="flex items-center justify-between">
-      <div>
-        <h3 className="text-lg font-bold text-coffee-dark dark:text-dark-text mb-1">{location.state}</h3>
-        <p className="text-sm text-coffee-medium dark:text-dark-text-secondary mb-2">{location.cities.join(', ')}</p>
-        <div className="flex items-center space-x-2">
-          <span className="text-xs bg-coffee-light/20 dark:bg-dark-bg-secondary text-coffee-dark dark:text-dark-text px-2 py-1 rounded-full">
-            {location.roasterCount} roasters
-          </span>
-        </div>
-      </div>
-      <div className="text-3xl">📍</div>
-    </div>
-  </div>
-);
-
+import { LOCATION_DATA, ROASTERS_DATA } from '../data/roastersData';
+import type { LocationData, RoasterData } from '../types/roasters';
 
 function Roasters() {
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
@@ -43,8 +12,8 @@ function Roasters() {
 
   // Filter roasters based on selected location and search term
   // Filter roasters based on search term. Location filter is applied separately if needed.
-  const filteredRoasters = useMemo<RoasterData[]>(() => {
-    let filtered: RoasterData[] = ROASTERS_DATA;
+  const filteredRoasters = useMemo(() => {
+    let filtered = ROASTERS_DATA;
 
     
     if (selectedLocation) {
@@ -55,21 +24,13 @@ function Roasters() {
       filtered = filtered.filter(roaster =>
         roaster.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         roaster.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        roaster.specialties?.some(specialty =>
+        roaster.specialties?.some(specialty => 
           specialty.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
     }
     return filtered;
   }, [selectedLocation, searchTerm]);
-
-  // Dynamically generate location data with correct counts
-  const dynamicLocationData = useMemo<LocationData[]>(() => {
-    return LOCATION_DATA.map(location => ({
-      ...location,
-      roasterCount: ROASTERS_DATA.filter(roaster => roaster.state === location.state).length,
-    })).sort((a, b) => b.roasterCount - a.roasterCount);
-  }, []);
 
   // Determine if we should show search results for roasters instead of locations
   const showRoasterSearchResults = searchTerm.length > 0 && !selectedLocation;
@@ -87,7 +48,7 @@ function Roasters() {
     <div className="min-h-screen bg-cream-light dark:bg-dark-bg transition-colors duration-300">
       <PageHero
         title="Indian Coffee Roasters"
-        subtitle={`Discover the artisans behind India's finest specialty coffee beans • ${ROASTERS_DATA.length} roasters across ${dynamicLocationData.length} states`}
+        subtitle={`Discover the artisans behind India's finest specialty coffee beans • ${ROASTERS_DATA.length} roasters across ${LOCATION_DATA.length} states`}
         icon="🏪"
       />
 
@@ -133,7 +94,7 @@ function Roasters() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {dynamicLocationData
+                {LOCATION_DATA
                   .filter(location =>
                     !searchTerm ||
                     location.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -144,9 +105,9 @@ function Roasters() {
                       key={location.state}
                       location={location}
                       onClick={() => handleLocationClick(location)}
-                      isSelected={selectedLocation?.state === location.state}
-                  ))
-                }
+                      isSelected={false}
+                    />
+                  ))}
               </div>
             </>
           ) : ( // This block now handles both "selected location" and "global search results" views
@@ -174,7 +135,9 @@ function Roasters() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredRoasters.map(roaster => <RoasterCard key={roaster.name} roaster={roaster} />)}
+                  {filteredRoasters.map((roaster: RoasterData) => (
+                    <RoasterCard key={roaster.name} roaster={roaster} />
+                  ))}
                 </div>
               )}
             </>

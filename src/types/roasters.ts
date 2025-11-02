@@ -3,14 +3,10 @@ export interface RoasterData {
   city: string;
   state: string;
   website: string;
+  established?: number;
+  specialties?: string[];
   collections: string[];
   description?: string;
-  specialties?: string[];
-  established?: string;
-  social?: {
-    instagram?: string;
-    facebook?: string;
-  };
 }
 
 export interface LocationData {
