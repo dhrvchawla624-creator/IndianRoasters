@@ -139,6 +139,22 @@ function matchesRoastFilter(bean: CoffeeBean, selectedRoast: string): boolean {
   return beanRoast.includes(selected);
 }
 
+function getAllProcessCategories(beans: CoffeeBean[]): string[] {
+  const allProcesses = beans.flatMap(b => b.process?.split(/,\s*|\s*\/\s*|\s*&\s*\+\s*/) ?? []);
+  const categories = new Set<string>();
+
+  allProcesses.forEach(p => {
+    const category = normalizeProcessToCategory(p);
+    if (category) {
+      categories.add(category);
+    }
+  });
+
+  // Sort alphabetically for consistent order
+  return Array.from(categories).sort();
+}
+
+
 function beanSearchText(bean: CoffeeBean): string {
   return [
     bean.name,
@@ -177,12 +193,23 @@ function Home() {
   const origins = useMemo(() => Array.from(new Set(beans.map(b => b.origin).filter((o): o is string => Boolean(o)))).sort(), [beans]);
   const roastLevels = useMemo(() => {
     const dynamicLevels = Array.from(new Set(beans.map(b => b.roastLevel).filter((r): r is string => Boolean(r))));
-    const staticLevels = ['Light', 'Medium Light', 'Medium', 'Medium Dark', 'Dark', 'Filter', 'Espresso', 'Omni'];
-    const combined = new Set([...staticLevels, ...dynamicLevels.map(l => l.charAt(0).toUpperCase() + l.slice(1))]);
-    // Ensure a specific order
-    return staticLevels.filter(level => combined.has(level));
+    const staticOrder = ['Light', 'Medium Light', 'Medium', 'Medium Dark', 'Dark', 'Filter', 'Espresso', 'Omni'];
+    
+    // Combine and get unique values, preserving static order first
+    const combined = new Set([...staticOrder, ...dynamicLevels]);
+    
+    // Return a sorted list with the predefined levels first, then any new dynamic levels
+    return Array.from(combined).sort((a, b) => {
+      const aIndex = staticOrder.indexOf(a);
+      const bIndex = staticOrder.indexOf(b);
+      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex; // Both in static order
+      if (aIndex !== -1) return -1; // a is static, b is not
+      if (bIndex !== -1) return 1;  // b is static, a is not
+      return a.localeCompare(b); // Both are dynamic, sort alphabetically
+    });
   }, [beans]);
   const tastingNoteOptions = useMemo(() => ['all', ...getAllTastingNotes(beans)], [beans]);
+  const processOptions = useMemo(() => getAllProcessCategories(beans), [beans]);
 
   useEffect(() => {
     fetchCoffee();
@@ -333,7 +360,7 @@ function Home() {
         roasters={roasters}
         origins={origins}
         roastLevels={roastLevels}
-        processOptions={[]}
+        processOptions={processOptions}
         tastingNoteOptions={tastingNoteOptions}
       />
 
