@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 
 import PageHero from '../components/PageHero';
-import LocationCard from '../components/LocationCard.tsx';
-import RoasterCard from '../components/RoastersCard.tsx';
+import LocationCard from '../components/LocationCard';
+import RoasterCard from '../components/RoastersCard';
 import { LOCATION_DATA, ROASTERS_DATA } from '../data/roastersData';
 import type { LocationData, RoasterData } from '../types/roasters';
 
@@ -24,7 +24,7 @@ function Roasters() {
       filtered = filtered.filter(roaster =>
         roaster.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         roaster.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        roaster.specialties?.some(specialty =>
+        roaster.specialties?.some(specialty => 
           specialty.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
@@ -107,8 +107,7 @@ function Roasters() {
                       onClick={() => handleLocationClick(location)}
                       isSelected={false}
                     />
-                  ))
-                }
+                  ))}
               </div>
             </>
           ) : ( // This block now handles both "selected location" and "global search results" views

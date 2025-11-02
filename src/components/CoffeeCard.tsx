@@ -1,21 +1,20 @@
 import { useState } from 'react';
-import { useFavorites } from '../contexts/FavoritesContext';
 import { optimizeImage, generateSrcSet } from '../utils/imageOptimizer';
 import type { CoffeeBean } from '../types/coffee';
 
 interface CoffeeCardProps {
   bean: CoffeeBean;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }
 
-function CoffeeCard({ bean }: CoffeeCardProps) {
-  const { toggleFavorite, isFavorite } = useFavorites();
-  const isLiked = isFavorite(bean.id);
+function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    await toggleFavorite(bean.id);
+    onToggleFavorite();
   };
 
   // Safely handle potentially undefined image
@@ -119,7 +118,7 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
           <div className="flex items-center gap-2">
             <button
               onClick={handleFavoriteClick}
-              title={isLiked ? "Remove from Favourites" : "Add to Favourites"}
+              title={isFavorite ? "Remove from Favourites" : "Add to Favourites"}
               className={`p-2.5 transition-transform duration-200 ease-in-out hover:scale-110 active:scale-95 focus:outline-none rounded-full`}
             >
               <svg 
@@ -128,7 +127,7 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
                 height="24" 
                 viewBox="0 0 24 24" 
                 className={`transition-all duration-200 ${
-                  isLiked 
+                  isFavorite 
                     ? 'text-red-500 fill-current stroke-current' 
                     : 'fill-none stroke-coffee-medium dark:stroke-dark-text-secondary'
                 }`} 
@@ -148,6 +147,7 @@ function CoffeeCard({ bean }: CoffeeCardProps) {
                   ? 'bg-linear-to-br from-emerald-500 to-emerald-600 hover:-translate-y-0.5 hover:shadow-lg shadow-emerald-500/40'
                   : 'bg-red-500 cursor-not-allowed shadow-none'
               }`}
+              onClick={(e) => e.stopPropagation()} // Prevent card click if it's wrapped in a link
             >
               Buy Now →
             </a>

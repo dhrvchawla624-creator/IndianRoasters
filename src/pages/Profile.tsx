@@ -4,13 +4,13 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { useFavorites } from '../contexts/FavoritesContext';
-import type { CoffeeBean } from '../types/coffee';
+import type { CoffeeBean } from '../../../api/_lib/coffee';
 import CoffeeCard from '../components/CoffeeCard';
 
 function Profile() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { favorites } = useFavorites();
+  const { favorites, toggleFavorite } = useFavorites();
   const [favoriteBeans, setFavoriteBeans] = useState<CoffeeBean[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -139,7 +139,12 @@ function Profile() {
           ) : favoriteBeans.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {favoriteBeans.map(bean => (
-                <CoffeeCard key={bean.id} bean={bean} />
+                <CoffeeCard 
+                  key={bean.id} 
+                  bean={bean} 
+                  isFavorite={favorites.includes(bean.id)}
+                  onToggleFavorite={() => toggleFavorite(bean.id)}
+                />
               ))}
             </div>
           ) : (
