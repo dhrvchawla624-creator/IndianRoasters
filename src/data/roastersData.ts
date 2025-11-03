@@ -193,7 +193,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     established: '2018'
   },
   {
-    name: 'Caffnary',
+    name: 'Caffinary',
     city: 'Mumbai',
     state: 'Maharashtra',
     website: 'https://caffinary.com',
@@ -556,20 +556,101 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['Artisanal Roasting', 'Indian Essence', 'Heritage Blends'],
     established: '2015'
   },
+    {
+    name: 'Caffe Birraio',
+    city: 'Jaipur',
+    state: 'Rajasthan',
+    website: 'https://www.caffebirraio.com',
+    collections: ['https://caffebirraio.com/collections/coffee'],
+    description: 'Every Cup has a Story to Tell',
+    specialties: ['Artisanal Roasting', 'Indian Essence', 'Heritage Blends'],
+    established: '2011'
+  },
+      {
+    name: '7000 steps Coffee',
+    city: 'Shillong',
+    state: 'Meghalaya',
+    website: 'https://www.7000steps.com',
+    collections: ['https://www.7000steps.com/collections/all'],
+    description: ' Coffee from the Abode of Clouds',
+    specialties: ['North Eastern Coffee', 'Himalayan Essence', 'Artisan Curation'],
+    established: '2021'
+  },
+        {
+    name: 'Avencos Coffee',
+    city: 'Gurgaon',
+    state: 'Haryana',
+    website: 'https://avancoscoffee.com',
+    collections: ['https://avancoscoffee.com/collections/whole-bean-and-ground-coffee'],
+    description: ' evolve everyday',
+    specialties: ['Everyday Coffee', 'multi-roast profiles', 'Delhi Vibes'],
+    established: '2025'
+  },
+  {
+    name: 'Before British Raj',
+    city: 'Delhi',
+    state: 'Delhi',
+    website: 'https://beforebritishraj.com',
+    collections: [
+      'https://beforebritishraj.com/collections/kingdoms-of-india',
+      'https://beforebritishraj.com/collections/rivers-of-india',
+      'https://beforebritishraj.com/products/easy-pour-drip-filter-coffee'
+    ],
+    description: 'Deconolising Indan Coffee Culture',
+    specialties: ['old money vibes', 'to the roots', 'traditional brewing'],
+    established: '2020'
+  },
+          {
+    name: 'Caffeination Roasters',
+    city: 'Surat',
+    state: 'Gujarat',
+    website: 'https://caffeinationroasters.com',
+    collections: ['https://caffeinationroasters.com/collections/roasters'],
+    description: ' Firt Passion Project from Surat',
+    specialties: ['Sustainability', 'Reliability', 'Passion'],
+    established: '2023'
+  },
+    {
+    name: 'Purrcolate Coffee Co.',
+    city: 'Ahmedabad',
+    state: 'Gujarat',
+    website: 'https://purrcolatecoffeeco.in',
+    collections: [
+      'https://purrcolatecoffeeco.in/collections/seasonal-coffees',
+      'https://purrcolatecoffeeco.in/collections/frontpage',
+      
+    ],
+    description: 'Signed by Pawclamation of Shadow and Smokey',
+    specialties: ['pawrry theme', 'pet friendly', 'cozy vibes'],
+    established: '2021'
+  },
+            {
+    name: 'Silk Road Coffee',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    website: 'https://silkroad.coffee',
+    collections: ['https://silkroad.coffee/collections/coffee-beans'],
+    description: ' From the Gullies of Mumbai',
+    specialties: ['experiments', 'Arts', 'Crafted by Passion'],
+    established: '2023'
+  },
+  
+ 
 ];
 
 export const LOCATION_DATA: LocationData[] = [
   { state: 'Karnataka', cities: ['Bangalore', 'Chikmagalur', 'Coorg', 'Mangalore', 'Mysore'], roasterCount: 15 },
-  { state: 'Maharashtra', cities: ['Mumbai', 'Pune', 'Nagpur'], roasterCount: 8 },
-  { state: 'Delhi', cities: ['Delhi'], roasterCount: 10 },
+  { state: 'Maharashtra', cities: ['Mumbai', 'Pune', 'Nagpur'], roasterCount: 9 },
+  { state: 'Delhi', cities: ['Delhi'], roasterCount: 11 },
   { state: 'Tamil Nadu', cities: ['Chennai'], roasterCount: 3 },
   { state: 'Goa', cities: ['Goa'], roasterCount: 2 },
   { state: 'Telangana', cities: ['Hyderabad'], roasterCount: 1 },
   { state: 'West Bengal', cities: ['Darjeeling', 'Kolkata'], roasterCount: 1 },
-  { state: 'Rajasthan', cities: ['Jodhpur', 'Jaipur', 'Udaipur'], roasterCount: 4 },
-  { state: 'Haryana', cities: ['Gurgaon', 'Panchkula'], roasterCount: 3 },
+  { state: 'Rajasthan', cities: ['Jodhpur', 'Jaipur', 'Udaipur'], roasterCount: 5 },
+  { state: 'Haryana', cities: ['Gurgaon', 'Panchkula'], roasterCount: 5 },
   { state: 'Uttarakhand', cities: ['Mussoorie', 'Dehradun'], roasterCount: 1 },
   { state: 'Uttar Pradesh', cities: ['Noida', 'Ghaziabad', 'Lucknow'], roasterCount: 1 },
   { state: 'Punjab', cities: ['Chandigarh', 'Ludhiana'], roasterCount: 1 },
-  { state: 'Gujarat', cities: ['Ahmedabad', 'Surat'], roasterCount: 2 }
+  { state: 'Gujarat', cities: ['Ahmedabad', 'Surat'], roasterCount: 4 },
+  { state: 'Meghalaya', cities: ['Shillong'], roasterCount: 1 },
 ];

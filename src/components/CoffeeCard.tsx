@@ -109,9 +109,7 @@ function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
                 ₹{bean.price ? bean.price.toFixed(0) : 'N/A'}
               </span>
               {bean.weight && (
-                <span className="text-lg md:text-xl font-extrabold text-coffee-medium dark:text-dark-accent">
-                  / {String(bean.weight).match(/\d+\s*g(ms)?/i)?.[0] || bean.weight}
-                </span>
+                <span className="text-lg md:text-xl font-extrabold text-coffee-medium dark:text-dark-accent">/ {bean.weight}g</span>
               )}
             </div>
           </div>
