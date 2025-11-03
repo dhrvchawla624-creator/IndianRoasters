@@ -4,8 +4,31 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { useFavorites } from '../contexts/FavoritesContext';
-import type { CoffeeBean } from '../../../api/_lib/coffee';
+import type { CoffeeBean } from '../types/coffee';
 import CoffeeCard from '../components/CoffeeCard';
+
+/**
+ * Gets a higher-resolution profile picture URL from Google or GitHub.
+ * @param url The original photoURL from the auth provider.
+ * @param size The desired size of the image.
+ * @returns A new URL pointing to a higher-resolution image.
+ */
+const getHighResPhotoURL = (url: string | null, size: number = 256): string => {
+  if (!url) return '';
+
+  // Google: URLs ending in =s96-c can be changed to =s{size}-c
+  if (url.includes('googleusercontent.com')) {
+    return url.replace(/=s\d+-c$/, `=s${size}-c`);
+  }
+
+  // GitHub: URLs can have a size parameter `s` added.
+  if (url.includes('avatars.githubusercontent.com')) {
+    return `${url}&s=${size}`;
+  }
+
+  // Other providers (like GitHub) might not need modification or have other patterns
+  return url;
+};
 
 function Profile() {
   const navigate = useNavigate();
@@ -79,7 +102,7 @@ function Profile() {
           <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-xl p-8 md:p-10 flex flex-col items-center">
             {user.photoURL && (
               <img 
-                src={user.photoURL} 
+                src={getHighResPhotoURL(user.photoURL)} 
                 alt="Profile" 
                 className="w-24 h-24 rounded-full mb-4 border-4 border-cream-dark dark:border-dark-border object-cover" 
               />
