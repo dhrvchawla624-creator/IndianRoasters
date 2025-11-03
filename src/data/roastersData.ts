@@ -555,17 +555,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     description: 'Artisanal coffee with traditional Indian essence',
     specialties: ['Artisanal Roasting', 'Indian Essence', 'Heritage Blends'],
     established: '2015'
-  }
-    {
-    name: 'Sutra Coffee',
-    city: 'Jaipur',
-    state: 'Rajasthan',
-    website: 'https://www.kavericoffee.com',
-    collections: ['https://www.kavericoffee.com/collections/coffee'],
-    description: 'River-blessed coffee from the Kaveri delta',
-    specialties: ['River Delta', 'Regional Terroir', 'Traditional Processing'],
-    established: '2015'
-  }
+  },
 ];
 
 export const LOCATION_DATA: LocationData[] = [
