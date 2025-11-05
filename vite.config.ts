@@ -7,9 +7,24 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  
+  // Define global variables for browser compatibility
+  define: {
+    global: 'globalThis',
+    'process.env': {}
+  },
+  
+  // Resolve aliases for Node.js polyfills
+  resolve: {
+    alias: {
+      buffer: 'buffer'
+    }
+  },
+  
   css: {
     transformer: 'lightningcss'
   },
+  
   build: {
     // Target modern browsers for smaller bundle
     target: 'es2020',
@@ -53,6 +68,11 @@ export default defineConfig({
           if (id.includes('@vercel/analytics') || 
               id.includes('@vercel/speed-insights')) {
             return 'analytics';
+          }
+          
+          // Markdown and blog utilities
+          if (id.includes('node_modules/marked')) {
+            return 'vendor-markdown';
           }
         },
         
@@ -111,7 +131,14 @@ export default defineConfig({
     include: [
       'react',
       'react-dom',
-      'react-router-dom'
-    ]
+      'react-router-dom',
+      'marked'
+    ],
+    esbuildOptions: {
+      // Define global for esbuild
+      define: {
+        global: 'globalThis'
+      }
+    }
   }
 });
