@@ -14,6 +14,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Roasters = lazy(() => import('./pages/Roasters'));
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Profile = lazy(() => import('./pages/Profile'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
@@ -40,14 +41,15 @@ const PageLoader = () => (
 function App() {
   const [loading, setLoading] = useState(true);
   const [showLanding, setShowLanding] = useState(false);
+  
+  // ✅ UPDATED: Defaults to light mode
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Initialize from localStorage or system preference
     const saved = localStorage.getItem('darkMode');
-    if (saved !== null) {
-      return saved === 'true';
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Only return true if explicitly saved as 'true'
+    // Otherwise defaults to false (light mode)
+    return saved === 'true';
   });
+  
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const [showAnalytics, setShowAnalytics] = useState(false);
 
@@ -99,7 +101,7 @@ function App() {
     // Defer analytics loading until after page is interactive
     const timer = setTimeout(() => {
       setShowAnalytics(true);
-    }, 2000); // Load analytics 2 seconds after mount
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -127,6 +129,7 @@ function App() {
                 <Route path="/roasters" element={<Roasters />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route element={<ProtectedRoute />}>

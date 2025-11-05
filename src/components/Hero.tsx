@@ -5,7 +5,12 @@ interface HeroProps {
 
 function Hero({ totalBeans, totalRoasters }: HeroProps) {
   return (
-    <header className="relative bg-linear-to-br from-coffee-dark to-coffee-brown dark:from-dark-surface-elevated dark:to-dark-surface pt-28 pb-20 md:pt-32 md:pb-24 text-center text-white overflow-hidden">
+    <header 
+      className="relative pt-28 pb-20 md:pt-32 md:pb-24 text-center text-white overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `linear-gradient(rgba(44, 24, 16, 0.9), rgba(74, 44, 29, 0.9)), url('/images/hero-bg.jpg')`
+      }}
+    >
       {/* Background decoration elements */}
       <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
         <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>

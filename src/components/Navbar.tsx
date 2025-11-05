@@ -43,14 +43,19 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="text-3xl">☕</div>
-              <div className="flex flex-col">
-                <span className="text-xl font-extrabold text-white leading-tight drop-shadow-md">Indian Roasters</span>
-                <span className="text-xs text-cream opacity-90 leading-tight drop-shadow-sm dark:text-dark-text-secondary">Indian Coffee Library</span>
-              </div>
-            </div>
+{/* Logo - Clickable Refresh Button */}
+<button 
+  onClick={() => window.location.href = '/'}
+  className="flex items-center space-x-3 hover:opacity-80 active:opacity-60 transition-all duration-200 cursor-pointer group"
+  aria-label="Go to homepage"
+>
+  <div className="text-3xl group-hover:scale-110 transition-transform duration-200">☕</div>
+  <div className="flex flex-col">
+    <span className="text-xl font-extrabold text-white leading-tight drop-shadow-md">Indian Roasters</span>
+    <span className="text-xs text-cream opacity-90 leading-tight drop-shadow-sm dark:text-dark-text-secondary">Indian Coffee Library</span>
+  </div>
+</button>
+
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">

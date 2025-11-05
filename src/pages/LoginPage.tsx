@@ -1,14 +1,34 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function LoginPage() {
   const navigate = useNavigate();
   const { user, signInWithGoogle, signInWithGithub } = useAuth();
+  const [welcomeMessage, setWelcomeMessage] = useState('Welcome Back');
+  const [subtitle, setSubtitle] = useState('Sign in to save your favorite coffees');
+
+  // Check on mount if this browser has ever logged in
+  useEffect(() => {
+    // Check if ANY user has ever logged in from this browser
+    const hasAnyUserLoggedIn = localStorage.getItem('has_logged_in_before');
+    
+    if (!hasAnyUserLoggedIn) {
+      // First time ANY user is logging in from this browser
+      setWelcomeMessage('Welcome to Indian Roasters');
+      setSubtitle('Sign in to start discovering specialty coffee');
+    } else {
+      // Someone has logged in from this browser before
+      setWelcomeMessage('Welcome Back');
+      setSubtitle('Sign in to continue your coffee journey');
+    }
+  }, []);
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
+      // Mark that someone has logged in from this browser
+      localStorage.setItem('has_logged_in_before', 'true');
       navigate('/profile');
     }
   }, [user, navigate]);
@@ -16,7 +36,8 @@ function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
-      navigate('/profile');
+      // Mark that login happened
+      localStorage.setItem('has_logged_in_before', 'true');
     } catch (error) {
       console.error('Google login error:', error);
     }
@@ -25,7 +46,8 @@ function LoginPage() {
   const handleGithubLogin = async () => {
     try {
       await signInWithGithub();
-      navigate('/profile');
+      // Mark that login happened
+      localStorage.setItem('has_logged_in_before', 'true');
     } catch (error) {
       console.error('GitHub login error:', error);
     }
@@ -35,11 +57,12 @@ function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-cream-light dark:bg-dark-bg p-4 pt-24">
       <div className="max-w-md w-full bg-white dark:bg-dark-surface rounded-2xl shadow-xl p-8 md:p-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-coffee-dark dark:text-dark-text mb-2">
-            Welcome Back
+          {/* Dynamic Welcome Message with Animation */}
+          <h1 className="text-3xl md:text-4xl font-bold text-coffee-dark dark:text-dark-text mb-2 animate-fade-in">
+            {welcomeMessage}
           </h1>
-          <p className="text-coffee-medium dark:text-dark-text-secondary">
-            Sign in to save your favorite coffees
+          <p className="text-coffee-medium dark:text-dark-text-secondary animate-fade-in-delayed">
+            {subtitle}
           </p>
         </div>
 
@@ -47,7 +70,7 @@ function LoginPage() {
           {/* Google Sign In */}
           <button
             onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white dark:bg-dark-bg-secondary border-2 border-gray-300 dark:border-gray-600 rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 group"
+            className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-white dark:bg-dark-bg-secondary border-2 border-gray-300 dark:border-gray-600 rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 group animate-slide-up"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -75,7 +98,7 @@ function LoginPage() {
           {/* GitHub Sign In */}
           <button
             onClick={handleGithubLogin}
-            className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-gray-800 dark:bg-gray-900 text-white rounded-xl shadow-sm hover:shadow-md hover:bg-gray-900 dark:hover:bg-black transition-all duration-300"
+            className="w-full flex items-center justify-center gap-3 px-6 py-3 bg-gray-800 dark:bg-gray-900 text-white rounded-xl shadow-sm hover:shadow-md hover:bg-gray-900 dark:hover:bg-black transition-all duration-300 animate-slide-up-delayed"
           >
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -86,7 +109,7 @@ function LoginPage() {
           </button>
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center animate-fade-in-slow">
           <p className="text-sm text-coffee-light dark:text-dark-text-secondary">
             By signing in, you agree to our Terms of Service and Privacy Policy
           </p>
