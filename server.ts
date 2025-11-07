@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { fetchAllCoffee } from './fetcher.js';
+import { fetchAllCoffee } from './fetcher';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,7 +29,6 @@ app.get('/health', (req, res) => {
 // Main coffee endpoint
 app.get('/api/coffee', async (req, res) => {
   const now = Date.now();
-  
   // Return cached data if fresh
   if (cache.data && (now - cache.timestamp) < CACHE_DURATION) {
     console.log('📦 Serving cached data');
@@ -39,16 +38,13 @@ app.get('/api/coffee', async (req, res) => {
       lastUpdate: new Date(cache.timestamp).toISOString()
     });
   }
-
   // Fetch fresh data
   try {
     console.log('🔄 Cache expired or empty, fetching fresh data...');
     const startTime = Date.now();
     const data = await fetchAllCoffee();
     const fetchDuration = ((Date.now() - startTime) / 1000).toFixed(2);
-    
     cache = { data, timestamp: now };
-    
     console.log(`✅ Fresh data fetched and cached (${fetchDuration}s)`);
     res.json({
       data: cache.data,
@@ -58,7 +54,6 @@ app.get('/api/coffee', async (req, res) => {
     });
   } catch (error) {
     console.error('❌ Failed to fetch coffee:', error);
-    
     // Return stale cache if available
     if (cache.data) {
       console.log('⚠️  Returning stale cache data due to fetch error');
@@ -69,7 +64,6 @@ app.get('/api/coffee', async (req, res) => {
         lastUpdate: new Date(cache.timestamp).toISOString()
       });
     }
-    
     res.status(500).json({ error: 'Failed to fetch coffee data' });
   }
 });
@@ -81,12 +75,10 @@ app.post('/api/coffee/refresh', async (req, res) => {
     const startTime = Date.now();
     const data = await fetchAllCoffee();
     const fetchDuration = ((Date.now() - startTime) / 1000).toFixed(2);
-    
     cache = { data, timestamp: Date.now() };
-    
     console.log(`✅ Cache refreshed successfully (${fetchDuration}s)`);
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       count: data.length,
       fetchTime: `${fetchDuration}s`,
       lastUpdate: new Date(cache.timestamp).toISOString()

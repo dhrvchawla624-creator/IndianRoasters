@@ -654,3 +654,13 @@ export const LOCATION_DATA: LocationData[] = [
   { state: 'Gujarat', cities: ['Ahmedabad', 'Surat'], roasterCount: 4 },
   { state: 'Meghalaya', cities: ['Shillong'], roasterCount: 1 },
 ];
+
+/**
+ * A simplified list of roasters and their collection URLs for the fetcher.
+ */
+export const ROASTER_COLLECTIONS: { roaster: string; collections: string[] }[] = ROASTERS_DATA.map(
+  (roaster: RoasterData) => ({
+    roaster: roaster.name,
+    collections: roaster.collections,
+  })
+);

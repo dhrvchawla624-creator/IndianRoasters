@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -70,6 +70,9 @@ function Profile() {
 
     loadFavoriteCoffees();
   }, [favorites]);
+
+  // Stabilize toggleFavorite with useCallback for memoized children
+  const handleToggleFavorite = useCallback((id: string) => toggleFavorite(id), [toggleFavorite]);
 
   const handleLogoutClick = async () => {
     try {
@@ -209,7 +212,7 @@ function Profile() {
                     key={bean.id} 
                     bean={bean} 
                     isFavorite={favorites.includes(bean.id)}
-                    onToggleFavorite={() => toggleFavorite(bean.id)}
+                    onToggleFavorite={handleToggleFavorite}
                   />
                 ))}
               </div>
