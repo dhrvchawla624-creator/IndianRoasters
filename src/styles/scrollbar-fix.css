@@ -1,0 +1,22 @@
+/*
+  This CSS file provides a fix for custom scrollbars that may appear
+  misaligned (e.g., on the left side) in certain containers.
+  By default, browsers place scrollbars on the right for left-to-right (LTR)
+  text. This ensures our custom scrollbar respects that, even if a parent
+  element has a different `direction` style.
+*/
+[dir='ltr'] .scrollbar-thin {
+  direction: ltr;
+}
+
+/*
+  Temporarily remove custom scrollbar styling to address the
+  misaligned yellow scrollbar issue in filter dropdowns.
+  This reverts to the browser's default scrollbar.
+*/
+::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+.scrollbar-thin {
+  scrollbar-width: auto; /* For Firefox */
+}

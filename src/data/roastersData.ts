@@ -206,7 +206,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     established: '2019'
   },
   {
-    name: 'Hill Tiger',
+    name: 'Hill Tiller',
     city: 'Darjeeling',
     state: 'West Bengal',
     website: 'https://hilltiller.com',
