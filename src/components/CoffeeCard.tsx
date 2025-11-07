@@ -1,6 +1,6 @@
 import { useState, memo } from 'react';
-import { optimizeImage, generateSrcSet } from '../utils/imageOptimizer';
-import type { CoffeeBean } from '../types/coffee';
+import { optimizeImage, generateSrcSet } from '../utils/imageOptimizer.js';
+import type { CoffeeBean } from '../types/coffee.js';
 
 interface CoffeeCardProps {
   bean: CoffeeBean;

@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import type { CoffeeBean, SortOption } from '../types/coffee';
-import { useFavorites } from '../contexts/FavoritesContext';
-import Hero from '../components/Hero';
-import FilterSection from '../components/FilterSection';
-import CoffeeGrid from '../components/CoffeeGrid';
+import type { CoffeeBean, SortOption } from '../types/coffee.js';
+import { useFavorites } from '../contexts/FavoritesContext.js';
+import Hero from '../components/Hero.js';
+import FilterSection from '../components/FilterSection.js';
+import CoffeeGrid from '../components/CoffeeGrid.js';
 
 function getAllTastingNotes(beans: CoffeeBean[]): string[] {
   const allNotes = beans.flatMap(b => b.tastingNotes ?? []);

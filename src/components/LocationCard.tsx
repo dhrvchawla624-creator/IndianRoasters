@@ -1,5 +1,5 @@
 import React from 'react';
-import type { LocationData } from '../types/roasters';
+import type { LocationData } from '../types/roasters.js';
 
 interface LocationCardProps {
   location: LocationData;

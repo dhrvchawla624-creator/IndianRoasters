@@ -1,5 +1,5 @@
-import type { BlogPost } from '../types/blog';
-import { parseMarkdown } from '../utils/markdownParser';
+import type { BlogPost } from '../types/blog.js';
+import { parseMarkdown } from '../utils/markdownParser.js';
 
 // Import all markdown files from content/blogs directory
 const blogModules = import.meta.glob('../content/blogs/*.md', {

@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
-import { getAllBlogPosts, searchBlogPosts } from '../data/blogLoader';
-import { BLOG_CATEGORIES } from '../types/blog';
-import BlogCard from '../components/BlogCard';
+import { getAllBlogPosts, searchBlogPosts } from '../data/blogLoader.js';
+import { BLOG_CATEGORIES } from '../types/blog.js';
+import BlogCard from '../components/BlogCard.js';
 
 function Blog() {
   const allPosts = useMemo(() => getAllBlogPosts(), []);

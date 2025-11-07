@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, NavLink } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext.js';
 
 interface NavbarProps {
   onThemeToggle?: () => void;

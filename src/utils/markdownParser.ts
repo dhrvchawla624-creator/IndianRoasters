@@ -1,4 +1,4 @@
-import type { BlogPost } from '../types/blog';
+import type { BlogPost } from '../types/blog.js';
 
 /**
  * Parse frontmatter manually (browser-compatible, flexible format)

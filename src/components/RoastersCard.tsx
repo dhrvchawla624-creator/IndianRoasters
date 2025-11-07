@@ -1,5 +1,5 @@
 import React from 'react';
-import type { RoasterData } from '../types/roasters';
+import type { RoasterData } from '../types/roasters.js';
 
 
 

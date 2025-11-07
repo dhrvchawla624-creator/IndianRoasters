@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { auth, db } from '../firebase';
+import { auth, db } from '../firebase.js';
 import { collection, doc, setDoc, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 
 interface FavoritesContextType {

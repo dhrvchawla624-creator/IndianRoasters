@@ -1,4 +1,4 @@
-import PageHero from '../components/PageHero';
+import PageHero from '../components/PageHero.js';
 
 function Contact() {
   return (

@@ -1,4 +1,4 @@
-import type { CoffeeBean } from './_types';
+import type { CoffeeBean } from './_types.js';
 
 // --- In-memory cache ---
 export type CacheType = { data: CoffeeBean[] | null; timestamp: number };

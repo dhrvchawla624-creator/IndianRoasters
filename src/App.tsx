@@ -1,13 +1,13 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { FavoritesProvider } from './contexts/FavoritesContext';
+import { AuthProvider } from './contexts/AuthContext.js';
+import { FavoritesProvider } from './contexts/FavoritesContext.js';
 
 // Import critical components immediately (needed for initial render)
-import LandingPage from './components/LandingPage';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import ProtectedRoute from './components/ProtectedRoute';
+import LandingPage from './components/LandingPage.js';
+import Navbar from './components/Navbar.js';
+import Footer from './components/Footer.js';
+import ProtectedRoute from './components/ProtectedRoute.js';
 
 // Lazy load all page components (loaded on demand)
 const Home = lazy(() => import('./pages/Home'));

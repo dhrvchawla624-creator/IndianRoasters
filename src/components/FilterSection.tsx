@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import type { SortOption } from '../types/coffee';
+import type { SortOption } from '../types/coffee.js';
 
 interface FilterSectionProps {
   searchTerm: string;

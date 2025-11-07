@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getBlogPostBySlug, getRelatedPosts } from '../data/blogLoader';
-import { formatDate } from '../utils/markdownParser';
+import { getBlogPostBySlug, getRelatedPosts } from '../data/blogLoader.js';
+import { formatDate } from '../utils/markdownParser.js';
 
 function BlogPost() {
   const { slug } = useParams<{ slug: string }>();

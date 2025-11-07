@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
-import { useAuth } from '../contexts/AuthContext';
-import { useFavorites } from '../contexts/FavoritesContext';
-import type { CoffeeBean } from '../types/coffee';
-import CoffeeCard from '../components/CoffeeCard';
+import { auth } from '../firebase.js';
+import { useAuth } from '../contexts/AuthContext.js';
+import { useFavorites } from '../contexts/FavoritesContext.js';
+import type { CoffeeBean } from '../types/coffee.js';
+import CoffeeCard from '../components/CoffeeCard.js';
 
 /**
  * Gets a higher-resolution profile picture URL from Google or GitHub.
