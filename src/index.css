@@ -7,6 +7,10 @@
 
 @theme {
   /* Coffee color palette - Light Mode */
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'Menlo', monospace;
+
   --color-coffee-dark: #2c1810;
   --color-coffee-brown: #4a2c1d;
   --color-coffee-medium: #6b4423;
@@ -227,12 +231,25 @@ input:focus-visible, select:focus-visible {
    CUSTOM SCROLLBAR
    =========================== */
 .overflow-y-auto::-webkit-scrollbar       { width: 6px; }
-.overflow-y-auto::-webkit-scrollbar-track { background: #f5e6d3; border-radius: 10px; }
-.dark .overflow-y-auto::-webkit-scrollbar-track { background: #2a2116; border-radius: 10px;}
-.overflow-y-auto::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
-.dark .overflow-y-auto::-webkit-scrollbar-thumb { background: #e8b84d; border-radius: 10px;}
-.overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #6b4423; }
-.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover { background: #d4a03d; }
+.overflow-y-auto::-webkit-scrollbar-track { background-color: #f5e6d3; border-radius: 10px; }
+.dark .overflow-y-auto::-webkit-scrollbar-track { background-color: #2a2116; border-radius: 10px;}
+.overflow-y-auto::-webkit-scrollbar-thumb { background-color: #d4af37; border-radius: 10px; }
+.dark .overflow-y-auto::-webkit-scrollbar-thumb { background-color: #e8b84d; border-radius: 10px;}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover { background-color: #6b4423; }
+.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover { background-color: #d4a03d; }
+
+/* ===========================
+   TASTING NOTE CIRCLES FIX
+   =========================== */
+/* Ensures tasting note circles are completely filled when selected */
+:not(.dark) .tasting-note-circle.selected {
+  background-color: var(--color-gold); /* Use a solid background color from your theme */
+  border-color: var(--color-gold);     /* Ensure border matches background for a solid look */
+}
+.dark .tasting-note-circle.selected {
+  background-color: var(--color-dark-accent);
+  border-color: var(--color-dark-accent);
+}
 
 /* ===========================
    ELEVATION UTILITIES
