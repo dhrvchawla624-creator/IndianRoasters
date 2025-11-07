@@ -6,7 +6,7 @@ import {
   signOut as firebaseSignOut
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import { auth, googleProvider, githubProvider } from '../firebase';
+import { auth, googleProvider, githubProvider } from '../firebase.js';
 
 interface AuthContextType {
   user: User | null;

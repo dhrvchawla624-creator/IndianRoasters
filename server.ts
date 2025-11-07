@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { fetchAllCoffee } from './fetcher';
+import { fetchAllCoffee } from './fetcher.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

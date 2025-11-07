@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { formatDate } from '../utils/markdownParser';
-import type { BlogPost } from '../types/blog';
+import { formatDate } from '../utils/markdownParser.js';
+import type { BlogPost } from '../types/blog.js';
 
 interface BlogCardProps {
   post: BlogPost;

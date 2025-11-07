@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 
-import PageHero from '../components/PageHero';
-import LocationCard from '../components/LocationCard';
-import RoasterCard from '../components/RoastersCard';
-import { LOCATION_DATA, ROASTERS_DATA } from '../data/roastersData';
-import type { LocationData, RoasterData } from '../types/roasters';
+import PageHero from '../components/PageHero.js';
+import LocationCard from '../components/LocationCard.js';
+import RoasterCard from '../components/RoastersCard.js';
+import { LOCATION_DATA, ROASTERS_DATA } from '../data/roastersData.js';
+import type { LocationData, RoasterData } from '../types/roasters.js';
 
 function Roasters() {
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);

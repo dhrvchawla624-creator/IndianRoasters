@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { ROASTER_COLLECTIONS } from './src/data/roastersData'; // FIXED: correct no extension, relative path for src/data
-import type { CoffeeBean, ShopifyProduct } from './src/types/coffee';
+import { ROASTER_COLLECTIONS } from './src/data/roastersData.js'; // FIXED: correct no extension, relative path for src/data
+import type { CoffeeBean, ShopifyProduct } from './src/types/coffee.js';
 
 /** Common coffee tasting notes */
 const TASTING_NOTE_LIST = [

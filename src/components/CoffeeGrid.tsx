@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import type { CoffeeBean } from '../types/coffee';
-import CoffeeCard from './CoffeeCard';
+import type { CoffeeBean } from '../types/coffee.js';
+import CoffeeCard from './CoffeeCard.js';
 
 interface CoffeeGridProps {
   pagedBeans: CoffeeBean[];
