@@ -4,7 +4,7 @@ export interface CoffeeBean {
   id: string;
   name: string;
   roaster: string;
-  price: number;
+  price: number; // Price should be a required number as it's parsed in the fetcher
   weight?: number;
   roastLevel?: string;
   origin?: string;

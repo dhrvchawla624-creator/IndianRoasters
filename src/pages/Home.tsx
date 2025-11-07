@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import type { CoffeeBean, SortOption } from '../types/coffee';
 import { useFavorites } from '../contexts/FavoritesContext';
 import Hero from '../components/Hero';
@@ -170,8 +170,8 @@ const BEANS_PER_PAGE = 12;
 
 // Helper function to get the correct API URL for both local and production
 function getApiUrl(): string {
-  // Always use relative URLs - Vite proxy handles routing in dev, Vercel handles in production
-  return '';
+  // Always use a relative path starting with /api. Vite proxy will catch this in dev.
+  return '/api';
 }
 
 
@@ -188,8 +188,8 @@ function Home() {
   const [selectedRoaster, setSelectedRoaster] = useState('all');
   const [selectedOrigin, setSelectedOrigin] = useState('all');
   const [selectedRoast, setSelectedRoast] = useState('all');
-  const [selectedProcess, setSelectedProcess] = useState('all');
-  const [selectedTastingNote, setSelectedTastingNote] = useState('all');
+  const [selectedProcess, setSelectedProcess] = useState('all'); // This remains 'all' for single selection
+  const [selectedTastingNote, setSelectedTastingNote] = useState<string[]>([]); // Changed to array for multiple selection
   const [showOutOfStock, setShowOutOfStock] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('name');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
@@ -208,13 +208,13 @@ function Home() {
     return Array.from(combined).sort((a, b) => {
       const aIndex = staticOrder.indexOf(a);
       const bIndex = staticOrder.indexOf(b);
-      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex; // Both in static order
+        if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex; // Both in static order, maintain order
       if (aIndex !== -1) return -1; // a is static, b is not
       if (bIndex !== -1) return 1;  // b is static, a is not
       return a.localeCompare(b); // Both are dynamic, sort alphabetically
     });
   }, [beans]);
-  const tastingNoteOptions = useMemo(() => ['all', ...getAllTastingNotes(beans)], [beans]);
+  const tastingNoteOptions = useMemo(() => getAllTastingNotes(beans), [beans]);
   const processOptions = useMemo(() => getAllProcessCategories(beans), [beans]);
 
   useEffect(() => {
@@ -236,12 +236,15 @@ function Home() {
     beans
   ]);
 
+  // Stabilize toggleFavorite with useCallback for memoized children
+  const handleToggleFavorite = useCallback((id: string) => toggleFavorite(id), [toggleFavorite]);
+
   const fetchCoffee = async () => {
     try {
       setLoading(true);
       
       // Use the helper function to get the correct API URL
-      const apiUrl = `${getApiUrl()}/api/coffee`;
+      const apiUrl = `${getApiUrl()}/coffee`;
       
       console.log('Fetching from:', apiUrl); // Debug log
       
@@ -287,10 +290,10 @@ function Home() {
       const matchesOrigin = selectedOrigin === 'all' || bean.origin === selectedOrigin;
       const matchesRoast = matchesRoastFilter(bean, selectedRoast);
       const matchesProcess = matchesProcessFilter(bean, selectedProcess);
-      const matchesTasting =
-        selectedTastingNote === 'all' ||
-        (bean.tastingNotes &&
-          bean.tastingNotes.map((n: string) => n.toLowerCase()).includes(selectedTastingNote.toLowerCase())
+      const matchesTasting = // Changed for multiple selection
+        selectedTastingNote.length === 0 ||
+        selectedTastingNote.some(selectedNote =>
+          bean.tastingNotes?.map(n => n.toLowerCase()).includes(selectedNote.toLowerCase())
         );
       const matchesStock = showOutOfStock || bean.inStock;
       const matchesPrice = bean.price >= priceRange[0] && bean.price <= priceRange[1];
@@ -335,7 +338,7 @@ function Home() {
     setSelectedOrigin('all');
     setSelectedRoast('all');
     setSelectedProcess('all');
-    setSelectedTastingNote('all');
+    setSelectedTastingNote([]); // Reset to empty array for multiple selection
     setPriceRange([0, 10000]);
   };
 
@@ -402,8 +405,8 @@ function Home() {
         pageCount={pageCount}
         setPage={setPage}
         onResetFilters={handleResetFilters}
-        favorites={favorites}
-        toggleFavorite={toggleFavorite}
+        favorites={favorites} // favorites is still needed for isFavorite check
+        toggleFavorite={handleToggleFavorite} // Pass the memoized function
       />
     </>
   );

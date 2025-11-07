@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { optimizeImage, generateSrcSet } from '../utils/imageOptimizer';
 import type { CoffeeBean } from '../types/coffee';
 
 interface CoffeeCardProps {
   bean: CoffeeBean;
   isFavorite: boolean;
-  onToggleFavorite: () => void;
+  onToggleFavorite: (id: string) => void;
 }
 
-function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
+const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    onToggleFavorite();
+    onToggleFavorite(bean.id);
   };
 
   // Safely handle potentially undefined image
@@ -154,6 +154,6 @@ function CoffeeCard({ bean, isFavorite, onToggleFavorite }: CoffeeCardProps) {
       </div>
     </div>
   );
-}
+});
 
 export default CoffeeCard;

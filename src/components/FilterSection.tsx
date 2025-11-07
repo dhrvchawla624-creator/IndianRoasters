@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { SortOption } from '../types/coffee';
@@ -13,8 +14,8 @@ interface FilterSectionProps {
   setSelectedRoast: (value: string) => void;
   selectedProcess: string;
   setSelectedProcess: (value: string) => void;
-  selectedTastingNote: string;
-  setSelectedTastingNote: (value: string) => void;
+  selectedTastingNote: string[];
+  setSelectedTastingNote: (value: string[]) => void;
   showOutOfStock: boolean;
   setShowOutOfStock: (value: boolean) => void;
   sortBy: SortOption;
@@ -28,18 +29,76 @@ interface FilterSectionProps {
   tastingNoteOptions: string[];
 }
 
-// Simplified consolidated process categories
-const processOptions = [
-  "washed",
-  "natural", 
-  "honey",
-  "anaerobic",
-  "fermentation",  // ALL fermentation types go here
-  "barrel aged",   // ALL barrel aged types go here
-  "experimental"
-];
+// Reusable Custom Dropdown Component for single selection
+interface SelectDropdownProps {
+  options: string[];
+  selectedValue: string;
+  onSelect: (value: string) => void;
+  allLabel: string;
+}
+
+const SelectDropdown = ({ options, selectedValue, onSelect, allLabel }: SelectDropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
+  const handleSelect = (value: string) => {
+    onSelect(value);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button onClick={() => setIsOpen(!isOpen)} className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg flex justify-between items-center">
+        <span>{selectedValue === 'all' ? allLabel : selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1)}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      {isOpen && (
+        <div className="absolute top-full mt-2 w-full bg-white dark:bg-dark-surface rounded-xl shadow-lg p-2 h-48 overflow-y-auto border-2 border-coffee-light dark:border-dark-border z-10 animate-slideDown">
+          <button onClick={() => handleSelect('all')} className="w-full text-left p-2.5 rounded-lg transition-colors duration-200 hover:bg-cream-dark dark:hover:bg-dark-border text-sm font-medium text-coffee-dark dark:text-dark-text">{allLabel}</button>
+          {options.map(option => (
+            <button key={option} onClick={() => handleSelect(option)} className="w-full text-left p-2.5 rounded-lg transition-colors duration-200 hover:bg-cream-dark dark:hover:bg-dark-border text-sm font-medium text-coffee-dark dark:text-dark-text">
+              {option.charAt(0).toUpperCase() + option.slice(1)}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 function FilterSection(props: FilterSectionProps) {
+  const [isTastingNotesOpen, setIsTastingNotesOpen] = useState(false);
+  const tastingNotesRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (tastingNotesRef.current && !tastingNotesRef.current.contains(event.target as Node)) {
+        setIsTastingNotesOpen(false);
+      }
+    }
+
+    if (isTastingNotesOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isTastingNotesOpen]);
+
   return (
     <div className="max-w-7xl mx-auto px-5 py-10">
       {/* Search Bar - Full Width */}
@@ -85,92 +144,107 @@ function FilterSection(props: FilterSectionProps) {
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🏪 Roaster
           </label>
-          <select 
-            value={props.selectedRoaster} 
-            onChange={e => props.setSelectedRoaster(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
-          >
-            <option value="all">All Roasters</option>
-            {props.roasters.map(r => <option key={r} value={r}>{r}</option>)}
-          </select>
+          <SelectDropdown
+            options={props.roasters}
+            selectedValue={props.selectedRoaster}
+            onSelect={props.setSelectedRoaster}
+            allLabel="All Roasters"
+          />
         </div>
         
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🌍 Origin
           </label>
-          <select 
-            value={props.selectedOrigin} 
-            onChange={e => props.setSelectedOrigin(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
-          >
-            <option value="all">All Origins</option>
-            {props.origins.map(o => <option key={o} value={o}>{o}</option>)}
-          </select>
+          <SelectDropdown
+            options={props.origins}
+            selectedValue={props.selectedOrigin}
+            onSelect={props.setSelectedOrigin}
+            allLabel="All Origins"
+          />
         </div>
         
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🔥 Roast
           </label>
-          <select 
-            value={props.selectedRoast} 
-            onChange={e => props.setSelectedRoast(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
-          >
-            <option value="all">All Roasts</option>
-            {props.roastLevels.map(r => (
-              <option key={r} value={r}>{r.charAt(0).toUpperCase() + r.slice(1)}</option>
-            ))}
-          </select>
+          <SelectDropdown
+            options={props.roastLevels}
+            selectedValue={props.selectedRoast}
+            onSelect={props.setSelectedRoast}
+            allLabel="All Roasts"
+          />
         </div>
         
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             ⚙️ Process
           </label>
-          <select 
-            value={props.selectedProcess} 
-            onChange={e => props.setSelectedProcess(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
-          >
-            <option value="all">All Processes</option>
-            {processOptions.map(p => (
-              <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>
-            ))}
-          </select>
+          <SelectDropdown
+            options={props.processOptions}
+            selectedValue={props.selectedProcess}
+            onSelect={props.setSelectedProcess}
+            allLabel="All Processes"
+          />
         </div>
         
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🍫 Tasting Notes
           </label>
-          <select 
-            value={props.selectedTastingNote} 
-            onChange={e => props.setSelectedTastingNote(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
-          >
-            {props.tastingNoteOptions.map(n => (
-              <option key={n} value={n}>{n.charAt(0).toUpperCase() + n.slice(1)}</option>
-            ))}
-          </select>
+          <div className="relative" ref={tastingNotesRef}>
+            <button
+              onClick={() => setIsTastingNotesOpen(!isTastingNotesOpen)}
+              className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg flex justify-between items-center"
+            >
+              <span>
+                {props.selectedTastingNote.length > 0
+                  ? `${props.selectedTastingNote.length} Note${props.selectedTastingNote.length > 1 ? 's' : ''} Selected`
+                  : 'All Notes'}
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isTastingNotesOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            {isTastingNotesOpen && (
+              <div className="absolute top-full mt-2 w-full bg-white dark:bg-dark-surface rounded-xl shadow-lg p-2 h-48 overflow-y-auto border-2 border-coffee-light dark:border-dark-border z-10 animate-slideDown">
+                {props.tastingNoteOptions.map(note => {
+                  const isSelected = props.selectedTastingNote.includes(note);
+                  return (
+                    <button
+                      key={note}
+                      onClick={() => {
+                        const newSelection = isSelected
+                          ? props.selectedTastingNote.filter(n => n !== note)
+                          : [...props.selectedTastingNote, note];
+                        props.setSelectedTastingNote(newSelection);
+                      }}
+                      className="w-full flex items-center justify-between text-left p-2.5 rounded-lg transition-colors duration-200 hover:bg-cream-dark dark:hover:bg-dark-border"
+                    >
+                      <span className="text-sm font-medium text-coffee-dark dark:text-dark-text">{note.charAt(0).toUpperCase() + note.slice(1)}</span>
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${
+                        isSelected
+                          ? 'bg-coffee-medium border-coffee-medium dark:bg-dark-accent dark:border-dark-accent'
+                          : 'bg-transparent border-gray-300 dark:border-gray-600'
+                      }`}>
+                        {isSelected && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
         
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             📊 Sort By
           </label>
-          <select 
-            value={props.sortBy} 
-            onChange={e => props.setSortBy(e.target.value as SortOption)}
-            className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg"
-          >
-            <option value="newest">Newest First</option>
-            <option value="name">Name</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-            <option value="roaster">Roaster</option>
-          </select>
+          <SelectDropdown
+            options={['newest', 'name', 'price-low', 'price-high', 'roaster']}
+            selectedValue={props.sortBy}
+            onSelect={(val) => props.setSortBy(val as SortOption)}
+            allLabel="Sort By" // This won't be used if a value is always selected
+          />
         </div>
       </div>
       

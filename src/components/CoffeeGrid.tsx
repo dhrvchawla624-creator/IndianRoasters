@@ -62,7 +62,7 @@ function CoffeeGrid({
             key={bean.id} 
             bean={bean} 
             isFavorite={favorites.includes(bean.id)}
-            onToggleFavorite={() => toggleFavorite(bean.id)}
+            onToggleFavorite={toggleFavorite}
           />
         ))}
       </div>
