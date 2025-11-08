@@ -236,6 +236,11 @@ function Home() {
     beans
   ]);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
+
   // Stabilize toggleFavorite with useCallback for memoized children
   const handleToggleFavorite = useCallback((id: string) => toggleFavorite(id), [toggleFavorite]);
 
@@ -412,4 +417,4 @@ function Home() {
   );
 }
 
-export default Home;
+ export default Home;
