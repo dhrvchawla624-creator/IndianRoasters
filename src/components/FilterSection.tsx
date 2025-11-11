@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import Slider from 'rc-slider';
+import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { SortOption } from '../types/coffee.js';
 
@@ -123,18 +123,18 @@ function FilterSection(props: FilterSectionProps) {
             <span>₹{props.priceRange[0].toLocaleString()}</span>
             <span>₹{props.priceRange[1].toLocaleString()}</span>
           </div>
-          <Slider
-            range
+          <Range
             min={0}
             max={10000}
             value={props.priceRange}
             onChange={(val) => props.setPriceRange(val as [number, number])}
             step={50}
-            styles={{
-              rail: { backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 },
-              track: { backgroundColor: '#D87330', height: 10, borderRadius: 7 },
-              handle: { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
-            }}
+            railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
+            trackStyle={[{ backgroundColor: '#D87330', height: 10, borderRadius: 7 }]}
+            handleStyle={[
+              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 },
+              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
+            ]}
           />
         </div>
       </div>
