@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { SortOption } from '../types/coffee.js';
 
@@ -123,7 +123,7 @@ function FilterSection(props: FilterSectionProps) {
             <span>₹{props.priceRange[0].toLocaleString()}</span>
             <span>₹{props.priceRange[1].toLocaleString()}</span>
           </div>
-          <Range
+          <Slider.Range
             min={0}
             max={10000}
             value={props.priceRange}
