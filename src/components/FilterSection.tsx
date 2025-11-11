@@ -29,7 +29,6 @@ interface FilterSectionProps {
   tastingNoteOptions: string[];
 }
 
-// Reusable Custom Dropdown Component for single selection
 interface SelectDropdownProps {
   options: string[];
   selectedValue: string;
@@ -40,7 +39,6 @@ interface SelectDropdownProps {
 const SelectDropdown = ({ options, selectedValue, onSelect, allLabel }: SelectDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -52,12 +50,10 @@ const SelectDropdown = ({ options, selectedValue, onSelect, allLabel }: SelectDr
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
-
   const handleSelect = (value: string) => {
     onSelect(value);
     setIsOpen(false);
   };
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button onClick={() => setIsOpen(!isOpen)} className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg flex justify-between items-center">
@@ -82,22 +78,27 @@ function FilterSection(props: FilterSectionProps) {
   const [isTastingNotesOpen, setIsTastingNotesOpen] = useState(false);
   const tastingNotesRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (tastingNotesRef.current && !tastingNotesRef.current.contains(event.target as Node)) {
         setIsTastingNotesOpen(false);
       }
     }
-
     if (isTastingNotesOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
     }
-
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isTastingNotesOpen]);
+
+  // Defensive defaults, fallback for slider
+  const priceLow = Array.isArray(props.priceRange) && typeof props.priceRange[0] === 'number'
+    ? props.priceRange[0]
+    : 0;
+  const priceHigh = Array.isArray(props.priceRange) && typeof props.priceRange[1] === 'number'
+    ? props.priceRange[1]
+    : 10000;
 
   return (
     <div className="max-w-7xl mx-auto px-5 py-10">
@@ -114,20 +115,19 @@ function FilterSection(props: FilterSectionProps) {
           />
         </div>
       </div>
-
       {/* Price Slider - Full Width */}
       <div className="mb-8">
         <div className="max-w-3xl mx-auto">
           <label className="block text-lg font-medium text-coffee-dark dark:text-dark-text mb-2 text-center">Price Range (₹)</label>
           <div className="flex justify-between mb-1.5 font-medium text-base text-[#AB6E36] dark:text-dark-accent">
-            <span>₹{props.priceRange[0].toLocaleString()}</span>
-            <span>₹{props.priceRange[1].toLocaleString()}</span>
+            <span>₹{priceLow.toLocaleString()}</span>
+            <span>₹{priceHigh.toLocaleString()}</span>
           </div>
 <Slider
   range
   min={0}
   max={10000}
-  value ={props.priceRange as unknown as number | [number, number]}
+  value={[priceLow, priceHigh] as [number, number]} // safest
   onChange={(val: number | number[]) => props.setPriceRange(val as [number, number])}
   step={50}
   railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
@@ -138,11 +138,10 @@ function FilterSection(props: FilterSectionProps) {
   ] as any}
 />
 
-
         </div>
       </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 mb-3">
+        {/* ...Dropdowns unchanged... */}
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🏪 Roaster
@@ -154,7 +153,6 @@ function FilterSection(props: FilterSectionProps) {
             allLabel="All Roasters"
           />
         </div>
-        
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🌍 Origin
@@ -166,7 +164,6 @@ function FilterSection(props: FilterSectionProps) {
             allLabel="All Origins"
           />
         </div>
-        
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🔥 Roast
@@ -178,7 +175,6 @@ function FilterSection(props: FilterSectionProps) {
             allLabel="All Roasts"
           />
         </div>
-        
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             ⚙️ Process
@@ -190,7 +186,6 @@ function FilterSection(props: FilterSectionProps) {
             allLabel="All Processes"
           />
         </div>
-        
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             🍫 Tasting Notes
@@ -237,7 +232,6 @@ function FilterSection(props: FilterSectionProps) {
             )}
           </div>
         </div>
-        
         <div className="animate-slideUp">
           <label className="block text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
             📊 Sort By
@@ -250,7 +244,6 @@ function FilterSection(props: FilterSectionProps) {
           />
         </div>
       </div>
-      
       <div className="mt-6 flex justify-center">
         <label className="font-medium text-base flex items-center gap-2 cursor-pointer dark:text-dark-text">
           <input
@@ -258,7 +251,7 @@ function FilterSection(props: FilterSectionProps) {
             checked={props.showOutOfStock}
             onChange={e => props.setShowOutOfStock(e.target.checked)}
             className="w-[18px] h-[18px] cursor-pointer accent-coffee-medium dark:accent-dark-accent"
-          /> 
+          />
           Show Out of Stock
         </label>
       </div>
