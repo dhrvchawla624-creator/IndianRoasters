@@ -123,19 +123,22 @@ function FilterSection(props: FilterSectionProps) {
             <span>₹{props.priceRange[0].toLocaleString()}</span>
             <span>₹{props.priceRange[1].toLocaleString()}</span>
           </div>
-          <Slider.Range
-            min={0}
-            max={10000}
-            value={props.priceRange}
-            onChange={(val) => props.setPriceRange(val as [number, number])}
-            step={50}
-            railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
-            trackStyle={[{ backgroundColor: '#D87330', height: 10, borderRadius: 7 }]}
-            handleStyle={[
-              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 },
-              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
-            ]}
-          />
+<Slider
+  range
+  min={0}
+  max={10000}
+  value ={props.priceRange as unknown as number | [number, number]}
+  onChange={(val: number | number[]) => props.setPriceRange(val as [number, number])}
+  step={50}
+  railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
+  trackStyle={[{ backgroundColor: '#D87330', height: 10, borderRadius: 7 }] as any}
+  handleStyle={[
+    { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 },
+    { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
+  ] as any}
+/>
+
+
         </div>
       </div>
 
@@ -243,7 +246,7 @@ function FilterSection(props: FilterSectionProps) {
             options={['newest', 'name', 'price-low', 'price-high', 'roaster']}
             selectedValue={props.sortBy}
             onSelect={(val) => props.setSortBy(val as SortOption)}
-            allLabel="Sort By" // This won't be used if a value is always selected
+            allLabel="Sort By"
           />
         </div>
       </div>
