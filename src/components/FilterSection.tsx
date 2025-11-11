@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import Range from 'rc-slider/lib/Range';
+import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { SortOption } from '../types/coffee.js';
 
