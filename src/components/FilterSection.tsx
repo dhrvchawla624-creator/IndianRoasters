@@ -108,7 +108,7 @@ function FilterSection(props: FilterSectionProps) {
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#AB6E36] dark:text-dark-accent text-xl">🔍</span>
           <input
             type="text"
-            placeholder="Search for coffee beans, roasters, origins..."
+            placeholder="Search for coffee beans, roasters, originsa2 ..."
             value={props.searchTerm}
             onChange={(e) => props.setSearchTerm(e.target.value)}
             className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg transition-all duration-300 shadow-md text-lg"
