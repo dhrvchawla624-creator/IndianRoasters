@@ -18,10 +18,6 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-block px-5 py-2 bg-white/15 backdrop-blur-md rounded-full text-sm font-semibold mb-5 dark:bg-white/10 transition-all duration-300 hover:bg-white/20">
-          ☕ Premium Specialty Coffee
-        </div>
-        
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-5 animate-fadeIn">
           Your Ultimate Indian
           <br />
@@ -31,29 +27,9 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
         </h1>
         
         <p className="text-lg opacity-90 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Explore <strong className="font-bold text-gold dark:text-dark-accent">{totalBeans}+</strong> handpicked specialty beans from <strong className="font-bold text-gold dark:text-dark-accent">{totalRoasters}</strong> top roasters across India
+          Explore <strong className="font-bold text-gold dark:text-dark-accent">{totalBeans}+</strong> coffee beans from <strong className="font-bold text-gold dark:text-dark-accent">{totalRoasters}+</strong> roasters across India
         </p>
         
-        <div className="flex justify-center gap-10 md:gap-16 flex-wrap">
-          <div className="text-center transform transition-transform duration-300 hover:scale-110">
-            <div className="text-4xl md:text-5xl font-bold text-gold dark:text-dark-accent mb-1" aria-label={`${totalRoasters} plus roasters`}>
-              {totalRoasters}+
-            </div>
-            <div className="text-sm opacity-80 uppercase tracking-wider">Roasters</div>
-          </div>
-          <div className="text-center transform transition-transform duration-300 hover:scale-110">
-            <div className="text-4xl md:text-5xl font-bold text-gold dark:text-dark-accent mb-1" aria-label={`${totalBeans} plus coffee beans`}>
-              {totalBeans}+
-            </div>
-            <div className="text-sm opacity-80 uppercase tracking-wider">Coffee Beans</div>
-          </div>
-          <div className="text-center transform transition-transform duration-300 hover:scale-110">
-            <div className="text-4xl md:text-5xl font-bold text-gold dark:text-dark-accent mb-1" aria-label="100 percent third wave culture">
-              100%
-            </div>
-            <div className="text-sm opacity-80 uppercase tracking-wider">Third Wave Culture</div>
-          </div>
-        </div>
       </div>
     </header>
   );

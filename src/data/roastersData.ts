@@ -314,7 +314,10 @@ export const ROASTERS_DATA: RoasterData[] = [
     city: 'Bangalore',
     state: 'Karnataka',
     website: 'https://genetics.coffee',
-    collections: ['https://genetics.coffee/collections/single-origins'],
+    collections: [
+      'https://genetics.coffee/collections/single-origins',
+      'https://genetics.coffee/collections/international-origin'
+    ],
     description: 'Coffee genetics and single origin focus',
     specialties: ['Coffee Genetics', 'Single Origins', 'Varietal Focus'],
     established: '2020'
