@@ -2,16 +2,17 @@ import PageHero from '../components/PageHero.js';
 
 function About() {
   return (
-    <div className="min-h-screen bg-cream-light dark:bg-dark-bg transition-colors duration-300">
+    <div className="h-screen flex flex-col bg-cream-light dark:bg-dark-bg transition-colors duration-300">
       <PageHero 
         title="About Indian Roasters"
         subtitle="Your Ultimate Indian Coffee Library"
         icon="📖"
       />
       
-      <div className="max-w-4xl mx-auto px-5 py-10">
-        <div className="space-y-8">
-          <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
+      <div className="flex-1 overflow-y-auto scroll-snap-y-mandatory">
+        <div className="max-w-4xl mx-auto px-5">
+          <div className="relative min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
+            <div>
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Our Mission</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
               Indian Roasters is dedicated to making India's specialty coffee scene accessible to everyone.
@@ -22,9 +23,19 @@ function About() {
               Our goal is to support the growing Indian specialty coffee community by connecting 
               coffee enthusiasts with the finest roasters and helping them discover their perfect brew.
             </p>
+            </div>
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-slow opacity-60">
+              <span className="text-xs font-semibold text-coffee-medium dark:text-dark-text-secondary">
+                Scroll for more
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-text-secondary"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+            </div>
           </div>
+          
+        
 
-          <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
+          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
+            <div>
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">How to Use This Site</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-6">
               Follow these simple steps to discover your next favorite coffee from India's best roasters.
@@ -67,9 +78,11 @@ function About() {
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
-          <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
+          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
+            <div>
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Why Indian Roasters?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -117,9 +130,11 @@ function About() {
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
-          <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
+          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
+            <div>
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Technology</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
               Built with modern web technologies including React, TypeScript, and Tailwind CSS,
@@ -130,6 +145,7 @@ function About() {
               pulling data directly from roaster websites to ensure you always have access
               to the latest offerings.
             </p>
+            </div>
           </div>
         </div>
       </div>
