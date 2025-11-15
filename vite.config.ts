@@ -134,6 +134,12 @@ export default defineConfig({
       'react-router-dom',
       'marked'
     ],
+        exclude: [
+      'firebase',
+      'firebase/app',
+      'firebase/auth',
+      'firebase/firestore'
+    ],
     esbuildOptions: {
       // Define global for esbuild
       define: {
