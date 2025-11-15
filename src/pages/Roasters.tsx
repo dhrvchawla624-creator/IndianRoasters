@@ -49,19 +49,37 @@ function Roasters() {
       <PageHero
         title="Indian Coffee Roasters"
         subtitle={`Discover the artisans behind India's finest specialty coffee beans • ${ROASTERS_DATA.length} roasters across ${LOCATION_DATA.length} states`}
-        icon="🏪"
+        icon={
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 22v-6.17a.9.9 0 0 1 .24-.62L16.07 9h0a.9.9 0 0 1 .62.24L22 15.17V22"/><path d="M14 22v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+        }
       />
 
       <div className="max-w-7xl mx-auto px-5 py-10">
         {/* Search Bar */}
         <div className="mb-8">
-          <div className="max-w-md mx-auto">
+          <div className="relative max-w-3xl mx-auto">
+            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-coffee-light dark:text-dark-text-secondary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
             <input
               type="text"
               placeholder="Search roasters, cities, or specialties..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-coffee-light/30 dark:border-dark-surface-elevated bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-coffee-dark transition-colors duration-200"
+              className="w-full pl-16 pr-6 py-4 rounded-full border-2 border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-xl transition-all duration-300 shadow-lg text-lg"
             />
           </div>
         </div>

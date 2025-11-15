@@ -18,15 +18,16 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-5 animate-fadeIn">
-          Your Ultimate Indian
+        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-3 animate-fadeIn drop-shadow-lg">
+          <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
+            Your Ultimate Indian
+          </span>
           <br />
           <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
             Coffee Roasters Library
           </span>
         </h1>
-        
-        <p className="text-lg opacity-90 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
           Explore <strong className="font-bold text-gold dark:text-dark-accent">{totalBeans}+</strong> coffee beans from <strong className="font-bold text-gold dark:text-dark-accent">{totalRoasters}+</strong> roasters across India
         </p>
         
