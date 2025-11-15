@@ -13,7 +13,7 @@ function About() {
         <div className="max-w-4xl mx-auto px-5">
           <div className="relative md:min-h-[calc(100vh-10rem)] flex flex-col justify-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full">
-            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Our Mission</h2>
+            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4 text-center">Our Mission</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
               Indian Roasters is dedicated to making India's specialty coffee scene accessible to everyone.
               We aggregate coffee offerings from 60+ premium roasters across India, providing a 
@@ -36,11 +36,7 @@ function About() {
 
           <div className="md:min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full mt-8 md:mt-0">
-            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">How to Use This Site</h2>
-            <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-6">
-              Follow these simple steps to discover your next favorite coffee from India's best roasters.
-            </p>
-            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6">How to Use This Site</h2>
+            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">How to Use This Site</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
               <div className="flex items-baseline space-x-3 mb-4">
                 <div className="text-lg font-bold text-coffee-dark dark:text-dark-text">1.</div>
@@ -84,7 +80,7 @@ function About() {
 
           <div className="md:min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full mt-8 md:mt-0">
-            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Why Indian Roasters?</h2>
+            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">Why Indian Roasters?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <div className="flex items-baseline space-x-3 mb-4">
@@ -136,7 +132,7 @@ function About() {
 
           <div className="md:min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full mt-8 md:mt-0">
-            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Technology</h2>
+            <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">Technology</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
               Built with modern web technologies including React, TypeScript, and Tailwind CSS,
               Indian Roasters delivers a fast, responsive, and delightful user experience.
