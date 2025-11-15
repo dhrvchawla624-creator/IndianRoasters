@@ -11,8 +11,8 @@ function About() {
       
       <div className="flex-1 overflow-y-auto scroll-snap-y-mandatory">
         <div className="max-w-4xl mx-auto px-5">
-          <div className="relative min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
-            <div>
+          <div className="relative min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-4 md:py-10">
+            <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300 w-full">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Our Mission</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
               Indian Roasters is dedicated to making India's specialty coffee scene accessible to everyone.
@@ -34,8 +34,8 @@ function About() {
           
         
 
-          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
-            <div>
+          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-4 md:py-10">
+            <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300 w-full">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">How to Use This Site</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-6">
               Follow these simple steps to discover your next favorite coffee from India's best roasters.
@@ -81,8 +81,8 @@ function About() {
             </div>
           </div>
 
-          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
-            <div>
+          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-4 md:py-10">
+            <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300 w-full">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Why Indian Roasters?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -133,8 +133,8 @@ function About() {
             </div>
           </div>
 
-          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-10">
-            <div>
+          <div className="min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-4 md:py-10">
+            <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300 w-full">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4">Technology</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
               Built with modern web technologies including React, TypeScript, and Tailwind CSS,
