@@ -105,13 +105,28 @@ function FilterSection(props: FilterSectionProps) {
       {/* Search Bar - Full Width */}
       <div className="mb-8">
         <div className="relative max-w-3xl mx-auto">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#AB6E36] dark:text-dark-accent text-xl">🔍</span>
+          <div className="absolute left-5 top-1/2 -translate-y-1/2 text-coffee-light dark:text-dark-text-secondary">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
           <input
             type="text"
             placeholder="Search for coffee beans, roasters, origins ..."
             value={props.searchTerm}
             onChange={(e) => props.setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg transition-all duration-300 shadow-md text-lg"
+            className="w-full pl-16 pr-6 py-4 rounded-full border-2 border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-xl transition-all duration-300 shadow-lg text-lg"
           />
         </div>
       </div>
