@@ -6,7 +6,9 @@ function About() {
       <PageHero 
         title="About Indian Roasters"
         subtitle="Your Ultimate Indian Coffee Library"
-        icon="📖"
+        icon={
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        }
       />
       
       <div className="flex-1 overflow-y-auto scroll-snap-y-mandatory">
@@ -83,8 +85,10 @@ function About() {
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">Why Indian Roasters?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <div className="flex items-baseline space-x-3 mb-4">
-                  <div className="text-2xl">🔍</div>
+                <div className="flex items-start space-x-4">
+                  <div className="shrink-0 w-12 h-12 bg-cream-dark dark:bg-dark-border rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-accent"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  </div>
                   <div>
                     <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-1">Comprehensive Search</h3>
                     <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
@@ -94,8 +98,10 @@ function About() {
                 </div>
               </div>
               <div>
-                <div className="flex items-baseline space-x-3 mb-4">
-                  <div className="text-2xl">🔄</div>
+                <div className="flex items-start space-x-4">
+                  <div className="shrink-0 w-12 h-12 bg-cream-dark dark:bg-dark-border rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-accent"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L20.49 9"></path><path d="M20.49 15a9 9 0 0 1-14.85 3.36L3.51 15"></path></svg>
+                  </div>
                   <div>
                     <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-1">Real-Time Data</h3>
                     <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
@@ -105,8 +111,10 @@ function About() {
                 </div>
               </div>
               <div>
-                <div className="flex items-baseline space-x-3 mb-4">
-                  <div className="text-2xl">⚡</div>
+                <div className="flex items-start space-x-4">
+                  <div className="shrink-0 w-12 h-12 bg-cream-dark dark:bg-dark-border rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-accent"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  </div>
                   <div>
                     <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-1">Fast & Responsive</h3>
                     <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
@@ -116,8 +124,10 @@ function About() {
                 </div>
               </div>
               <div>
-                <div className="flex items-baseline space-x-3 mb-4">
-                  <div className="text-2xl">🎨</div>
+                <div className="flex items-start space-x-4">
+                  <div className="shrink-0 w-12 h-12 bg-cream-dark dark:bg-dark-border rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-accent"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                  </div>
                   <div>
                     <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-1">Beautiful Design</h3>
                     <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">
