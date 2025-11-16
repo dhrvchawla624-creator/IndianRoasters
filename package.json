@@ -50,9 +50,6 @@
     },
     "web-vitals": {
       "react": "$react"
-    },
-    "firebase": {
-      "@firebase/app": "$@firebase/app"
     }
   }
 }
