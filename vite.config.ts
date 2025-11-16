@@ -55,8 +55,8 @@ export default defineConfig({
           }
           
           // Firebase
-          if (id.includes('node_modules/firebase')) {
-            return 'vendor-firebase';
+          if (id.includes('node_modules/@firebase')) {
+            return 'vendor-firebase'; // Group all @firebase packages together
           }
           
           // UI libraries
