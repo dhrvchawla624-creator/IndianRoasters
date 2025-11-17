@@ -34,8 +34,10 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">
-          IndianRoasters
+        <Link to="/" className="navbar-logo" onClick={() => setIsMenuOpen(false)}>
+          {/* Uncomment and replace with your actual logo image path */}
+          {/* <img src="/path/to/your/logo.png" alt="Indian Roasters Logo" className="logo-image" /> */}
+          Indian Roasters
         </Link>
 
         <div className={`menu-icon ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -95,7 +97,9 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
           {/* Drawer Header */}
           <div className="mobile-drawer-header">
             <Link to="/" className="mobile-drawer-logo" onClick={() => setIsMenuOpen(false)}>
-              IndianRoasters
+              {/* Uncomment and replace with your actual logo image path */}
+              {/* <img src="/path/to/your/logo.png" alt="Indian Roasters Logo" className="logo-image" /> */}
+              Indian Roasters
             </Link>
             <button onClick={() => setIsMenuOpen(false)} className="close-menu-btn" aria-label="Close menu">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>

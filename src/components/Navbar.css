@@ -43,6 +43,13 @@
   color: #fff;
 }
 
+/* Reduce font size on smaller screens for the logo */
+@media screen and (max-width: 960px) {
+  .navbar-logo {
+    font-size: 1.5rem;
+  }
+}
+
 /* Navigation Menu */
 .nav-menu {
   display: flex;
@@ -82,6 +89,7 @@
 .nav-buttons {
   display: flex;
   align-items: center;
+  gap: 1rem; /* Use gap for consistent spacing */
 }
 
 .theme-toggle-btn {
@@ -94,7 +102,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
+  /* margin-right: 12px; */ /* Replaced by gap */
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
@@ -106,7 +114,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 12px;
+  /* margin-left: 12px; */ /* Replaced by gap */
 }
 
 .profile-avatar {
@@ -131,7 +139,7 @@
 .nav-btn.login {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.8);
-  margin-right: 10px;
+  /* margin-right: 10px; */ /* Replaced by gap */
 }
 
 .nav-btn.login:hover {
@@ -165,12 +173,7 @@
 
   .menu-icon {
     display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
     font-size: 1.8rem;
-    z-index: 1001; /* Ensure it's above the backdrop */
   }
   
   .menu-icon.open .bar:nth-child(1) {
@@ -294,3 +297,13 @@
 }
 
 .mobile-drawer-footer .nav-btn { width: 100%; text-align: center; }
+
+/* Typing Animation Cursor */
+.typing-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
