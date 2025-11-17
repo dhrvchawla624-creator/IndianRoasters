@@ -20,7 +20,7 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-3 drop-shadow-lg h-28 md:h-32">
+        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 md:mb-3 drop-shadow-lg h-28 md:h-32">
           <TypingAnimation />
           <br/>
           <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
