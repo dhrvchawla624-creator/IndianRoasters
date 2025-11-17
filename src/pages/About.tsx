@@ -13,7 +13,7 @@ function About() {
       
       <div className="flex-1 overflow-y-auto scroll-snap-y-mandatory">
         <div className="max-w-4xl mx-auto px-5">
-          <div className="relative md:min-h-[calc(100vh-10rem)] flex flex-col justify-center scroll-snap-start py-8 md:py-10">
+          <div className="relative flex flex-col justify-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-4 text-center">Our Mission</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
@@ -25,8 +25,7 @@ function About() {
               Our goal is to support the growing Indian specialty coffee community by connecting 
               coffee enthusiasts with the finest roasters and helping them discover their perfect brew.
             </p>
-            </div>
-            <div className="md:absolute bottom-8 left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-slow opacity-60 pt-8 md:pt-0">
+            </div><div className="md:absolute bottom-0 md:-mb-8 left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-2 animate-bounce-slow opacity-60 pt-8 md:pt-0">
               <span className="text-xs font-semibold text-coffee-medium dark:text-dark-text-secondary">
                 Scroll for more
               </span>
@@ -36,7 +35,7 @@ function About() {
           
         
 
-          <div className="md:min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-8 md:py-10">
+          <div className="flex items-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full mt-8 md:mt-0">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">How to Use This Site</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
@@ -80,7 +79,7 @@ function About() {
             </div>
           </div>
 
-          <div className="md:min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-8 md:py-10">
+          <div className="flex items-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full mt-8 md:mt-0">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">Why Indian Roasters?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -140,7 +139,7 @@ function About() {
             </div>
           </div>
 
-          <div className="md:min-h-[calc(100vh-10rem)] flex items-center scroll-snap-start py-8 md:py-10">
+          <div className="flex items-center scroll-snap-start py-8 md:py-10">
             <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full mt-8 md:mt-0">
             <h2 className="text-2xl font-bold text-coffee-dark dark:text-dark-text mb-6 text-center">Technology</h2>
             <p className="text-coffee-medium dark:text-dark-text-secondary leading-relaxed mb-4">
