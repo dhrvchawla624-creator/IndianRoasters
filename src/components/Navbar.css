@@ -24,14 +24,13 @@
   z-index: 1;
   width: 100%;
   max-width: 1300px;
-  padding: 0 24px;
+  padding: 0; /* Ensures content is flush with the edges */
   align-items: center;
 }
 
 /* Logo */
 .navbar-logo {
-  color: #fff;
-  justify-self: flex-start;
+  color: #fff; /* Ensure the logo text is white */
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
@@ -39,8 +38,29 @@
   transition: color 0.3s ease-in-out;
 }
 
+.navbar-left {
+  display: flex; /* Add flex to align children horizontally */
+  align-items: center;
+  gap: 1.5rem; /* Space between nav-menu and nav-buttons */
+}
+
 .navbar.scrolled .navbar-logo {
-  color: #fff;
+  color: #fff; /* This can be removed if you have a default color set */
+}
+
+/* Reduce font size on smaller screens for the logo */
+@media screen and (max-width: 960px) {
+  .navbar-logo {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the text */
+    line-height: 1.1;
+  }
+
+  .logo-word {
+    display: block;
+  }
 }
 
 /* Navigation Menu */
@@ -70,6 +90,12 @@
   color: #fff;
 }
 
+.nav-link.active {
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 2px solid #d4af37; /* Gold color for the active indicator */
+}
+
 .navbar.scrolled .nav-link {
   color: #fff;
 }
@@ -82,6 +108,7 @@
 .nav-buttons {
   display: flex;
   align-items: center;
+  gap: 1rem; /* Use gap for consistent spacing */
 }
 
 .theme-toggle-btn {
@@ -94,7 +121,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
+  /* margin-right: 12px; */ /* Replaced by gap */
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
@@ -106,7 +133,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 12px;
+  /* Removed margin-right: 10px; to allow it to sit flush with the edge */
 }
 
 .profile-avatar {
@@ -131,7 +158,7 @@
 .nav-btn.login {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.8);
-  margin-right: 10px;
+  /* margin-right: 10px; */ /* Replaced by gap */
 }
 
 .nav-btn.login:hover {
@@ -159,18 +186,14 @@
 
 /* Responsive Design */
 @media screen and (max-width: 960px) {
-  .nav-menu, .nav-buttons {
+  .navbar-left .nav-menu, .navbar-left .nav-buttons {
     display: none;
   }
 
   .menu-icon {
     display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
+    padding: 0 1rem;
     font-size: 1.8rem;
-    z-index: 1001; /* Ensure it's above the backdrop */
   }
   
   .menu-icon.open .bar:nth-child(1) {
@@ -275,6 +298,11 @@
 }
 .mobile-drawer-link:hover { background-color: rgba(255, 255, 255, 0.1); color: #fff; }
 
+.mobile-drawer-link.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
 .mobile-drawer-footer {
   margin-top: auto; /* Pushes footer to the bottom */
   padding: 1.25rem;
@@ -294,3 +322,54 @@
 }
 
 .mobile-drawer-footer .nav-btn { width: 100%; text-align: center; }
+
+/* Typing Animation Cursor */
+.typing-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+@media screen and (max-width: 960px) {
+ .navbar-logo {
+    padding-left: 1rem;
+  }
+}
+
+/* About Page Scroll Animation */
+.is-hidden > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+  /* Apply a staggered delay to child elements for a nice effect */
+  transition-delay: 0.2s;
+}
+
+/* About Page Sticky Column */
+.sticky-about-graphic {
+  position: sticky;
+  top: 100px; /* Adjust based on your navbar height + desired spacing */
+  height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.graphic-content {
+  width: 80%;
+  height: 80%;
+  background-color: rgba(74, 44, 29, 0.1); /* Subtle background */
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
