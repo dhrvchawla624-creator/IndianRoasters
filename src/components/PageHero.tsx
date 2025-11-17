@@ -7,7 +7,7 @@ interface PageHeroProps {
 function PageHero({ title, subtitle, icon }: PageHeroProps) {
   return (
     <header 
-      className="relative pt-28 pb-20 md:pt-32 md:pb-24 text-center text-white overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative pt-9 pb-8 md:pt-32 md:pb-24 text-center text-white overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `linear-gradient(rgba(44, 24, 16, 0.85), rgba(74, 44, 29, 0.85)), url('/images/hero-bg.jpg')`
       }}
