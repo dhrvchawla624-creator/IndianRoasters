@@ -15,7 +15,7 @@ function About() {
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section 1: Mission */}
-          <AnimatedSection className="flex items-center min-h-[90vh]">
+          <AnimatedSection className="flex items-center md:min-h-[90vh]">
             <div className="w-full grid md:grid-cols-2 md:gap-16 items-center">
               <div className="md:order-1">
                 <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full">
@@ -36,9 +36,17 @@ function About() {
               </div>
             </div>
           </AnimatedSection>
+          
+          {/* Scroll indicator for mobile */}
+          <div className="md:hidden flex flex-col items-center gap-2 animate-bounce-slow opacity-60 -mt-4 mb-8">
+            <span className="text-xs font-semibold text-coffee-medium dark:text-dark-text-secondary">
+              Scroll for more
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-text-secondary"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          </div>
 
           {/* Section 2: How to Use */}
-          <AnimatedSection className="flex items-center min-h-[90vh]">
+          <AnimatedSection className="flex items-center md:min-h-[90vh]">
             <div className="w-full grid md:grid-cols-2 md:gap-16 items-center">
               <div className="md:order-2">
                 <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full">
@@ -84,7 +92,7 @@ function About() {
           </AnimatedSection>
 
           {/* Section 3: Why Indian Roasters? */}
-          <AnimatedSection className="flex items-center min-h-[90vh]">
+          <AnimatedSection className="flex items-center md:min-h-[90vh]">
             <div className="w-full grid md:grid-cols-2 md:gap-16 items-center">
               <div className="md:order-1">
                 <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full">
@@ -146,7 +154,7 @@ function About() {
           </AnimatedSection>
 
           {/* Section 4: Technology */}
-          <AnimatedSection className="flex items-center min-h-[90vh]">
+          <AnimatedSection className="flex items-center md:min-h-[90vh]">
             <div className="w-full grid md:grid-cols-2 md:gap-16 items-center">
               <div className="md:order-2">
                 <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-6 md:p-12 transition-colors duration-300 w-full">

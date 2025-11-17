@@ -48,7 +48,19 @@ function Roasters() {
     <div className="min-h-screen bg-cream-light dark:bg-dark-bg transition-colors duration-300">
       <PageHero
         title="Indian Coffee Roasters"
-        subtitle={`Discover the artisans behind India's finest specialty coffee beans • ${ROASTERS_DATA.length} roasters across ${LOCATION_DATA.length} states`}
+        subtitle={
+          <>
+            Discover the artisans behind India's finest specialty coffee beans •{' '}
+            <span className="font-bold bg-clip-text text-transparent bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text">
+              {ROASTERS_DATA.length}
+            </span>{' '}
+            roasters across{' '}
+            <span className="font-bold bg-clip-text text-transparent bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text">
+              {LOCATION_DATA.length}
+            </span>{' '}
+            states
+          </>
+        }
         icon={
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 22v-6.17a.9.9 0 0 1 .24-.62L16.07 9h0a.9.9 0 0 1 .62.24L22 15.17V22"/><path d="M14 22v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
         }
