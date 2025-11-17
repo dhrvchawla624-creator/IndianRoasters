@@ -8,7 +8,7 @@ interface HeroProps {
 function Hero({ totalBeans, totalRoasters }: HeroProps) {
   return (
     <header 
-      className="relative pt-28 pb-20 md:pt-32 md:pb-24 text-center text-white overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative pt-16 pb-12 md:pt-32 md:pb-24 text-center text-white overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `linear-gradient(rgba(44, 24, 16, 0.9), rgba(74, 44, 29, 0.9)), url('/images/hero-bg.jpg')`
       }}
@@ -20,7 +20,7 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 md:mb-3 drop-shadow-lg h-28 md:h-32">
+        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-3 drop-shadow-lg h-20 md:h-32">
           <TypingAnimation />
           <br/>
           <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
