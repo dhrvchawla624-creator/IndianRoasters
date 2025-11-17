@@ -69,7 +69,7 @@ const TypingAnimation = () => {
     const timeout = setTimeout(handleTyping, isDeleting ? deletingSpeed : typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [text, isDeleting, phraseIndex, phrases]);
+  }, [text, isDeleting, phraseIndex, phrases]); // Correctly includes all dependencies
 
   return (
     <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
