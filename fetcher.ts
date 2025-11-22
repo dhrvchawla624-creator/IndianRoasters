@@ -68,7 +68,7 @@ export async function fetchShopifyCollection(
   collectionUrl: string,
   roasterName: string,
   retries: number = 2,
-  timeout: number = 10000 // 10 seconds
+  timeout: number = 15000 // 15 seconds
 ): Promise<CoffeeBean[]> {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
@@ -91,7 +91,7 @@ export async function fetchShopifyCollection(
       clearTimeout(timeoutId);
 
       if (!res.ok) {
-        console.error(`❌ ${roasterName} HTTP ${res.status} (attempt ${attempt + 1}/${retries + 1})`);
+        console.error(`❌ ${roasterName} HTTP ${res.status} on ${jsonUrl} (attempt ${attempt + 1}/${retries + 1})`);
         if (attempt < retries && res.status >= 500) {
           await new Promise(resolve => setTimeout(resolve, 500 * Math.pow(2, attempt)));
           continue;
@@ -102,7 +102,7 @@ export async function fetchShopifyCollection(
       const data = await res.json() as { products: ShopifyProduct[] };
 
       if (!data.products || !Array.isArray(data.products)) {
-        console.error(`❌ ${roasterName}: Invalid data format`);
+        console.error(`❌ ${roasterName}: Invalid data format from ${jsonUrl}`);
         return [];
       }
 
@@ -138,9 +138,9 @@ export async function fetchShopifyCollection(
 
     } catch (error: any) {
       if (error.name === 'AbortError') {
-        console.error(`⏱️  ${roasterName} timeout (attempt ${attempt + 1}/${retries + 1})`);
+        console.error(`⏱️  ${roasterName} timeout on ${collectionUrl} (attempt ${attempt + 1}/${retries + 1})`);
       } else {
-        console.error(`❌ ${roasterName} error (attempt ${attempt + 1}/${retries + 1}):`, error.message);
+        console.error(`❌ ${roasterName} error on ${collectionUrl} (attempt ${attempt + 1}/${retries + 1}):`, error.message);
       }
       if (attempt < retries) {
         await new Promise(resolve => setTimeout(resolve, 500 * Math.pow(2, attempt)));
@@ -163,15 +163,16 @@ async function fetchInBatches<T>(
     const batch = tasks.slice(i, i + batchSize);
     const batchNum = Math.floor(i / batchSize) + 1;
     console.log(`📦 Batch ${batchNum}/${totalBatches} (${batch.length} requests)...`);
-    const batchResults = await Promise.all(
-      batch.map(task =>
-        task().catch(error => {
-          console.error('Batch task error:', error.message);
-          return null;
-        })
-      )
-    );
-    results.push(...batchResults.filter(r => r !== null) as T[]);
+    const batchPromises = batch.map(task => task().catch(error => {
+      // This catch is a safeguard, but errors should be handled within the task itself.
+      console.error('Unhandled error in batch task:', error.message);
+      return null; // Ensure a failed promise doesn't break Promise.all
+    }));
+
+    const batchResults = await Promise.all(batchPromises);
+    // Filter out nulls from tasks that failed, and assert the correct type.
+    const successfulResults = batchResults.filter((r): r is Awaited<T> => r !== null);
+    results.push(...successfulResults as T[]);
   }
   return results;
 }

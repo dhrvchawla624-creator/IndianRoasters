@@ -187,7 +187,11 @@ export const ROASTERS_DATA: RoasterData[] = [
     city: 'Delhi',
     state: 'Delhi',
     website: 'https://caarabicoffee.com',
-    collections: ['https://caarabicoffee.com/collections/shop-coffee'],
+    collections: [
+      'https://caarabicoffee.com/collections/shop-coffee',
+      'https://caarabicoffee.com/collections/specialty-blend'
+      
+    ],
     description: 'Arabic coffee traditions with Indian touch',
     specialties: ['Arabic Traditions', 'Middle Eastern Influence', 'Traditional Brewing'],
     established: '2018'
