@@ -172,12 +172,12 @@
 }
 
 .nav-btn.signup {
-  background-color: #4b8eff; /* A sample color similar to roast.guide */
-  color: #fff;
+  background-color: #C8AD7F; /* Earthy beige color */
+  color: #2a1d15; /* Dark coffee color for text */
 }
 
 .nav-btn.signup:hover {
-  background-color: #3a75d9;
+  background-color: #B59A6D; /* Slightly darker beige for hover */
 }
 
 /* Hamburger Menu Icon */
