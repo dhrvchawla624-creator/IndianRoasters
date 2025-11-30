@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2C1810" />
     <meta name="description" content="Discover India's finest specialty coffee roasters - Browse 500+ beans from 30+ top roasters" />
+    
+    <!-- Add Google Site Verification Meta Tag here -->
+    <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -42,5 +45,21 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- JSON-LD for Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Indian Roasters",
+      "url": "https://indian-roasters.vercel.app",
+      "description": "Discover India's finest specialty coffee roasters - Browse 500+ beans from 30+ top roasters",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://indian-roasters.vercel.app/roasters?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
   </body>
 </html>
