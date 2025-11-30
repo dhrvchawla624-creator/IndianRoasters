@@ -15,7 +15,7 @@ function About() {
   }, [emblaApi]);
 
   return (
-    <div className="h-screen flex flex-col bg-cream-light dark:bg-dark-bg transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-cream-light dark:bg-dark-bg transition-colors duration-300">
       <PageHero 
         title="About Indian Roasters"
         subtitle="Your Ultimate Indian Coffee Library"
@@ -24,7 +24,7 @@ function About() {
         }
       />
       
-      <div className="flex-1 overflow-hidden flex flex-col items-center justify-center">
+      <div className="flex-1 flex flex-col items-center justify-center py-12 md:py-0">
         <div className="overflow-hidden w-full" ref={emblaRef}>
           <div className="flex">
             {/* Slide 1: Mission */}
