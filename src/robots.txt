@@ -1,0 +1,5 @@
+# Allow all search engines to crawl the entire site.
+User-agent: *
+Allow: /
+
+Sitemap: https://indian-roasters.vercel.app/sitemap.xml
