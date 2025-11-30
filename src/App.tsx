@@ -118,7 +118,7 @@ function App() {
     <Router>
       <AuthProvider>
         <FavoritesProvider>
-          <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${
+          <div className={`min-h-screen animate-fadeIn transition-colors duration-300 overscroll-y-contain ${
             isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
           }`}>
             <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
