@@ -200,6 +200,12 @@ button:focus-visible, a:focus-visible {
   outline: 3px solid #d4af37;
   outline-offset: 2px;
 }
+
+/* Remove focus outline on elements that are not keyboard-focused */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .dark button:focus-visible, .dark a:focus-visible {
   outline: 3px solid #e8b84d;
   outline-offset: 2px;
