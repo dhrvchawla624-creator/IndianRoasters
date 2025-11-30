@@ -206,6 +206,12 @@ button:focus-visible, a:focus-visible {
   outline: none;
 }
 
+/* Forcefully remove outline from navbar elements on focus to prevent blue line on PWA refresh */
+nav *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .dark button:focus-visible, .dark a:focus-visible {
   outline: 3px solid #e8b84d;
   outline-offset: 2px;
