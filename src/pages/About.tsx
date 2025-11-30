@@ -24,7 +24,7 @@ function About() {
         }
       />
       
-      <div className="flex-1 flex flex-col items-center justify-center pt-12 pb-6 md:py-0">
+      <div className="flex-1 flex flex-col items-center justify-start md:justify-center pt-12 pb-6 md:py-0">
         <div className="overflow-hidden w-full" ref={emblaRef}>
           <div className="flex">
             {/* Slide 1: Mission */}
