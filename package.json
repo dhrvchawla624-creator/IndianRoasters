@@ -43,7 +43,8 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.7.0",
     "typescript": "^5.9.3",
-    "vite": "^7.1.10"
+    "vite": "^7.1.10",
+    "vite-plugin-pwa": "^1.2.0"
   },
   "overrides": {
     "react-router": {
