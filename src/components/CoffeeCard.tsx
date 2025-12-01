@@ -1,5 +1,5 @@
 import { useState, memo } from 'react';
-import { optimizeImage, generateSrcSet } from '../utils/imageOptimizer.js';
+import { optimizeImage } from '../utils/imageOptimizer.js';
 import type { CoffeeBean } from '../types/coffee.js';
 
 interface CoffeeCardProps {
@@ -23,24 +23,22 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
 
   return (
     <div
-      className={`bg-white dark:bg-dark-surface rounded-2xl overflow-hidden shadow-lg dark:shadow-dark-surface-elevated/30 transition-all duration-300 hover:-translate-y-2.5 hover:shadow-2xl dark:hover:shadow-dark-surface-elevated/50 animate-scaleIn h-[520px] md:h-[560px] lg:h-[580px] flex flex-col ${
+      className={`bg-white dark:bg-dark-surface rounded-2xl overflow-hidden shadow-lg dark:shadow-dark-surface-elevated/30 transition-all duration-300 hover:-translate-y-2.5 hover:shadow-2xl dark:hover:shadow-dark-surface-elevated/50 animate-scaleIn flex h-full w-full flex-col ${
         !bean.inStock ? 'opacity-70' : ''
       }`}
     >
-      <div className="relative w-full h-48 md:h-52 lg:h-56 shrink-0 overflow-hidden bg-linear-to-br from-cream to-cream-light dark:from-dark-bg-secondary dark:to-dark-surface flex items-center justify-center">
+      <div className="relative aspect-4/3 overflow-hidden bg-cream dark:bg-dark-surface">
         {hasImage ? (
           <img 
             src={optimizeImage(imageUrl, {
-              width: 600,
-              height: 450,
+              width: 800,
+              height: 600,
               quality: 85,
               format: 'auto',
               fit: 'cover',
             })}
-            srcSet={generateSrcSet(imageUrl, [400, 600, 800])}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             alt={bean.name}
-            className={`w-full h-full object-cover object-center transition-all duration-500 hover:scale-110 ${
+            className={`h-full w-full object-cover object-center transition-all duration-500 hover:scale-110 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             loading="lazy"
@@ -58,66 +56,39 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
             ☕
           </div>
         )}
-        
-        {/* Loading placeholder */}
         {!imageLoaded && hasImage && (
           <div className="absolute inset-0 bg-cream dark:bg-dark-bg-secondary animate-pulse" />
         )}
-        
-        {!bean.inStock && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-lg tracking-wide z-10">
-            Out of Stock
-          </div>
-        )}
       </div>
       
-      <div className="p-4 md:p-5 lg:p-6 flex-1 flex flex-col">
-        <div className="text-xs font-bold text-coffee-medium dark:text-dark-accent uppercase tracking-wider mb-2">
-          {bean.roaster}
+      <div className="flex flex-1 flex-col p-4 md:p-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-coffee-medium dark:text-dark-accent">{bean.roaster}</span>
+          {!bean.inStock && (
+            <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold text-red-700 dark:bg-red-900/40 dark:text-red-400">Out of Stock</span>
+          )}
         </div>
-        <h3 className="text-lg md:text-xl font-bold text-coffee-dark dark:text-dark-text mb-3 md:mb-4 leading-snug line-clamp-2 min-h-12 md:min-h-14">
+
+        <h3 className="mt-2 text-base font-semibold text-coffee-dark dark:text-dark-text leading-snug line-clamp-2">
           {bean.name}
         </h3>
         
-        <div className="flex flex-wrap gap-2 mb-4 md:mb-5 flex-1 overflow-y-auto max-h-[100px] md:max-h-[120px] content-start">
-          {bean.origin && (
-            <span className="px-3 py-1.5 bg-cream dark:bg-dark-bg-secondary text-coffee-brown dark:text-dark-text-secondary rounded-lg text-xs font-semibold h-fit">
-              📍 {bean.origin}
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400 line-clamp-2">
+          {bean.tastingNotes?.join(', ')}
+        </p>
+
+        <div className="mt-auto flex items-center justify-between border-t-2 border-cream pt-4 dark:border-dark-border">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xl font-extrabold text-coffee-medium dark:text-dark-accent md:text-2xl">
+              ₹{bean.price ? bean.price.toFixed(0) : 'N/A'}{' '}
             </span>
-          )}
-          {bean.roastLevel && (
-            <span className="px-3 py-1.5 bg-cream dark:bg-dark-bg-secondary text-coffee-brown dark:text-dark-text-secondary rounded-lg text-xs font-semibold h-fit">
-              🔥 {bean.roastLevel}
-            </span>
-          )}
-          {bean.process && (
-            <span className="px-3 py-1.5 bg-cream dark:bg-dark-bg-secondary text-coffee-brown dark:text-dark-text-secondary rounded-lg text-xs font-semibold h-fit">
-              ⚙️ {bean.process}
-            </span>
-          )}
-          {bean.tastingNotes && bean.tastingNotes.length > 0 && (
-            <span className="px-3 py-1.5 bg-cream dark:bg-dark-bg-secondary text-coffee-brown dark:text-dark-text-secondary rounded-lg text-xs font-semibold h-fit line-clamp-2">
-              🍫 {bean.tastingNotes.slice(0, 3).join(', ')}{bean.tastingNotes.length > 3 ? '...' : ''}
-            </span>
-          )}
-        </div>
-        
-        <div className="flex justify-between items-center pt-4 md:pt-5 border-t-2 border-cream dark:border-dark-border mt-auto">
-          <div className="flex flex-col">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-xl md:text-2xl font-extrabold text-coffee-medium dark:text-dark-accent leading-none">
-                ₹{bean.price ? bean.price.toFixed(0) : 'N/A'}
-              </span>
-              {bean.weight && (
-                <span className="text-lg md:text-xl font-extrabold text-coffee-medium dark:text-dark-accent">/ {bean.weight}g</span>
-              )}
-            </div>
+            {bean.weight && <span className="text-sm text-neutral-500 dark:text-neutral-400">/ {bean.weight}g</span>}
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleFavoriteClick}
               title={isFavorite ? "Remove from Favourites" : "Add to Favourites"}
-              className={`p-2.5 transition-transform duration-200 ease-in-out hover:scale-110 active:scale-95 focus:outline-none rounded-full`}
+              className="rounded-full p-2.5 transition-transform duration-200 ease-in-out hover:scale-110 active:scale-95 focus:outline-none"
             >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -126,7 +97,7 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
                 viewBox="0 0 24 24" 
                 className={`transition-all duration-200 ${
                   isFavorite 
-                    ? 'text-red-500 fill-current stroke-current' 
+                    ? 'fill-current stroke-current text-red-500' 
                     : 'fill-none stroke-coffee-medium dark:stroke-dark-text-secondary'
                 }`} 
                 strokeWidth="2" 
@@ -140,10 +111,10 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
               href={bean.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`px-5 py-2.5 text-white rounded-xl font-bold text-sm transition-all duration-300 ${
+              className={`rounded-xl px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 ${
                 bean.inStock
-                  ? 'bg-linear-to-br from-emerald-500 to-emerald-600 hover:-translate-y-0.5 hover:shadow-lg shadow-emerald-500/40'
-                  : 'bg-red-500 cursor-not-allowed shadow-none'
+                  ? 'bg-linear-to-br from-emerald-500 to-emerald-600 shadow-emerald-500/40 hover:-translate-y-0.5 hover:shadow-lg'
+                  : 'cursor-not-allowed bg-red-500 shadow-none'
               }`}
               onClick={(e) => e.stopPropagation()} // Prevent card click if it's wrapped in a link
             >
