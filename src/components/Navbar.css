@@ -1,7 +1,10 @@
 /* General Navbar Styling */
 .navbar {
-  background: linear-gradient(to bottom right, #3b2d27, #4e342e, #6a4f4b);
-  height: 80px;
+  background: #C8AD7F;
+  /* Earthy Beige */
+  /* backdrop-filter removed for solid color match */
+  border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,59 +12,71 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease, transform 0.3s ease-in-out;
 }
 
 .navbar.scrolled {
-  background: linear-gradient(to bottom right, #2a1d15, #3c2a25, #503a36);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #C8AD7F;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  height: 80px;
+  height: 64px;
   z-index: 1;
   width: 100%;
   max-width: 1300px;
-  padding: 0; /* Ensures content is flush with the edges */
+  padding: 0;
+  /* Ensures content is flush with the edges */
   align-items: center;
 }
 
 /* Logo */
 .navbar-logo {
-  color: #fff; /* Ensure the logo text is white */
+  color: #2c1810;
+  /* Dark Coffee */
+  /* Ensure the logo text is white */
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
   font-weight: bold;
   transition: color 0.3s ease-in-out;
   display: flex;
-  gap: 0.25rem 0.5rem; /* vertical gap | horizontal gap */
+  gap: 0.25rem 0.5rem;
+  /* vertical gap | horizontal gap */
 }
 
 .navbar-left {
-  display: flex; /* Add flex to align children horizontally */
+  display: flex;
+  /* Add flex to align children horizontally */
   align-items: center;
-  gap: 1.5rem; /* Space between nav-menu and nav-buttons */
+  gap: 1.5rem;
+  /* Space between nav-menu and nav-buttons */
 }
 
 .navbar.scrolled .navbar-logo {
-  color: #fff; /* This can be removed if you have a default color set */
+  color: #2c1810;
 }
 
 /* Reduce font size on smaller screens for the logo */
 @media screen and (max-width: 960px) {
   .navbar-logo {
     font-size: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center the text */
+    /* Use row layout (default from base) */
+    flex-direction: row;
+    align-items: center;
     line-height: 1.1;
   }
 
   .logo-word {
-    display: block;
+    /* Allow natural flow */
+    display: inline;
   }
 }
 
@@ -74,11 +89,11 @@
 }
 
 .nav-item {
-  height: 80px;
+  height: 64px;
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.8);
+  color: #2c1810;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -89,46 +104,55 @@
 }
 
 .nav-link:hover {
-  color: #fff;
+  color: #2c1810;
+  opacity: 0.8;
 }
 
 .nav-link.active {
-  color: #fff;
+  /* color: #fff;  -- Let it inherit or be handled by state */
+  color: inherit;
   font-weight: 600;
-  border-bottom: 2px solid #d4af37; /* Gold color for the active indicator */
+  /* border-bottom removed */
 }
 
-.navbar.scrolled .nav-link {
-  color: #fff;
-}
+/* .navbar.scrolled .nav-link { color: #2c1810; } - already inherited */
 
-.navbar.scrolled .nav-link:hover {
-  color: #fff; /* Ensures hover is bright white even when scrolled */
-}
+/* .navbar.scrolled .nav-link:hover { color: #2c1810; } */
+/* Ensures hover is visible even when scrolled */
 
 /* Action Buttons */
 .nav-buttons {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Use gap for consistent spacing */
+  gap: 1rem;
+  /* Use gap for consistent spacing */
 }
 
 .theme-toggle-btn {
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: #2c1810;
   padding: 8px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-right: 12px; */ /* Replaced by gap */
+  /* margin-right: 12px; */
+  /* Replaced by gap */
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 .theme-toggle-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(44, 24, 16, 0.1);
+}
+
+.navbar.scrolled .theme-toggle-btn {
+  color: #2c1810;
+}
+
+.navbar.scrolled .theme-toggle-btn:hover {
+  background-color: rgba(44, 24, 16, 0.1);
 }
 
 .profile-avatar-link {
@@ -159,25 +183,32 @@
 
 .nav-btn.login {
   background-color: transparent;
-  color: rgba(255, 255, 255, 0.8);
-  /* margin-right: 10px; */ /* Replaced by gap */
+  color: #2c1810;
+  /* margin-right: 10px; */
+  /* Replaced by gap */
 }
 
 .nav-btn.login:hover {
-  color: #fff;
+  color: #2c1810;
+  opacity: 0.8;
 }
 
 .navbar.scrolled .nav-btn.login {
-  color: rgba(255, 255, 255, 0.8);
+  color: #2c1810;
+  border: 1px solid rgba(44, 24, 16, 0.1);
+  /* Optional: add subtle border if needed for visibility */
 }
 
 .nav-btn.signup {
-  background-color: #C8AD7F; /* Earthy beige color */
-  color: #2a1d15; /* Dark coffee color for text */
+  background-color: #C8AD7F;
+  /* Earthy beige color */
+  color: #2a1d15;
+  /* Dark coffee color for text */
 }
 
 .nav-btn.signup:hover {
-  background-color: #B59A6D; /* Slightly darker beige for hover */
+  background-color: #B59A6D;
+  /* Slightly darker beige for hover */
 }
 
 /* Hamburger Menu Icon */
@@ -188,7 +219,9 @@
 
 /* Responsive Design */
 @media screen and (max-width: 960px) {
-  .navbar-left .nav-menu, .navbar-left .nav-buttons {
+
+  .navbar-left .nav-menu,
+  .navbar-left .nav-buttons {
     display: none;
   }
 
@@ -197,7 +230,12 @@
     padding: 0 1rem;
     font-size: 1.8rem;
   }
-  
+
+  .navbar,
+  .navbar-container {
+    height: 60px;
+  }
+
   .menu-icon.open .bar:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
@@ -214,12 +252,12 @@
     width: 25px;
     height: 3px;
     margin: 5px 0;
-    background-color: #fff;
+    background-color: #2c1810;
     transition: all 0.3s ease-in-out;
   }
 
   .navbar.scrolled .menu-icon .bar {
-    background-color: #fff;
+    background-color: #2c1810;
   }
 }
 
@@ -261,7 +299,8 @@
   right: 0;
   width: 280px;
   height: 100%;
-  background-color: #2a1d15; /* Dark coffee color */
+  background-color: #2a1d15;
+  /* Dark coffee color */
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
   display: flex;
@@ -289,8 +328,20 @@
   transition: color 0.3s ease-in-out;
 }
 
-.close-menu-btn { color: #fff; background: transparent; border: none; padding: 0.5rem; }
-.mobile-drawer-links { display: flex; flex-direction: column; padding-top: 1.5rem; gap: 0.5rem; }
+.close-menu-btn {
+  color: #fff;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+}
+
+.mobile-drawer-links {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  gap: 0.5rem;
+}
+
 .mobile-drawer-link {
   color: rgba(255, 255, 255, 0.8);
   padding: 1rem;
@@ -298,7 +349,11 @@
   text-decoration: none;
   transition: background-color 0.2s, color 0.2s;
 }
-.mobile-drawer-link:hover { background-color: rgba(255, 255, 255, 0.1); color: #fff; }
+
+.mobile-drawer-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
 
 .mobile-drawer-link.active {
   background-color: rgba(255, 255, 255, 0.08);
@@ -306,7 +361,8 @@
 }
 
 .mobile-drawer-footer {
-  margin-top: auto; /* Pushes footer to the bottom */
+  margin-top: auto;
+  /* Pushes footer to the bottom */
   padding: 1.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
@@ -323,7 +379,10 @@
   border-radius: 0.5rem;
 }
 
-.mobile-drawer-footer .nav-btn { width: 100%; text-align: center; }
+.mobile-drawer-footer .nav-btn {
+  width: 100%;
+  text-align: center;
+}
 
 /* Typing Animation Cursor */
 .typing-cursor {
@@ -331,23 +390,31 @@
 }
 
 @keyframes blink {
-  from, to { opacity: 1; }
-  50% { opacity: 0; }
+
+  from,
+  to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
+
 @media screen and (max-width: 960px) {
- .navbar-logo {
+  .navbar-logo {
     padding-left: 1rem;
   }
 }
 
 /* About Page Scroll Animation */
-.is-hidden > * {
+.is-hidden>* {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-.is-visible > * {
+.is-visible>* {
   opacity: 1;
   transform: translateY(0);
   /* Apply a staggered delay to child elements for a nice effect */
@@ -357,7 +424,8 @@
 /* About Page Sticky Column */
 .sticky-about-graphic {
   position: sticky;
-  top: 100px; /* Adjust based on your navbar height + desired spacing */
+  top: 100px;
+  /* Adjust based on your navbar height + desired spacing */
   height: calc(100vh - 120px);
   display: flex;
   align-items: center;
@@ -367,7 +435,8 @@
 .graphic-content {
   width: 80%;
   height: 80%;
-  background-color: rgba(74, 44, 29, 0.1); /* Subtle background */
+  background-color: rgba(74, 44, 29, 0.1);
+  /* Subtle background */
   border-radius: 1.5rem;
   display: flex;
   flex-direction: column;

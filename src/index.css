@@ -21,7 +21,8 @@
   --color-gold: #d4af37;
 
   /* Dark Mode Colors */
-  --color-dark-bg: #1a1410;
+  --color-dark-bg: #1f1b16;
+  /* Softened from #1a1410 */
   --color-dark-bg-secondary: #2a2116;
   --color-dark-surface: #352819;
   --color-dark-surface-elevated: #3d2f1e;
@@ -73,11 +74,11 @@
    LIGHT MODE VARIABLES
    =========================== */
 :root {
-  --button-outline: rgba(0,0,0,0.10);
-  --badge-outline: rgba(0,0,0,0.05);
+  --button-outline: rgba(0, 0, 0, 0.10);
+  --badge-outline: rgba(0, 0, 0, 0.05);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(0,0,0,0.03);
-  --elevate-2: rgba(0,0,0,0.08);
+  --elevate-1: rgba(0, 0, 0, 0.03);
+  --elevate-2: rgba(0, 0, 0, 0.08);
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -124,11 +125,11 @@
    =========================== */
 .dark {
   color-scheme: dark;
-  --button-outline: rgba(255,255,255,0.10);
-  --badge-outline: rgba(255,255,255,0.05);
+  --button-outline: rgba(255, 255, 255, 0.10);
+  --badge-outline: rgba(255, 255, 255, 0.05);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255,0.04);
-  --elevate-2: rgba(255,255,255,0.09);
+  --elevate-1: rgba(255, 255, 255, 0.04);
+  --elevate-2: rgba(255, 255, 255, 0.09);
 
   --color-background: 15 8% 8%;
   --color-foreground: 35 15% 88%;
@@ -198,27 +199,168 @@
    ANIMATIONS & UTILITIES
    =========================== */
 
-@keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
-@keyframes bounce { 0%,100% {transform:translateY(0);} 50%{transform:translateY(-20px);} }
-@keyframes steam { 0%{opacity:0.6;transform:translateY(0) scale(1);} 50%{opacity:0.3;} 100%{opacity:0;transform:translateY(-30px) scale(0.5);} }
-@keyframes progress { 0%{width:0%;} 50%{width:70%;} 100%{width:100%;} }
-@keyframes slideDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
-@keyframes slideUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
-@keyframes scaleIn { from{opacity:0;transform:scale(0.9);} to{opacity:1;transform:scale(1);} }
-@keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-30px) rotate(10deg);} }
-@keyframes shake { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(-5deg);} 75%{transform:rotate(5deg);} }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
 
-.animate-fadeOut      { animation: fadeOut 0.5s ease 2.5s forwards; }
-.animate-bounce-custom{ animation: bounce 2s ease-in-out infinite; }
-.animate-steam        { animation: steam 2s ease-in-out infinite; }
-.animate-progress     { animation: progress 2s ease-in-out infinite; }
-.animate-slideDown    { animation: slideDown 0.6s ease; }
-.animate-slideUp      { animation: slideUp 0.8s ease; }
-.animate-scaleIn      { animation: scaleIn 0.5s ease both; }
-.animate-float        { animation: float 6s ease-in-out infinite; }
-.animate-shake        { animation: shake 0.5s ease infinite; }
-.animate-fadeIn       { animation: fadeIn 0.5s ease; }
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0.6;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.5);
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+
+  50% {
+    width: 70%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-30px) rotate(10deg);
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.5s ease 2.5s forwards;
+}
+
+.animate-bounce-custom {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.animate-steam {
+  animation: steam 2s ease-in-out infinite;
+}
+
+.animate-progress {
+  animation: progress 2s ease-in-out infinite;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.6s ease;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease;
+}
 
 /* ===========================
    LOGIN PAGE ANIMATIONS
@@ -253,14 +395,25 @@
    BASE STYLES
    =========================== */
 
-html { scroll-behavior: smooth; }
-::selection            { background: #6b4423; color: white; }
-.dark ::selection      { background: #e8b84d; color: #1a1410; }
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #6b4423;
+  color: white;
+}
+
+.dark ::selection {
+  background: #e8b84d;
+  color: #1a1410;
+}
 
 /* ===========================
    FOCUS STATES
    =========================== */
-button:focus-visible, a:focus-visible {
+button:focus-visible,
+a:focus-visible {
   outline: 3px solid #d4af37;
   outline-offset: 2px;
 }
@@ -276,52 +429,87 @@ nav *:focus {
   box-shadow: none !important;
 }
 
-.dark button:focus-visible, .dark a:focus-visible {
+.dark button:focus-visible,
+.dark a:focus-visible {
   outline: 3px solid #e8b84d;
   outline-offset: 2px;
 }
-input:focus-visible, select:focus-visible {
+
+input:focus-visible,
+select:focus-visible {
   outline: none;
   border-color: #d4af37;
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
 }
-.dark input:focus-visible, .dark select:focus-visible {
+
+.dark input:focus-visible,
+.dark select:focus-visible {
   outline: none;
   border-color: #e8b84d;
   box-shadow: 0 0 0 3px rgba(232, 184, 77, 0.25);
 }
+
 .search-container input:focus-visible {
   border-color: transparent;
   box-shadow: none;
 }
+
 .search-container:focus-within {
   border-color: #d4af37 !important;
-  box-shadow: 0 0 0 3px rgba(212,175,55,0.15), 0 4px 6px -1px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15), 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
 }
+
 .dark .search-container:focus-within {
   border-color: #e8b84d !important;
-  box-shadow: 0 0 0 3px rgba(232,184,77,0.25), 0 4px 6px -1px rgba(0,0,0,0.3) !important;
+  box-shadow: 0 0 0 3px rgba(232, 184, 77, 0.25), 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* ===========================
    CUSTOM SCROLLBAR
    =========================== */
-.overflow-y-auto::-webkit-scrollbar       { width: 6px; }
-.overflow-y-auto::-webkit-scrollbar-track { background-color: #f5e6d3; border-radius: 10px; }
-.dark .overflow-y-auto::-webkit-scrollbar-track { background-color: #2a2116; border-radius: 10px;}
-.overflow-y-auto::-webkit-scrollbar-thumb { background-color: #d4af37; border-radius: 10px; }
-.dark .overflow-y-auto::-webkit-scrollbar-thumb { background-color: #e8b84d; border-radius: 10px;}
-.overflow-y-auto::-webkit-scrollbar-thumb:hover { background-color: #6b4423; }
-.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover { background-color: #d4a03d; }
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background-color: #f5e6d3;
+  border-radius: 10px;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-track {
+  background-color: #2a2116;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #d4af37;
+  border-radius: 10px;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #e8b84d;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #6b4423;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #d4a03d;
+}
 
 /* ===========================
    TASTING NOTE CIRCLES FIX
    =========================== */
 /* Ensures tasting note circles are completely filled when selected */
 :not(.dark) .tasting-note-circle.selected {
-  background-color: var(--color-gold); /* Use a solid background color from your theme */
-  border-color: var(--color-gold);     /* Ensure border matches background for a solid look */
+  background-color: var(--color-gold);
+  /* Use a solid background color from your theme */
+  border-color: var(--color-gold);
+  /* Ensure border matches background for a solid look */
 }
+
 .dark .tasting-note-circle.selected {
   background-color: var(--color-dark-accent);
   border-color: var(--color-dark-accent);
@@ -331,7 +519,9 @@ input:focus-visible, select:focus-visible {
    ELEVATION UTILITIES
    =========================== */
 @layer utilities {
-  input[type="search"]::-webkit-search-cancel-button { display: none; }
+  input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
 
   [contenteditable][data-placeholder]:empty::before {
     content: attr(data-placeholder);
@@ -340,49 +530,57 @@ input:focus-visible, select:focus-visible {
   }
 
   .no-default-hover-elevate {}
+
   .no-default-active-elevate {}
+
   .toggle-elevate::before,
   .toggle-elevate-2::before {
-    content:"";
-    pointer-events:none;
-    position:absolute;
-    inset:0px;
-    border-radius:inherit;
-    z-index:-1;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: -1;
   }
+
   .toggle-elevate.toggle-elevated::before {
     background-color: var(--elevate-2);
   }
-  .border.toggle-elevate::before { inset:-1px; }
+
+  .border.toggle-elevate::before {
+    inset: -1px;
+  }
 
   .hover-elevate:not(.no-default-hover-elevate),
   .active-elevate:not(.no-default-active-elevate),
   .hover-elevate-2:not(.no-default-hover-elevate),
   .active-elevate-2:not(.no-default-active-elevate) {
-    position:relative;
-    z-index:0;
+    position: relative;
+    z-index: 0;
   }
 
   .hover-elevate:not(.no-default-hover-elevate)::after,
   .active-elevate:not(.no-default-active-elevate)::after,
   .hover-elevate-2:not(.no-default-hover-elevate)::after,
   .active-elevate-2:not(.no-default-active-elevate)::after {
-    content:"";
-    pointer-events:none;
-    position:absolute;
-    inset:0px;
-    border-radius:inherit;
-    z-index:999;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0px;
+    border-radius: inherit;
+    z-index: 999;
   }
 
   .hover-elevate:hover:not(.no-default-hover-elevate)::after,
   .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color:var(--elevate-1);
+    background-color: var(--elevate-1);
   }
+
   .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
   .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color:var(--elevate-2);
+    background-color: var(--elevate-2);
   }
+
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
@@ -453,7 +651,23 @@ input:focus-visible, select:focus-visible {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground relative;
+  }
+
+  /* Global Noise Texture */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    mix-blend-mode: overlay;
   }
 }
