@@ -16,22 +16,22 @@ interface MenuVerticalProps {
 
 const menuVars: Variants = {
   initial: {
-    clipPath: 'circle(0% at 95% 5%)',
+    x: '100%',
   },
   animate: {
-    clipPath: 'circle(150% at 95% 5%)',
+    x: 0,
     transition: {
-      duration: 0.7,
-      ease: [0.83, 0, 0.17, 1] as const,
+      duration: 0.5,
+      ease: [0.33, 1, 0.68, 1] as const, // Cubic-bezier for smooth sliding
       when: 'beforeChildren',
       staggerChildren: 0.05,
     },
   },
   exit: {
-    clipPath: 'circle(0% at 95% 5%)',
+    x: '100%',
     transition: {
-      duration: 0.5,
-      ease: [0.83, 0, 0.17, 1] as const,
+      duration: 0.4,
+      ease: [0.33, 1, 0.68, 1] as const,
       when: 'afterChildren',
       staggerChildren: 0.03,
       staggerDirection: -1,
