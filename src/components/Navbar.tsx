@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { MenuVertical } from './menu-vertical';
@@ -11,13 +11,23 @@ interface NavbarProps {
 
 function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme props are kept but not used in this styling
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useAuth();
   const location = useLocation();
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 10);
+
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false); // Scrolling down
+      } else {
+        setIsVisible(true); // Scrolling up
+      }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -42,7 +52,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
     { name: 'Contact', href: '/contact' },
   ];
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''} ${!isVisible && !isMenuOpen ? 'navbar-hidden' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={handleLogoClick} title="Indian Roasters">
           <span className="logo-word">Indian</span>

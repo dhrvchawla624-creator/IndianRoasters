@@ -103,9 +103,9 @@ function FilterSection(props: FilterSectionProps) {
   return (
     <div className="max-w-7xl mx-auto px-5 py-10">
       {/* Search Bar - Full Width */}
-      <div className="mb-8">
-        <div className="relative max-w-3xl mx-auto">
-          <div className="absolute left-5 top-1/2 -translate-y-1/2 text-coffee-light dark:text-dark-text-secondary">
+      <div className="mb-8 group">
+        <div className="relative max-w-3xl mx-auto transform transition-all duration-300 hover:-translate-y-1">
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 text-coffee-light dark:text-dark-text-secondary transition-colors duration-300 group-focus-within:text-[#AB6E36] dark:group-focus-within:text-dark-accent">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -126,7 +126,7 @@ function FilterSection(props: FilterSectionProps) {
             placeholder="Search for coffee beans, roasters, origins ..."
             value={props.searchTerm}
             onChange={(e) => props.setSearchTerm(e.target.value)}
-            className="w-full pl-16 pr-6 py-4 rounded-full border-2 border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-xl transition-all duration-300 shadow-lg text-lg"
+            className="w-full pl-16 pr-6 py-4 rounded-2xl border border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-[#AB6E36]/50 dark:focus:ring-dark-accent/50 focus:border-transparent transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] text-lg"
           />
         </div>
       </div>
@@ -138,20 +138,20 @@ function FilterSection(props: FilterSectionProps) {
             <span>₹{priceLow.toLocaleString()}</span>
             <span>₹{priceHigh.toLocaleString()}</span>
           </div>
-<Slider
-  range
-  min={0}
-  max={10000}
-  value={[priceLow, priceHigh] as [number, number]} // safest
-  onChange={(val: number | number[]) => props.setPriceRange(val as [number, number])}
-  step={50}
-  railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
-  trackStyle={[{ backgroundColor: '#D87330', height: 10, borderRadius: 7 }] as any}
-  handleStyle={[
-    { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 },
-    { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
-  ] as any}
-/>
+          <Slider
+            range
+            min={0}
+            max={10000}
+            value={[priceLow, priceHigh] as [number, number]} // safest
+            onChange={(val: number | number[]) => props.setPriceRange(val as [number, number])}
+            step={50}
+            railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
+            trackStyle={[{ backgroundColor: '#D87330', height: 10, borderRadius: 7 }] as any}
+            handleStyle={[
+              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 },
+              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
+            ] as any}
+          />
 
         </div>
       </div>
@@ -159,7 +159,7 @@ function FilterSection(props: FilterSectionProps) {
         {/* ...Dropdowns unchanged... */}
         <div className="animate-slideUp">
           <label className="flex items-center gap-2 text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 22v-6.17a.9.9 0 0 1 .24-.62L16.07 9h0a.9.9 0 0 1 .62.24L22 15.17V22"/><path d="M14 22v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8" /><path d="M10 22v-6.17a.9.9 0 0 1 .24-.62L16.07 9h0a.9.9 0 0 1 .62.24L22 15.17V22" /><path d="M14 22v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" /></svg>
             Roaster
           </label>
           <SelectDropdown
@@ -195,7 +195,7 @@ function FilterSection(props: FilterSectionProps) {
         </div>
         <div className="animate-slideUp">
           <label className="flex items-center gap-2 text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20V16"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20V10" /><path d="M18 20V4" /><path d="M6 20V16" /></svg>
             Process
           </label>
           <SelectDropdown
@@ -238,11 +238,10 @@ function FilterSection(props: FilterSectionProps) {
                       className="w-full flex items-center justify-between text-left p-2.5 rounded-lg transition-colors duration-200 hover:bg-cream-dark dark:hover:bg-dark-border"
                     >
                       <span className="text-sm font-medium text-coffee-dark dark:text-dark-text">{note.charAt(0).toUpperCase() + note.slice(1)}</span>
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${
-                        isSelected
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${isSelected
                           ? 'bg-coffee-medium border-coffee-medium dark:bg-dark-accent dark:border-dark-accent'
                           : 'bg-transparent border-gray-300 dark:border-gray-600'
-                      }`}>
+                        }`}>
                         {isSelected && <div className="w-2 h-2 bg-white rounded-full"></div>}
                       </div>
                     </button>
