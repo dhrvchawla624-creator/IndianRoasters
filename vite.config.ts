@@ -10,40 +10,41 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-icon.svg'],
       manifest: {
         name: 'Indian Roasters',
         short_name: 'IndianRoasters',
-        description: 'Discover and buy the finest Indian coffee beans.',
-        theme_color: '#ffffff',
+        description: 'Discover the finest specialty coffee from roasters across India.',
+        theme_color: '#4a2c1d',
+        background_color: '#faf3e9',
+        display: 'standalone',
+        orientation: 'portrait',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'pwa-icon.svg',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'pwa-icon.svg',
             sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
+            type: 'image/svg+xml',
             purpose: 'any maskable'
           }
         ]
       }
     })
   ],
-  
+
   // Define global variables for browser compatibility
   define: {
     global: 'globalThis',
     'process.env': {}
   },
-  
+
   // Resolve aliases for Node.js polyfills
   resolve: {
     alias: {
@@ -52,15 +53,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     }
   },
-  
+
   css: {
     transformer: 'lightningcss'
   },
-  
+
   build: {
     // Target modern browsers for smaller bundle
     target: 'es2020',
-    
+
     // Use terser for minification
     minify: 'terser',
     terserOptions: {
@@ -73,64 +74,64 @@ export default defineConfig({
         comments: false
       }
     },
-    
+
     // Code splitting configuration
     rollupOptions: {
       output: {
         // Manual chunk splitting for better caching
         manualChunks: (id) => {
           // React and React ecosystem
-          if (id.includes('node_modules/react') || 
-              id.includes('node_modules/react-dom') || 
-              id.includes('node_modules/react-router')) {
+          if (id.includes('node_modules/react') ||
+            id.includes('node_modules/react-dom') ||
+            id.includes('node_modules/react-router')) {
             return 'vendor-react';
           }
-          
+
           // Firebase
           if (id.includes('node_modules/@firebase')) {
             return 'vendor-firebase'; // Group all @firebase packages together
           }
-          
+
           // UI libraries
           if (id.includes('node_modules/rc-slider')) {
             return 'vendor-ui';
           }
-          
+
           // Analytics
-          if (id.includes('@vercel/analytics') || 
-              id.includes('@vercel/speed-insights')) {
+          if (id.includes('@vercel/analytics') ||
+            id.includes('@vercel/speed-insights')) {
             return 'analytics';
           }
-          
+
           // Markdown and blog utilities
           if (id.includes('node_modules/marked')) {
             return 'vendor-markdown';
           }
         },
-        
+
         // Optimize chunk file names for better caching
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
       }
     },
-    
+
     // Chunk size warning limit (in KB)
     chunkSizeWarningLimit: 500,
-    
+
     // CSS code splitting (separate CSS per route)
     cssCodeSplit: true,
-    
+
     // Disable source maps in production for smaller bundle
     sourcemap: false,
-    
+
     // Asset inlining threshold (in bytes)
     assetsInlineLimit: 4096, // 4kb - inline small assets as base64
-    
+
     // Clear output dir before build
     emptyOutDir: true
   },
-  
+
   server: {
     port: 5173,
     proxy: {
@@ -157,7 +158,7 @@ export default defineConfig({
       overlay: true
     }
   },
-  
+
   // Optimize dependencies
   optimizeDeps: {
     include: [
@@ -166,7 +167,7 @@ export default defineConfig({
       'react-router-dom',
       'marked'
     ],
-        exclude: [
+    exclude: [
       'firebase',
       'firebase/app',
       'firebase/auth',

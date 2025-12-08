@@ -2,10 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#2C1810" />
     <meta name="description" content="Discover India's finest specialty coffee roasters - Browse 500+ beans from 30+ top roasters" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#4a2c1d" />
+    
+    <!-- Add Google Site Verification Meta Tag here -->
+    <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- SEO & Social Meta Tags -->
     <meta name="keywords" content="indian coffee, specialty coffee, coffee roasters india, blue tokai, corridor seven, bloom coffee" />
@@ -35,13 +43,28 @@
     <link rel="prefetch" href="/api/coffee" as="fetch" crossorigin />
     
     <title>Indian Roasters - Discover Specialty Coffee</title>
-    <script type="module" crossorigin src="/assets/js/index-BSEvHwPB.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/js/vendor-react-r_DLG1Wr.js">
-    <link rel="modulepreload" crossorigin href="/assets/js/vendor-firebase-BMH949tH.js">
-    <link rel="stylesheet" crossorigin href="/assets/css/index-DjG4h855.css">
-  </head>
+    <script type="module" crossorigin src="/assets/js/index-CwsrG3tF.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/js/vendor-react-47_BdXog.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/vendor-firebase-BcILSejF.js">
+    <link rel="stylesheet" crossorigin href="/assets/css/index-DhURgOEl.css">
+  <link rel="manifest" href="/manifest.webmanifest"></head>
   <body>
     <div id="root"></div>
+
+    <!-- JSON-LD for Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Indian Roasters",
+      "url": "https://indian-roasters.vercel.app",
+      "description": "Discover India's finest specialty coffee roasters - Browse 500+ beans from 30+ top roasters",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://indian-roasters.vercel.app/roasters?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
   </body>
 </html>
-
