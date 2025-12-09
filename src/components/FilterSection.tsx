@@ -155,7 +155,7 @@ function FilterSection(props: FilterSectionProps) {
 
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 mb-3">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 mb-3">
         {/* ...Dropdowns unchanged... */}
         <div className="animate-slideUp">
           <label className="flex items-center gap-2 text-xs font-semibold text-coffee-brown dark:text-dark-text-secondary mb-2 uppercase tracking-wide">
@@ -239,8 +239,8 @@ function FilterSection(props: FilterSectionProps) {
                     >
                       <span className="text-sm font-medium text-coffee-dark dark:text-dark-text">{note.charAt(0).toUpperCase() + note.slice(1)}</span>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${isSelected
-                          ? 'bg-coffee-medium border-coffee-medium dark:bg-dark-accent dark:border-dark-accent'
-                          : 'bg-transparent border-gray-300 dark:border-gray-600'
+                        ? 'bg-coffee-medium border-coffee-medium dark:bg-dark-accent dark:border-dark-accent'
+                        : 'bg-transparent border-gray-300 dark:border-gray-600'
                         }`}>
                         {isSelected && <div className="w-2 h-2 bg-white rounded-full"></div>}
                       </div>
