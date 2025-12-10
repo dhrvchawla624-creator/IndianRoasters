@@ -1,8 +1,6 @@
 import fetch from 'node-fetch';
-import { ROASTER_COLLECTIONS } from '../../src/data/roastersData';
-import type { CoffeeBean, ShopifyProduct } from '../../src/types/coffee';
-
-// ...rest of file...
+import { ROASTER_COLLECTIONS } from '../../src/data/roastersData.js';
+import type { CoffeeBean, ShopifyProduct } from '../../src/types/coffee.js';
 
 
 
@@ -11,7 +9,7 @@ const TASTING_NOTE_LIST = [
   "chocolate", "cocoa", "dark chocolate", "berry", "strawberry", "raspberry", "blueberry", "blackcurrant", "cherry",
   "citrus", "lemon", "lime", "orange", "grapefruit", "vanilla", "caramel", "spices", "nutty", "hazelnut",
   "almond", "walnut", "pecan", "cashew", "fruity", "honey", "floral", "jasmine", "rose", "peach", "apricot",
-  "plum", "molasses", "sweet", "papaya", "mango", "apple", "sugarcane", "earthy", "herbal", "woody", "smoky", 
+  "plum", "molasses", "sweet", "papaya", "mango", "apple", "sugarcane", "earthy", "herbal", "woody", "smoky",
   "roasted almond", "stone fruit", "pineapple"
 ];
 
@@ -50,7 +48,7 @@ function findRoastLevel(text: string): string | undefined {
 function findProcess(text: string): string | undefined {
   const lowerText = text.toLowerCase();
   const keywords = [
-    "washed", "natural", "anaerobic", "carbonic", "honey", "dry", 
+    "washed", "natural", "anaerobic", "carbonic", "honey", "dry",
     "semi-washed", "experimental", "barrel aged", "fermentation", "yeast", "koji"
   ];
   const found: string[] = [];
@@ -90,7 +88,7 @@ function parseWeight(weightString: string): number | undefined {
 
 // --- Shopify Fetcher with Enhanced Error Handling ---
 export async function fetchShopifyCollection(
-  collectionUrl: string, 
+  collectionUrl: string,
   roasterName: string,
   retries: number = 2,
   timeout: number = 10000 // 10 seconds
@@ -100,11 +98,11 @@ export async function fetchShopifyCollection(
       const jsonUrl = collectionUrl.endsWith('/') ?
         `${collectionUrl}products.json?limit=250`
         : `${collectionUrl}/products.json?limit=250`;
-      
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), timeout);
-      
-      const res = await fetch(jsonUrl, { 
+
+      const res = await fetch(jsonUrl, {
         signal: controller.signal,
         headers: {
           'User-Agent': 'Mozilla/5.0 (compatible; CoffeeAggregator/1.0)',
@@ -112,9 +110,9 @@ export async function fetchShopifyCollection(
           'Accept-Encoding': 'gzip, deflate'
         }
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!res.ok) {
         console.error(`❌ ${roasterName} HTTP ${res.status} (attempt ${attempt + 1}/${retries + 1})`);
         if (attempt < retries && res.status >= 500) {
@@ -123,14 +121,14 @@ export async function fetchShopifyCollection(
         }
         return [];
       }
-      
+
       const data = await res.json() as { products: ShopifyProduct[] };
-      
+
       if (!data.products || !Array.isArray(data.products)) {
         console.error(`❌ ${roasterName}: Invalid data format`);
         return [];
       }
-      
+
       const beans = data.products
         .filter((p: ShopifyProduct) => p.variants && p.variants.length > 0)
         .map((p: ShopifyProduct) => {
@@ -138,7 +136,7 @@ export async function fetchShopifyCollection(
           const lowerTitle = p.title.toLowerCase();
           const tags = Array.isArray(p.tags) ? p.tags : [];
           const body = p.body_html || "";
-          
+
           return {
             id: `${roasterName}-${p.id}`,
             name: cleanTitle(p.title),
@@ -147,8 +145,8 @@ export async function fetchShopifyCollection(
             weight: parseWeight(variant.title),
             roastLevel: findRoastLevel(lowerTitle + " " + tags.join(" ")),
             origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
-              "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris", 
-              "bababudangiri", "basarikatte", "ratnagiri", "andhra", "araku", "sidamo", "ethiopia", 
+              "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris",
+              "bababudangiri", "basarikatte", "ratnagiri", "andhra", "araku", "sidamo", "ethiopia",
               "yirgacheffe", "honduras", "colombia"
             ]),
             process: findProcess(lowerTitle + " " + tags.join(" ")),
@@ -158,17 +156,17 @@ export async function fetchShopifyCollection(
             inStock: variant.available,
           };
         });
-      
+
       console.log(`✅ ${roasterName}: ${beans.length} products`);
       return beans;
-      
+
     } catch (error: any) {
       if (error.name === 'AbortError') {
         console.error(`⏱️  ${roasterName} timeout (attempt ${attempt + 1}/${retries + 1})`);
       } else {
         console.error(`❌ ${roasterName} error (attempt ${attempt + 1}/${retries + 1}):`, error.message);
       }
-      
+
       if (attempt < retries) {
         await new Promise(resolve => setTimeout(resolve, 500 * Math.pow(2, attempt)));
         continue;
@@ -186,25 +184,25 @@ async function fetchInBatches<T>(
 ): Promise<T[]> {
   const results: T[] = [];
   const totalBatches = Math.ceil(tasks.length / batchSize);
-  
+
   for (let i = 0; i < tasks.length; i += batchSize) {
     const batch = tasks.slice(i, i + batchSize);
     const batchNum = Math.floor(i / batchSize) + 1;
-    
+
     console.log(`📦 Batch ${batchNum}/${totalBatches} (${batch.length} requests)...`);
-    
+
     const batchResults = await Promise.all(
-      batch.map(task => 
+      batch.map(task =>
         task().catch(error => {
           console.error('Batch task error:', error.message);
           return null;
         })
       )
     );
-    
+
     results.push(...batchResults.filter(r => r !== null) as T[]);
   }
-  
+
   return results;
 }
 
@@ -213,9 +211,9 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
   const startTime = Date.now();
   console.log(`\n🚀 Starting fetch from ${ROASTER_COLLECTIONS.length} roasters...`);
   console.log(`⏰ Max execution time: Consider Vercel limits (10s Hobby / 60s Pro)\n`);
-  
+
   const allFetchTasks: (() => Promise<{ roaster: string; url: string; beans: CoffeeBean[] }>)[] = [];
-  
+
   for (const roasterObj of ROASTER_COLLECTIONS) {
     for (const url of roasterObj.collections) {
       const fetchTask = async () => {
@@ -227,21 +225,21 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
           return { roaster: roasterObj.roaster, url, beans: [] as CoffeeBean[] };
         }
       };
-      
+
       allFetchTasks.push(fetchTask);
     }
   }
-  
+
   console.log(`📊 Total collections to fetch: ${allFetchTasks.length}`);
   console.log(`🔄 Fetching in batches of 8 for optimal performance...\n`);
-  
+
   const results = await fetchInBatches(allFetchTasks, 8);
-  
+
   let allBeans: CoffeeBean[] = [];
   let successCount = 0;
   let failureCount = 0;
   let totalProducts = 0;
-  
+
   for (const result of results) {
     if (result.beans.length > 0) {
       allBeans = allBeans.concat(result.beans);
@@ -251,9 +249,9 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
       failureCount++;
     }
   }
-  
+
   const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-  
+
   console.log(`\n${'='.repeat(50)}`);
   console.log(`📊 FETCH SUMMARY`);
   console.log(`${'='.repeat(50)}`);
@@ -263,11 +261,11 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
   console.log(`⏱️  Duration:       ${duration}s`);
   console.log(`🎯 Avg Speed:      ${(totalProducts / parseFloat(duration)).toFixed(1)} products/sec`);
   console.log(`${'='.repeat(50)}\n`);
-  
+
   if (parseFloat(duration) > 50) {
     console.warn(`⚠️  WARNING: Fetch took ${duration}s - approaching Vercel timeout limits!`);
   }
-  
+
   return allBeans;
 }
 

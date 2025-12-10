@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import PageHero from '../components/PageHero';
-import AnimatedSection from '../components/AnimatedSection';
+import PageHero from '../components/PageHero.js';
+import AnimatedSection from '../components/AnimatedSection.js';
 
 function About() {
   const [emblaRef, emblaApi] = useEmblaCarousel();
