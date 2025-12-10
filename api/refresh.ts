@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { fetchAllCoffee } from '../fetcher.js';
-import { cache, setCache } from './_cache.js';
-import type { CoffeeBean } from './_types.js';
+import { fetchAllCoffee } from './_lib/fetcher.js';
+import type { CoffeeBean } from './_lib/coffee.js';
 
 // --- Handler ---
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -13,13 +12,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data: CoffeeBean[] = await fetchAllCoffee();
     const fetchDuration = ((Date.now() - startTime) / 1000).toFixed(2);
 
-    setCache(data);
-
     res.status(200).json({
       success: true,
       count: data.length,
       fetchTime: `${fetchDuration}s`,
-      lastUpdate: new Date(cache.timestamp).toISOString()
+      lastUpdate: new Date().toISOString()
     });
   } catch (error: any) {
     res.status(500).json({ error: 'Refresh failed', details: typeof error === 'object' && error?.message ? error.message : String(error) });
