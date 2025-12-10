@@ -1,7 +1,22 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { fetchAllCoffee } from './_lib/fetcher.js';
-import type { CoffeeBean } from './_lib/coffee.js';
-import { cache, setCache, isCacheValid } from './_lib/cache.js';
+import { fetchAllCoffee } from './_lib/fetcher';
+import type { CoffeeBean } from './_lib/coffee';
+
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+
+let cache: { data: CoffeeBean[] | null; timestamp: number } = {
+  data: null,
+  timestamp: 0
+};
+
+function setCache(data: CoffeeBean[]) {
+  cache = { data, timestamp: Date.now() };
+}
+
+function isCacheValid(): boolean {
+  const now = Date.now();
+  return cache.data !== null && (now - cache.timestamp) < CACHE_DURATION;
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
