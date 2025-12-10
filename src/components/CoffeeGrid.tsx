@@ -56,11 +56,11 @@ function CoffeeGrid({
   return (
     <>
       {/* Coffee beans grid */}
-      <div className="max-w-7xl mx-auto px-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <div className="max-w-7xl mx-auto px-3 md:px-5 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8 mt-8">
         {pagedBeans.map(bean => (
-          <CoffeeCard 
-            key={bean.id} 
-            bean={bean} 
+          <CoffeeCard
+            key={bean.id}
+            bean={bean}
             isFavorite={favorites.includes(bean.id)}
             onToggleFavorite={toggleFavorite}
           />
@@ -73,11 +73,10 @@ function CoffeeGrid({
           <button
             onClick={() => setPage(Math.max(page - 1, 1))}
             disabled={page === 1}
-            className={`px-5 py-2 rounded-lg border-2 border-gold dark:border-dark-accent font-semibold transition-all duration-150 ${
-              page === 1 
-                ? 'bg-cream-light dark:bg-dark-bg-secondary text-gray-400 dark:text-dark-text-muted cursor-not-allowed' 
+            className={`px-5 py-2 rounded-lg border-2 border-gold dark:border-dark-accent font-semibold transition-all duration-150 ${page === 1
+                ? 'bg-cream-light dark:bg-dark-bg-secondary text-gray-400 dark:text-dark-text-muted cursor-not-allowed'
                 : 'bg-[#fffbe8] dark:bg-dark-surface text-[#222] dark:text-dark-text cursor-pointer hover:bg-gold dark:hover:bg-dark-accent hover:text-white'
-            }`}
+              }`}
           >
             Previous
           </button>
@@ -87,11 +86,10 @@ function CoffeeGrid({
                 key={pg}
                 onClick={() => setPage(pg)}
                 disabled={pg === page}
-                className={`px-3 py-1 rounded-lg transition-all ${
-                  pg === page 
-                    ? 'bg-gold dark:bg-dark-accent text-white font-bold border-2 border-gold dark:border-dark-accent cursor-default' 
+                className={`px-3 py-1 rounded-lg transition-all ${pg === page
+                    ? 'bg-gold dark:bg-dark-accent text-white font-bold border-2 border-gold dark:border-dark-accent cursor-default'
                     : 'bg-[#fffbe8] dark:bg-dark-surface text-[#111] dark:text-dark-text font-semibold border-2 border-[#fffbe8] dark:border-dark-surface cursor-pointer hover:bg-gold/10 dark:hover:bg-dark-accent/20'
-                }`}
+                  }`}
               >
                 {pg}
               </button>
@@ -102,11 +100,10 @@ function CoffeeGrid({
           <button
             onClick={() => setPage(Math.min(page + 1, pageCount))}
             disabled={page === pageCount || pageCount === 0}
-            className={`px-5 py-2 rounded-lg border-2 border-gold dark:border-dark-accent font-semibold transition-all duration-150 ${
-              page === pageCount || pageCount === 0
-                ? 'bg-cream-light dark:bg-dark-bg-secondary text-gray-400 dark:text-dark-text-muted cursor-not-allowed' 
+            className={`px-5 py-2 rounded-lg border-2 border-gold dark:border-dark-accent font-semibold transition-all duration-150 ${page === pageCount || pageCount === 0
+                ? 'bg-cream-light dark:bg-dark-bg-secondary text-gray-400 dark:text-dark-text-muted cursor-not-allowed'
                 : 'bg-[#fffbe8] dark:bg-dark-surface text-[#222] dark:text-dark-text cursor-pointer hover:bg-gold dark:hover:bg-dark-accent hover:text-white'
-            }`}
+              }`}
           >
             Next
           </button>
@@ -119,8 +116,8 @@ function CoffeeGrid({
           <div className="text-8xl mb-5 opacity-30">☕</div>
           <h3 className="text-3xl text-coffee-dark dark:text-dark-text mb-2.5">No coffee beans found</h3>
           <p className="text-base text-coffee-light dark:text-dark-text-secondary mb-8">Try adjusting your filters or search terms</p>
-          <button 
-            onClick={onResetFilters} 
+          <button
+            onClick={onResetFilters}
             className="px-8 py-3.5 bg-coffee-medium dark:bg-dark-accent text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown dark:hover:bg-dark-accent/80 hover:-translate-y-0.5 hover:shadow-lg"
           >
             Reset Filters
