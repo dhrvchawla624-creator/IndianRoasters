@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import { ROASTER_COLLECTIONS } from '../../src/data/roastersData.js';
-import type { CoffeeBean, ShopifyProduct } from '../../src/types/coffee.js';
+import { ROASTER_COLLECTIONS } from '../../src/data/roastersData';
+import type { CoffeeBean, ShopifyProduct } from '../../src/types/coffee';
 
 
 
