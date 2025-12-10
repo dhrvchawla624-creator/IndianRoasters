@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { fetchAllCoffee } from '../fetcher.js';
-import { cache, setCache } from './_cache.js';
-import type { CoffeeBean } from './_types.js';
+import { fetchAllCoffee } from './_lib/fetcher.js';
+import type { CoffeeBean } from './_lib/coffee.js';
+import { cache, setCache } from './_lib/cache.js';
 
 // --- Handler ---
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -12,9 +12,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const startTime = Date.now();
     const data: CoffeeBean[] = await fetchAllCoffee();
     const fetchDuration = ((Date.now() - startTime) / 1000).toFixed(2);
-    
+
     setCache(data);
-    
+
     res.status(200).json({
       success: true,
       count: data.length,
