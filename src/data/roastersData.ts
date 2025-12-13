@@ -137,7 +137,13 @@ export const ROASTERS_DATA: RoasterData[] = [
     city: 'Panchkula',
     state: 'Haryana',
     website: 'https://bloomcoffeeroasters.in',
-    collections: ['https://bloomcoffeeroasters.in/collections/coffee'],
+    collections: [
+      'https://bloomcoffeeroasters.in/collections/light-roasts',
+      'https://bloomcoffeeroasters.in/collections/medium-roasts',
+      'https://bloomcoffeeroasters.in/collections/dark-roasts',
+      'https://bloomcoffeeroasters.in/collections/experimental-processes-and-limited-releases',
+      'https://bloomcoffeeroasters.in/collections/custom-sampler'
+    ],
     description: 'Fresh roasting with focus on bloom and extraction',
     specialties: ['Fresh Roasts', 'Bloom Focus', 'Extraction Science'],
     established: '2018'
@@ -190,7 +196,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     collections: [
       'https://caarabicoffee.com/collections/shop-coffee',
       'https://caarabicoffee.com/collections/specialty-blend'
-      
+
     ],
     description: 'Arabic coffee traditions with Indian touch',
     specialties: ['Arabic Traditions', 'Middle Eastern Influence', 'Traditional Brewing'],
@@ -563,7 +569,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['Artisanal Roasting', 'Indian Essence', 'Heritage Blends'],
     established: '2015'
   },
-    {
+  {
     name: 'Caffe Birraio',
     city: 'Jaipur',
     state: 'Rajasthan',
@@ -573,7 +579,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['Artisanal Roasting', 'Indian Essence', 'Heritage Blends'],
     established: '2011'
   },
-      {
+  {
     name: '7000 steps Coffee',
     city: 'Shillong',
     state: 'Meghalaya',
@@ -583,7 +589,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['North Eastern Coffee', 'Himalayan Essence', 'Artisan Curation'],
     established: '2021'
   },
-        {
+  {
     name: 'Avencos Coffee',
     city: 'Gurgaon',
     state: 'Haryana',
@@ -607,7 +613,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['old money vibes', 'to the roots', 'traditional brewing'],
     established: '2020'
   },
-          {
+  {
     name: 'Caffeination Roasters',
     city: 'Surat',
     state: 'Gujarat',
@@ -617,7 +623,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['Sustainability', 'Reliability', 'Passion'],
     established: '2023'
   },
-    {
+  {
     name: 'Purrcolate Coffee Co.',
     city: 'Ahmedabad',
     state: 'Gujarat',
@@ -625,13 +631,13 @@ export const ROASTERS_DATA: RoasterData[] = [
     collections: [
       'https://purrcolatecoffeeco.in/collections/seasonal-coffees',
       'https://purrcolatecoffeeco.in/collections/frontpage',
-      
+
     ],
     description: 'Signed by Pawclamation of Shadow and Smokey',
     specialties: ['pawrry theme', 'pet friendly', 'cozy vibes'],
     established: '2021'
   },
-            {
+  {
     name: 'Silk Road Coffee',
     city: 'Mumbai',
     state: 'Maharashtra',
@@ -641,8 +647,8 @@ export const ROASTERS_DATA: RoasterData[] = [
     specialties: ['experiments', 'Arts', 'Crafted by Passion'],
     established: '2023'
   },
-  
- 
+
+
 ];
 
 export const LOCATION_DATA: LocationData[] = [

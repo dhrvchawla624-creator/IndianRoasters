@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Verify TypeScript API compilation before commit
+echo "🔍 Checking API TypeScript compilation..."
+npx tsc --noEmit -p tsconfig.api.json
+
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript API compilation failed. Fix errors before committing."
+  exit 1
+fi
+
+echo "✅ API TypeScript check passed!"
