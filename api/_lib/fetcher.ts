@@ -154,6 +154,7 @@ export async function fetchShopifyCollection(
             image: p.images[0]?.src,
             url: `${collectionUrl}/products/${p.handle}`,
             inStock: variant.available,
+            fetchDate: p.published_at || p.created_at, // Use published date, fallback to created date
           };
         });
 

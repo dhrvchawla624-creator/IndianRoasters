@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute.js';
 // Lazy load all page components (loaded on demand)
 const Home = lazy(() => import('./pages/Home'));
 const Roasters = lazy(() => import('./pages/Roasters'));
+const WeeklyDrops = lazy(() => import('./pages/WeeklyDrops'));
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -21,10 +22,10 @@ const LoginPage = lazy(() => import('./pages/LoginPage'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Lazy load analytics (non-critical, defer loading)
-const Analytics = lazy(() => 
+const Analytics = lazy(() =>
   import('@vercel/analytics/react').then(module => ({ default: module.Analytics }))
 );
-const SpeedInsights = lazy(() => 
+const SpeedInsights = lazy(() =>
   import('@vercel/speed-insights/react').then(module => ({ default: module.SpeedInsights }))
 );
 
@@ -41,7 +42,7 @@ const PageLoader = () => (
 function App() {
   const [loading, setLoading] = useState(true);
   const [showLanding, setShowLanding] = useState(false);
-  
+
   // ✅ UPDATED: Defaults to light mode
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('darkMode');
@@ -49,7 +50,7 @@ function App() {
     // Otherwise defaults to false (light mode)
     return saved === 'true';
   });
-  
+
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const [showAnalytics, setShowAnalytics] = useState(false);
 
@@ -118,15 +119,15 @@ function App() {
     <Router>
       <AuthProvider>
         <FavoritesProvider>
-          <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${
-            isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
-          }`}>
+          <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
+            }`}>
             <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
-            
+
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/roasters" element={<Roasters />} />
+                <Route path="/weekly-drops" element={<WeeklyDrops />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
@@ -138,9 +139,9 @@ function App() {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
-            
+
             <Footer lastUpdate={lastUpdate} />
-            
+
             {/* Lazy load analytics after initial render */}
             {showAnalytics && (
               <Suspense fallback={null}>
