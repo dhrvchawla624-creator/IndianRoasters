@@ -13,6 +13,7 @@ export interface CoffeeBean {
   image?: string;
   url: string;
   inStock: boolean;
+  fetchDate?: string; // ISO timestamp of when bean was fetched by our system
 }
 
 export interface ShopifyProduct {
@@ -28,6 +29,8 @@ export interface ShopifyProduct {
     price: string;
     available: boolean;
   }[];
+  published_at?: string; // ISO timestamp of when product was published
+  created_at?: string; // ISO timestamp of when product was created
 }
 
 export type SortOption = 'name' | 'price-low' | 'price-high' | 'roaster' | 'newest';

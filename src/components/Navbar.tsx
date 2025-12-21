@@ -45,6 +45,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
 
   const navLinks = [
     { name: 'Home', href: '/' },
+    { name: 'Weekly Drops', href: '/weekly-drops' },
     // Keeping your original links
     { name: 'Roasters', href: '/roasters' },
     { name: 'About', href: '/about' },
