@@ -256,8 +256,9 @@ export default function BrewLab() {
     const rotateWheel = (index: number) => {
         const anglePerSegment = 360 / flavorWheelSegments.length;
         const centerAngle = index * anglePerSegment + anglePerSegment / 2;
-        // Rotate so the segment is at the right (0 degrees)
-        setRotation(-centerAngle);
+        // Rotate so the segment connects with the arrow at the right (0 degrees)
+        // Visual segment 0 starts at -90 deg, so we need to compensate.
+        setRotation(90 - centerAngle);
         setShowMobileDetail(true);
         // We do not set selectedSegment here immediately; onUpdate handler drives it
     };
@@ -271,8 +272,11 @@ export default function BrewLab() {
         // The pointer is at 0. The physics angle under pointer is -rotation.
         const normalizedRotation = ((-currentRotation % 360) + 360) % 360;
 
-        // Calculate index. Index 0 starts at 0.
-        const index = Math.floor(normalizedRotation / anglePerSegment);
+        // Offset by 90 degrees because visual rendering starts at -90 (12 o'clock)
+        const adjustedRotation = (normalizedRotation + 90) % 360;
+
+        // Calculate index based on the adjusted rotation
+        const index = Math.floor(adjustedRotation / anglePerSegment);
 
         // Ensure index is within bounds [0, max-1]
         const validIndex = Math.min(Math.max(index, 0), flavorWheelSegments.length - 1);
@@ -388,10 +392,6 @@ export default function BrewLab() {
                         {/* Desktop Detail View (Hidden on Mobile) */}
                         <div className="hidden md:flex h-full flex-col">
                             <motion.div
-                                key={selectedSegment}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.3 }}
                                 className="h-full"
                             >
                                 <FlavorDetailCard segment={flavorWheelSegments[selectedSegment]} />
