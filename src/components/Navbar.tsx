@@ -48,6 +48,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
     { name: 'Weekly Drops', href: '/weekly-drops' },
     // Keeping your original links
     { name: 'Roasters', href: '/roasters' },
+    { name: 'Learn', href: '/brew-lab' },
     { name: 'About', href: '/about' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
@@ -64,7 +65,7 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
           <ul className="nav-menu hidden md:flex">
             {navLinks.map((link) => (
               <li key={link.name} className="nav-item">
-                <NavLink to={link.href} className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                <NavLink to={link.href} className="nav-link font-serif" onClick={() => setIsMenuOpen(false)}>
                   {link.name}
                 </NavLink>
               </li>

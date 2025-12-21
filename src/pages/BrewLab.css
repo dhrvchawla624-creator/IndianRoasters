@@ -1,0 +1,47 @@
+.brew-lab-page {
+    --color-coffee-dark: #2c1810;
+}
+
+.lexicon-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lexicon-card:hover {
+    transform: translateY(-5px);
+}
+
+.dark .lexicon-card {
+    background-color: #352819;
+    border-color: transparent;
+}
+
+.dark .lexicon-card.selected {
+    border-color: #e8b84d;
+    box-shadow: 0 0 0 2px rgba(232, 184, 77, 0.2);
+}
+
+/* Flavor Wheel Styling */
+.flavor-wheel-container {
+    perspective: 1000px;
+}
+
+svg path {
+    transition: opacity 0.3s ease;
+}
+
+/* Scrollbar for the description box if it grows */
+.description-box {
+    scrollbar-width: thin;
+    scrollbar-color: #6b4423 #f5e6d3;
+}
+
+.dark .description-box {
+    scrollbar-color: #e8b84d #2a2116;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .brew-lab-page {
+        padding-top: 5rem;
+    }
+}
