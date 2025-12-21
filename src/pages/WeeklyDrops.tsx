@@ -154,7 +154,7 @@ function WeeklyDrops() {
                         </div>
 
                         {/* Grid of coffee cards */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
                             {weeklyBeans.map((bean) => (
                                 <CoffeeCard
                                     key={bean.id}
