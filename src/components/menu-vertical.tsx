@@ -89,7 +89,7 @@ export const MenuVertical = ({
               {menuItems.map((item) => (
                 <div className="overflow-hidden" key={item.label}>
                   <motion.div variants={linkVars} initial="initial" animate="animate" exit="exit">
-                    <NavLink to={item.href} onClick={onClose} className="text-4xl font-extrabold uppercase text-cream-light hover:text-gold transition-colors duration-300">
+                    <NavLink to={item.href} onClick={onClose} className="text-4xl font-serif font-extrabold uppercase text-cream-light hover:text-gold transition-colors duration-300">
                       {item.label}
                     </NavLink>
                   </motion.div>

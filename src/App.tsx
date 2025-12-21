@@ -19,6 +19,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Profile = lazy(() => import('./pages/Profile'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const BrewLab = lazy(() => import('./pages/BrewLab'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Lazy load analytics (non-critical, defer loading)
@@ -133,6 +134,7 @@ function App() {
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/brew-lab" element={<BrewLab />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/profile" element={<Profile />} />
                 </Route>
