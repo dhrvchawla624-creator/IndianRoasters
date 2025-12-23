@@ -27,21 +27,86 @@ function cleanMatch(text: string, options: string[]): string | undefined {
 }
 
 /** Find roast level, handling composite names like "Medium Dark" */
-function findRoastLevel(text: string): string | undefined {
+/** Find roast level, handling composite names like "Medium Dark" and avoiding partial matches */
+/** Find roast level, handling composite names and avoiding partial matches of flavor notes */
+function findExplicitRoastLevel(text: string): string | undefined {
+  const roastRegex = /Roast\s*(?:Level|Profile)?\s*[:\s-]+\s*(medium[\s-]*light|medium[\s-]*dark|light[\s-]*medium|dark[\s-]*medium|light|medium|dark|espresso|filter|omni)/i;
+  const match = text.match(roastRegex);
+  if (match && match[1]) {
+    const r = match[1].toLowerCase().replace('-', ' ');
+    if (r.includes('medium') && r.includes('light')) return 'Medium Light';
+    if (r.includes('medium') && r.includes('dark')) return 'Medium Dark';
+    if (r === 'light') return 'Light';
+    if (r === 'medium') return 'Medium';
+    if (r === 'dark') return 'Dark';
+    if (r === 'filter') return 'Filter';
+    if (r === 'espresso') return 'Espresso';
+    if (r === 'omni') return 'Omni';
+  }
+  return undefined;
+}
+
+function findRoastLevel(text: string, bodyText: string = ''): string | undefined {
+  // 0. Check Explicit Body Text First (Reviewer Override)
+  const cleanBody = bodyText ? bodyText.replace(/<[^>]*>/g, ' ') : '';
+  const explicitRoast = findExplicitRoastLevel(cleanBody);
+  if (explicitRoast) return explicitRoast;
+
   const lowerText = text.toLowerCase();
-  const found = [];
 
-  if (lowerText.includes('light')) found.push('Light');
-  if (lowerText.includes('medium')) found.push('Medium');
-  if (lowerText.includes('dark')) found.push('Dark');
+  // Expanded ignore list including all tasting notes + sensory terms
+  // We construct this dynamically to be robust
+  const sensoryTerms = [
+    "acid", "acidity", "body", "mouthfeel", "note", "notes", "finish", "aftertaste", "texture", "profile", "aroma",
+    "fruit", "berry", "nut", "spice", "sugar", "sweet", "floral", "chocolate", "cocoa"
+  ];
 
-  if (found.includes('Medium') && found.includes('Light')) return 'Medium Light';
-  if (found.includes('Medium') && found.includes('Dark')) return 'Medium Dark';
+  // Combine unique terms from TASTING_NOTE_LIST and sensoryTerms
+  // Escape special regex characters if any (though currently our list is simple)
+  const allIgnoredTerms = Array.from(new Set([
+    ...sensoryTerms,
+    ...TASTING_NOTE_LIST
+  ])).map(t => t.toLowerCase());
 
-  if (found.length === 1) return found[0];
-  if (lowerText.includes('filter')) return 'Filter';
-  if (lowerText.includes('espresso')) return 'Espresso';
-  if (lowerText.includes('omni')) return 'Omni';
+  // Create the negative lookahead regex part: "(?!\\s*(term1|term2|...))"
+  // We sort by length descending to match longest terms first
+  const ignorePattern = allIgnoredTerms.sort((a, b) => b.length - a.length).join('|');
+  const ignoredContext = `(?!\\s*(${ignorePattern}))`;
+
+  const hasRoastTerm = (term: string) => new RegExp(`\\b${term}\\b${ignoredContext}`, 'i').test(lowerText);
+
+  // 1. Explicit Compound Roasts (High Priority)
+  if (/\b(medium\s*[-]?\s*light|light\s*[-]?\s*medium)\b/i.test(lowerText)) return 'Medium Light';
+  if (/\b(medium\s*[-]?\s*dark|dark\s*[-]?\s*medium)\b/i.test(lowerText)) return 'Medium Dark';
+  if (/\b(vienna|viennese|french|italian)\s*roast\b/i.test(lowerText)) return 'Dark';
+
+  // 2. Single Roasts (Medium Priority)
+  const isLight = hasRoastTerm('light') || hasRoastTerm('blonde');
+  const isMedium = hasRoastTerm('medium') || hasRoastTerm('city');
+  const isDark = hasRoastTerm('dark');
+
+  // Conflict Resolution: if multiple detected and NOT a compound phrase
+  const lightRoastMatch = /\b(light|blonde)\s*roast\b/i.test(lowerText);
+  const mediumRoastMatch = /\b(medium|city)\s*roast\b/i.test(lowerText);
+  const darkRoastMatch = /\b(dark)\s*roast\b/i.test(lowerText);
+
+  if (lightRoastMatch && !mediumRoastMatch && !darkRoastMatch) return 'Light';
+  if (mediumRoastMatch && !lightRoastMatch && !darkRoastMatch) return 'Medium';
+  if (darkRoastMatch && !lightRoastMatch && !mediumRoastMatch) return 'Dark';
+
+  // Fallback if no explicit "roast" phrase but words are present
+  // But be careful: if we have "Light" (checked with ignore context) and "Medium" (checked with ignore context)
+  if (isLight && isMedium) return 'Medium Light';
+  if (isMedium && isDark) return 'Medium Dark';
+
+  if (isLight) return 'Light';
+  if (isMedium) return 'Medium';
+  if (isDark) return 'Dark';
+
+  if (/\bfilter\b/i.test(lowerText)) return 'Filter';
+  if (/\bespresso\b/i.test(lowerText)) return 'Espresso';
+  if (/\bomni\b/i.test(lowerText)) return 'Omni';
+
   return undefined;
 }
 
@@ -143,7 +208,7 @@ export async function fetchShopifyCollection(
             roaster: roasterName,
             price: parseFloat(variant.price),
             weight: parseWeight(variant.title),
-            roastLevel: findRoastLevel(lowerTitle + " " + tags.join(" ")),
+            roastLevel: findRoastLevel(lowerTitle + " " + tags.join(" "), body),
             origin: cleanMatch(lowerTitle + " " + tags.join(" "), [
               "coorg", "chikmagalur", "karnataka", "kerala", "tamil nadu", "sikkim", "nilgiris",
               "bababudangiri", "basarikatte", "ratnagiri", "andhra", "araku", "sidamo", "ethiopia",
@@ -236,20 +301,27 @@ export async function fetchAllCoffee(): Promise<CoffeeBean[]> {
 
   const results = await fetchInBatches(allFetchTasks, 8);
 
-  let allBeans: CoffeeBean[] = [];
+  const uniqueBeansMap = new Map<string, CoffeeBean>();
   let successCount = 0;
   let failureCount = 0;
   let totalProducts = 0;
 
   for (const result of results) {
     if (result.beans.length > 0) {
-      allBeans = allBeans.concat(result.beans);
+      result.beans.forEach(bean => {
+        // Deduplicate based on ID
+        if (!uniqueBeansMap.has(bean.id)) {
+          uniqueBeansMap.set(bean.id, bean);
+        }
+      });
       successCount++;
       totalProducts += result.beans.length;
     } else {
       failureCount++;
     }
   }
+
+  const allBeans = Array.from(uniqueBeansMap.values());
 
   const duration = ((Date.now() - startTime) / 1000).toFixed(2);
 

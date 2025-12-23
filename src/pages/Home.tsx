@@ -13,29 +13,29 @@ function getAllTastingNotes(beans: CoffeeBean[]): string[] {
 // Map various process names to standard categories
 function normalizeProcessToCategory(process: string): string {
   if (!process) return '';
-  
+
   const normalized = process.toLowerCase().trim();
-  
+
   // Washed variations
   if (
-    normalized.includes('wash') || 
+    normalized.includes('wash') ||
     normalized.includes('wet') ||
     normalized.includes('lavado') ||
     normalized.includes('fully washed')
   ) {
     return 'washed';
   }
-  
+
   // Natural variations
   if (
-    normalized.includes('natural') || 
+    normalized.includes('natural') ||
     normalized.includes('dry') ||
     normalized.includes('sun') ||
     normalized.includes('naturals')
   ) {
     return 'natural';
   }
-  
+
   // Honey variations
   if (
     normalized.includes('honey') ||
@@ -44,7 +44,7 @@ function normalizeProcessToCategory(process: string): string {
   ) {
     return 'honey';
   }
-  
+
   // Anaerobic variations (check before fermentation to prioritize anaerobic)
   if (
     normalized.includes('anaerobic') ||
@@ -52,7 +52,7 @@ function normalizeProcessToCategory(process: string): string {
   ) {
     return 'anaerobic';
   }
-  
+
   // ALL Barrel Aged variations - catch them ALL!
   if (
     normalized.includes('barrel') ||
@@ -65,7 +65,7 @@ function normalizeProcessToCategory(process: string): string {
   ) {
     return 'barrel aged';
   }
-  
+
   // ALL Fermentation variations - consolidate EVERYTHING under one category
   if (
     normalized.includes('ferment') ||
@@ -85,7 +85,7 @@ function normalizeProcessToCategory(process: string): string {
   ) {
     return 'fermentation';
   }
-  
+
   // Experimental/Special processes
   if (
     normalized.includes('experimental') ||
@@ -93,7 +93,7 @@ function normalizeProcessToCategory(process: string): string {
   ) {
     return 'experimental';
   }
-  
+
   // Return empty if no match (won't be filtered)
   return '';
 }
@@ -102,10 +102,10 @@ function normalizeProcessToCategory(process: string): string {
 function matchesProcessFilter(bean: CoffeeBean, selectedProcess: string): boolean {
   if (selectedProcess === 'all') return true;
   if (!bean.process) return false;
-  
+
   // Split bean's process field by common separators
   const beanProcesses = bean.process.toLowerCase().split(/,\s*|\s*\/\s*|\s*&\s*\+\s*/);
-  
+
   // Check if any of the bean's processes match the selected category
   return beanProcesses.some((p: string) => {
     const category = normalizeProcessToCategory(p.trim());
@@ -118,9 +118,9 @@ function matchesRoastFilter(bean: CoffeeBean, selectedRoast: string): boolean {
   if (selectedRoast === 'all') return true;
   const beanRoast = bean.roastLevel?.toLowerCase();
   if (!beanRoast) return false;
-  
+
   const selected = selectedRoast.toLowerCase();
-  
+
   if (selected === 'medium light') {
     // Matches "Medium Light", "Light to Medium", etc.
     return beanRoast.includes('medium') && beanRoast.includes('light');
@@ -133,9 +133,16 @@ function matchesRoastFilter(bean: CoffeeBean, selectedRoast: string): boolean {
     // Exclusively match "Medium", but not "Medium Light" or "Medium Dark"
     return beanRoast.includes('medium') && !beanRoast.includes('light') && !beanRoast.includes('dark');
   }
-  
-  // For "Light", "Dark", "Espresso", etc.
-  // This will match "Light" but not "Medium Light" because of the earlier checks.
+  if (selected === 'light') {
+    // Exclusively match "Light", but not "Medium Light"
+    return beanRoast.includes('light') && !beanRoast.includes('medium');
+  }
+  if (selected === 'dark') {
+    // Exclusively match "Dark", but not "Medium Dark"
+    return beanRoast.includes('dark') && !beanRoast.includes('medium');
+  }
+
+  // Fallback for other potential types (Espresso, Filter, Omni)
   return beanRoast.includes(selected);
 }
 
@@ -178,7 +185,7 @@ function getApiUrl(): string {
 function Home() {
   // Get favorites from context instead of props
   const { favorites, toggleFavorite } = useFavorites();
-  
+
   const [beans, setBeans] = useState<CoffeeBean[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -200,15 +207,15 @@ function Home() {
   const roastLevels = useMemo(() => {
     const dynamicLevels = Array.from(new Set(beans.map(b => b.roastLevel).filter((r): r is string => Boolean(r))));
     const staticOrder = ['Light', 'Medium Light', 'Medium', 'Medium Dark', 'Dark', 'Filter', 'Espresso', 'Omni'];
-    
+
     // Combine and get unique values, preserving static order first
     const combined = new Set([...staticOrder, ...dynamicLevels]);
-    
+
     // Return a sorted list with the predefined levels first, then any new dynamic levels
     return Array.from(combined).sort((a, b) => {
       const aIndex = staticOrder.indexOf(a);
       const bIndex = staticOrder.indexOf(b);
-        if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex; // Both in static order, maintain order
+      if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex; // Both in static order, maintain order
       if (aIndex !== -1) return -1; // a is static, b is not
       if (bIndex !== -1) return 1;  // b is static, a is not
       return a.localeCompare(b); // Both are dynamic, sort alphabetically
@@ -247,12 +254,12 @@ function Home() {
   const fetchCoffee = async () => {
     try {
       setLoading(true);
-      
+
       // Use the helper function to get the correct API URL
       const apiUrl = `${getApiUrl()}/coffee`;
-      
+
       console.log('Fetching from:', apiUrl); // Debug log
-      
+
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
@@ -265,7 +272,7 @@ function Home() {
       }
 
       const result = await response.json();
-      
+
       // Check if data exists in the response
       if (!result.data || !Array.isArray(result.data)) {
         throw new Error('Invalid data format received from API');
@@ -273,7 +280,7 @@ function Home() {
 
       setBeans(result.data);
       setError(null);
-      
+
       console.log('Successfully loaded', result.data.length, 'coffee beans'); // Debug log
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to load coffee data';
@@ -354,8 +361,8 @@ function Home() {
         <div className="text-8xl mb-5 animate-shake">☕</div>
         <h2 className="text-4xl text-coffee-dark dark:text-dark-text mb-2.5">Oops! Something went wrong</h2>
         <p className="text-lg text-coffee-light dark:text-dark-text-secondary mb-8">{error}</p>
-        <button 
-          onClick={fetchCoffee} 
+        <button
+          onClick={fetchCoffee}
           className="flex items-center gap-2.5 px-8 py-3.5 bg-coffee-medium dark:bg-dark-accent text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown dark:hover:bg-dark-accent/80 hover:-translate-y-0.5 hover:shadow-lg"
         >
           <span>🔄</span> Try Again
@@ -376,7 +383,7 @@ function Home() {
   return (
     <>
       <Hero totalBeans={beans.length} totalRoasters={roasters.length} />
-      
+
       <FilterSection
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -417,4 +424,4 @@ function Home() {
   );
 }
 
- export default Home;
+export default Home;
