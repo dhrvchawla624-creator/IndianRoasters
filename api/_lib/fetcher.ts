@@ -30,7 +30,7 @@ function cleanMatch(text: string, options: string[]): string | undefined {
 /** Find roast level, handling composite names like "Medium Dark" and avoiding partial matches */
 /** Find roast level, handling composite names and avoiding partial matches of flavor notes */
 function findExplicitRoastLevel(text: string): string | undefined {
-  const roastRegex = /Roast\s*(?:Level|Profile)?\s*[:\s-]+\s*(medium[\s-]*light|medium[\s-]*dark|light[\s-]*medium|dark[\s-]*medium|light|medium|dark|espresso|filter|omni)/i;
+  const roastRegex = /Roast\s*(?:Level|Profile)?\s*[:\s-–]+\s*(medium[\s-]*light|medium[\s-]*dark|light[\s-]*medium|dark[\s-]*medium|light|medium|dark|espresso|filter|omni)/i;
   const match = text.match(roastRegex);
   if (match && match[1]) {
     const r = match[1].toLowerCase().replace('-', ' ');
