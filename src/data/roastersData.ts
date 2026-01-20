@@ -314,7 +314,7 @@ export const ROASTERS_DATA: RoasterData[] = [
     city: 'Jaipur',
     state: 'Rajasthan',
     website: 'https://capulusbeans.com',
-    collections: ['https://capulusbeans.com/collections/roasted-coffee'],
+    collections: ['https://capulusbeans.com/collections/whole-beans'],
     description: 'Premium coffee beans with meticulous selection',
     specialties: ['Premium Selection', 'Meticulous Processing', 'Quality Focus'],
     established: '2019'
