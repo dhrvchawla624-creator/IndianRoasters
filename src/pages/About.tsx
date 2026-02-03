@@ -16,14 +16,14 @@ function About() {
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-light dark:bg-dark-bg transition-colors duration-300">
-      <PageHero 
+      <PageHero
         title="About Indian Roasters"
         subtitle="Your Ultimate Indian Coffee Library"
         icon={
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>
         }
       />
-      
+
       <div className="flex-1 flex flex-col items-center justify-start md:justify-center pt-12 pb-6 md:py-0">
         <div className="overflow-hidden w-full" ref={emblaRef}>
           <div className="flex">
@@ -77,7 +77,7 @@ function About() {
                         <div className="text-lg font-bold text-coffee-dark dark:text-dark-text">4.</div>
                         <div>
                           <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-1">Visit the Roaster</h3>
-                          <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">Click "Buy Now" to go directly to the roaster's website to make a purchase.</p>
+                          <p className="text-sm text-coffee-medium dark:text-dark-text-secondary">Click "Explore" to visit the roaster's website and learn more.</p>
                         </div>
                       </div>
                     </div>
@@ -146,10 +146,10 @@ function About() {
         {/* Mobile navigation */}
         <div className="flex justify-center items-center space-x-4 py-4">
           <button onClick={scrollPrev} className="w-12 h-12 rounded-full bg-white/80 dark:bg-dark-surface/80 shadow-md flex items-center justify-center transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-dark dark:text-dark-text"><path d="m15 18-6-6 6-6"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-dark dark:text-dark-text"><path d="m15 18-6-6 6-6" /></svg>
           </button>
           <button onClick={scrollNext} className="w-12 h-12 rounded-full bg-white/80 dark:bg-dark-surface/80 shadow-md flex items-center justify-center transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-dark dark:text-dark-text"><path d="m9 18 6-6-6-6"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-dark dark:text-dark-text"><path d="m9 18 6-6-6-6" /></svg>
           </button>
         </div>
       </div>

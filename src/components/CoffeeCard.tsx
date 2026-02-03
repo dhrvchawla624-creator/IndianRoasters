@@ -114,7 +114,7 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
                 }`}
               onClick={(e) => e.stopPropagation()} // Prevent card click if it's wrapped in a link
             >
-              Buy Now →
+              Explore →
             </a>
           </div>
         </div>
