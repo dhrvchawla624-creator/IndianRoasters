@@ -13,7 +13,7 @@ export default function SEO({
     description = "Discover India's finest specialty coffee roasters - Browse 900+ beans from 58+ top Indian coffee roasters",
     keywords = "indian coffee, specialty coffee india, buy coffee online india, best coffee roasters india, pour over coffee india, espresso beans india, artisanal coffee india",
     url = "https://indian-roasters.vercel.app",
-    image = "/favicon.svg"
+    image = "/vite.svg"
 }: SEOProps) {
     return (
         <Helmet>
