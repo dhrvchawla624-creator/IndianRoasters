@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './contexts/AuthContext.js';
 import { FavoritesProvider } from './contexts/FavoritesContext.js';
 
@@ -117,44 +118,46 @@ function App() {
   }
 
   return (
-    <Router>
-      <AuthProvider>
-        <FavoritesProvider>
-          <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
-            }`}>
-            <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
+    <HelmetProvider>
+      <Router>
+        <AuthProvider>
+          <FavoritesProvider>
+            <div className={`min-h-screen animate-fadeIn transition-colors duration-300 ${isDarkMode ? 'bg-dark-bg' : 'bg-cream-light'
+              }`}>
+              <Navbar onThemeToggle={handleThemeToggle} isDarkMode={isDarkMode} />
 
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/roasters" element={<Roasters />} />
-                <Route path="/weekly-drops" element={<WeeklyDrops />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/brew-lab" element={<BrewLab />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/profile" element={<Profile />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-
-            <Footer lastUpdate={lastUpdate} />
-
-            {/* Lazy load analytics after initial render */}
-            {showAnalytics && (
-              <Suspense fallback={null}>
-                <Analytics />
-                <SpeedInsights />
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/roasters" element={<Roasters />} />
+                  <Route path="/weekly-drops" element={<WeeklyDrops />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/brew-lab" element={<BrewLab />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/profile" element={<Profile />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
               </Suspense>
-            )}
-          </div>
-        </FavoritesProvider>
-      </AuthProvider>
-    </Router>
+
+              <Footer lastUpdate={lastUpdate} />
+
+              {/* Lazy load analytics after initial render */}
+              {showAnalytics && (
+                <Suspense fallback={null}>
+                  <Analytics />
+                  <SpeedInsights />
+                </Suspense>
+              )}
+            </div>
+          </FavoritesProvider>
+        </AuthProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 

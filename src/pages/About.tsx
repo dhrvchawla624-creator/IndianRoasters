@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import PageHero from '../components/PageHero.js';
 import AnimatedSection from '../components/AnimatedSection.js';
+import SEO from '../components/SEO.js';
 
 function About() {
   const [emblaRef, emblaApi] = useEmblaCarousel();
@@ -16,6 +17,10 @@ function About() {
 
   return (
     <div className="min-h-screen flex flex-col bg-cream-light dark:bg-dark-bg transition-colors duration-300">
+      <SEO
+        title="About Us | Indian Roasters Directory"
+        description="Learn about Indian Roasters, your ultimate directory and library for discovering the finest specialty coffee beans from 58+ artisanal roasters across India."
+      />
       <PageHero
         title="About Indian Roasters"
         subtitle="Your Ultimate Indian Coffee Library"

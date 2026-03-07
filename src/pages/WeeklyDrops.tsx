@@ -3,6 +3,7 @@ import type { CoffeeBean } from '../types/coffee.js';
 import { useFavorites } from '../contexts/FavoritesContext.js';
 import PageHero from '../components/PageHero.js';
 import CoffeeCard from '../components/CoffeeCard.js';
+import SEO from '../components/SEO.js';
 
 // Helper to get start of week (Monday) for a given date
 function getWeekStart(date: Date): Date {
@@ -126,6 +127,11 @@ function WeeklyDrops() {
 
     return (
         <>
+            <SEO
+                title="Weekly Coffee Drops | New Indian Specialty Coffee"
+                description={`Discover the newest specialty coffee beans added this week (${weekRange}) from top Indian roasters.`}
+                keywords="new coffee drops, fresh coffee beans india, weekly specialty coffee, new indian coffee roasters"
+            />
             <PageHero
                 title="Weekly Drops"
                 subtitle={`Freshly listed beans for the week of ${weekRange}`}

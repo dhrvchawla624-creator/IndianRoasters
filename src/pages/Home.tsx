@@ -4,6 +4,7 @@ import { useFavorites } from '../contexts/FavoritesContext.js';
 import Hero from '../components/Hero.js';
 import FilterSection from '../components/FilterSection.js';
 import CoffeeGrid from '../components/CoffeeGrid.js';
+import SEO from '../components/SEO.js';
 
 function getAllTastingNotes(beans: CoffeeBean[]): string[] {
   const allNotes = beans.flatMap(b => b.tastingNotes ?? []);
@@ -382,6 +383,10 @@ function Home() {
 
   return (
     <>
+      <SEO
+        title="Indian Roasters - Discover Specialty Coffee"
+        description="Discover India's finest specialty coffee roasters. Browse 900+ beans from 58+ top Indian coffee roasters. Find light roasts, single-origin, and espresso."
+      />
       <Hero totalBeans={beans.length} totalRoasters={roasters.length} />
 
       <FilterSection

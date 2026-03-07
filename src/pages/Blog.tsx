@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { getAllBlogPosts, searchBlogPosts } from '../data/blogLoader.js';
 import { BLOG_CATEGORIES } from '../types/blog.js';
 import BlogCard from '../components/BlogCard.js';
+import SEO from '../components/SEO.js';
 
 function Blog() {
   const allPosts = useMemo(() => getAllBlogPosts(), []);
@@ -20,7 +21,7 @@ function Blog() {
     // Filter by search query
     if (searchQuery.trim()) {
       filtered = searchBlogPosts(searchQuery);
-      
+
       // Also apply category filter after search
       if (selectedCategory !== 'All Posts') {
         filtered = filtered.filter(post => post.category === selectedCategory);
@@ -32,6 +33,10 @@ function Blog() {
 
   return (
     <div className="bg-cream-light dark:bg-dark-bg min-h-screen p-4 pt-24">
+      <SEO
+        title="Coffee Blog & Insights | Indian Roasters"
+        description="Discover the world of Indian specialty coffee roasters, brewing guides, industry insights, and coffee culture through our expert blog."
+      />
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 bg-white dark:bg-dark-surface rounded-3xl p-16 shadow-lg">
@@ -74,18 +79,17 @@ function Blog() {
         {/* Category Filters */}
         <div className="flex gap-3 flex-wrap justify-center mb-12">
           {BLOG_CATEGORIES.map(category => {
-            const postCount = selectedCategory === category ? filteredPosts.length : 
+            const postCount = selectedCategory === category ? filteredPosts.length :
               allPosts.filter(p => category === 'All Posts' || p.category === category).length;
-            
+
             return (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all ${
-                  selectedCategory === category
+                className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all ${selectedCategory === category
                     ? 'bg-coffee-medium dark:bg-dark-accent text-white shadow-lg scale-105'
                     : 'bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text border-2 border-coffee-light dark:border-dark-border hover:bg-cream-dark dark:hover:bg-dark-border'
-                }`}
+                  }`}
               >
                 {category} ({postCount})
               </button>
