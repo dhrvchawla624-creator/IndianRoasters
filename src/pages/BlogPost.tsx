@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getBlogPostBySlug, getRelatedPosts } from '../data/blogLoader.js';
 import { formatDate } from '../utils/markdownParser.js';
+import SEO from '../components/SEO.js';
 
 function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -40,6 +41,12 @@ function BlogPost() {
 
   return (
     <div className="bg-cream-light dark:bg-dark-bg min-h-screen">
+      <SEO
+        title={`${post.title} | Indian Roasters Blog`}
+        description={post.excerpt || `Read ${post.title} by ${post.author} on the Indian Roasters Blog.`}
+        keywords={`${post.tags.join(', ')}, indian coffee blog`}
+        image={post.featuredImage}
+      />
       {/* Header with Background Image */}
       <header className="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white">
         <div className="absolute inset-0 bg-black/50 z-10"></div>

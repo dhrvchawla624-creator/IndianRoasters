@@ -1,16 +1,21 @@
 import PageHero from '../components/PageHero.js';
+import SEO from '../components/SEO.js';
 
 function Contact() {
   return (
     <div className="min-h-screen bg-cream-light dark:bg-dark-bg transition-colors duration-300">
-      <PageHero 
+      <SEO
+        title="Contact Indian Roasters | Get in Touch"
+        description="Reach out to Indian Roasters for business inquiries, bug reports, feature requests, or partnerships in the growing Indian specialty coffee industry."
+      />
+      <PageHero
         title="Get in Touch"
         subtitle="We'd love to hear from you"
         icon={
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
         }
       />
-      
+
       <div className="max-w-4xl mx-auto px-5 py-10">
         <div className="bg-white dark:bg-dark-surface rounded-2xl shadow-lg dark:shadow-dark-surface-elevated/30 p-8 md:p-12 transition-colors duration-300">
           <div className="text-center text-coffee-light dark:text-dark-text-secondary mb-8">
@@ -67,7 +72,7 @@ function Contact() {
 
             <div className="bg-cream dark:bg-dark-bg-secondary rounded-xl p-6 transition-colors duration-300 flex items-start space-x-4">
               <div className="shrink-0 w-12 h-12 bg-white dark:bg-dark-surface rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-accent"><path d="M14.5 18H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.5"/><path d="M9.5 18H18a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2.5"/><path d="m9.2 11.4-.9 2.1"/><path d="m14.8 11.4.9 2.1"/><path d="m12 15.5 1-1"/><path d="m12 15.5-1-1"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coffee-medium dark:text-dark-accent"><path d="M14.5 18H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.5" /><path d="M9.5 18H18a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-2.5" /><path d="m9.2 11.4-.9 2.1" /><path d="m14.8 11.4.9 2.1" /><path d="m12 15.5 1-1" /><path d="m12 15.5-1-1" /></svg>
               </div>
               <div>
                 <h3 className="font-bold text-coffee-dark dark:text-dark-text mb-1">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Info, RotateCw, X, Repeat } from 'lucide-react';
+import SEO from '../components/SEO.js';
 import './BrewLab.css';
 
 interface LexiconCard {
@@ -286,6 +287,11 @@ export default function BrewLab() {
 
     return (
         <div className="brew-lab-page min-h-screen pt-24 pb-16 px-4 md:px-8 bg-[#F9F7F2] dark:bg-dark-bg transition-colors duration-300">
+            <SEO
+                title="Brew Lab | Indian Coffee Flavor Wheel & Sensory Lexicon"
+                description="Speak the language of coffee. Explore our interactive coffee flavor wheel and sensory lexicon designed for Indian specialty coffee."
+                keywords="coffee flavor wheel, coffee sensory lexicon, coffee tasting notes, how to taste coffee, coffee acidity, coffee processing methods india"
+            />
             <section className="max-w-7xl mx-auto text-center mb-16 px-4">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}

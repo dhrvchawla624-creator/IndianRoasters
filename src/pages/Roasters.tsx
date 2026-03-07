@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.js';
 import LocationCard from '../components/LocationCard.js';
 import RoasterCard from '../components/RoastersCard.js';
 import { LOCATION_DATA, ROASTERS_DATA } from '../data/roastersData.js';
+import SEO from '../components/SEO.js';
 import type { LocationData, RoasterData } from '../types/roasters.js';
 
 function Roasters() {
@@ -15,7 +16,7 @@ function Roasters() {
   const filteredRoasters = useMemo(() => {
     let filtered = ROASTERS_DATA;
 
-    
+
     if (selectedLocation) {
       filtered = filtered.filter(roaster => roaster.state === selectedLocation.state);
     }
@@ -24,7 +25,7 @@ function Roasters() {
       filtered = filtered.filter(roaster =>
         roaster.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         roaster.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        roaster.specialties?.some(specialty => 
+        roaster.specialties?.some(specialty =>
           specialty.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
@@ -46,6 +47,11 @@ function Roasters() {
 
   return (
     <div className="min-h-screen bg-cream-light dark:bg-dark-bg transition-colors duration-300">
+      <SEO
+        title="Explore 58+ Indian Coffee Roasters | Indian Roasters"
+        description="Browse the complete directory of India's top specialty coffee roasters. Find Blue Tokai, Corridor Seven, and 50+ other artisanal roasters across India."
+        keywords="coffee roasters in india, list of indian coffee roasters, buy coffee beans directly from roaster, specialty coffee brands india, artisan roasters"
+      />
       <PageHero
         title="Indian Coffee Roasters"
         subtitle={
@@ -62,7 +68,7 @@ function Roasters() {
           </>
         }
         icon={
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 22v-6.17a.9.9 0 0 1 .24-.62L16.07 9h0a.9.9 0 0 1 .62.24L22 15.17V22"/><path d="M14 22v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8" /><path d="M10 22v-6.17a.9.9 0 0 1 .24-.62L16.07 9h0a.9.9 0 0 1 .62.24L22 15.17V22" /><path d="M14 22v-4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" /></svg>
         }
       />
 
