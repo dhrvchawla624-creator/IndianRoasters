@@ -57,6 +57,9 @@ function Navbar({ onThemeToggle, isDarkMode = false }: NavbarProps) { // Theme p
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''} ${!isVisible && !isMenuOpen ? 'navbar-hidden' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={handleLogoClick} title="Indian Roasters">
+          <svg className="pixel-logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 3h14v2H4zM4 6h14v2H4zM2 9h16v7a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V9zm16 1h2a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-2v-5zM6 11v4h8v-4H6z"/>
+          </svg>
           <span className="logo-word">Indian</span>
           <span className="logo-word">Roasters</span>
         </Link>

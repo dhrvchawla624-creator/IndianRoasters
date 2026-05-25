@@ -23,10 +23,9 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
 
   return (
     <div
-      className={`bg-white dark:bg-dark-surface rounded-2xl overflow-hidden shadow-lg dark:shadow-dark-surface-elevated/30 transition-all duration-300 hover:-translate-y-2.5 hover:shadow-2xl dark:hover:shadow-dark-surface-elevated/50 animate-scaleIn flex h-full w-full flex-col ${!bean.inStock ? 'opacity-70' : ''
-        }`}
+      className={`pixel-card flex h-full w-full flex-col ${!bean.inStock ? 'opacity-70' : ''}`}
     >
-      <div className="relative aspect-4/3 overflow-hidden bg-cream dark:bg-dark-surface">
+      <div className="relative aspect-4/3 overflow-hidden bg-cream dark:bg-dark-surface border-b-4 border-coffee-dark dark:border-dark-accent">
         {hasImage ? (
           <img
             src={optimizeImage(imageUrl, {
@@ -59,39 +58,39 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-2.5 md:p-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[10px] md:text-[11px] font-semibold uppercase tracking-wide text-coffee-medium dark:text-dark-accent">{bean.roaster}</span>
+      <div className="flex flex-1 flex-col p-3 md:p-5">
+        <div className="flex flex-wrap items-center gap-2 mb-2">
+          <span className="font-pixel text-[10px] md:text-[11px] uppercase tracking-wide text-coffee-medium dark:text-dark-accent">{bean.roaster}</span>
           {!bean.inStock && (
-            <span className="rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-semibold text-red-700 dark:bg-red-900/40 dark:text-red-400">Out of Stock</span>
+            <span className="rounded-none bg-red-100 px-2 py-0.5 text-[10px] font-bold border-2 border-red-700 text-red-700 dark:bg-red-900/40 dark:text-red-400 dark:border-red-400">OUT OF STOCK</span>
           )}
         </div>
 
-        <h3 className="mt-2 text-sm md:text-base font-semibold text-coffee-dark dark:text-dark-text leading-snug line-clamp-2">
+        <h3 className="mt-1 text-sm md:text-base font-bold text-coffee-dark dark:text-dark-text leading-snug line-clamp-2">
           {bean.name}
         </h3>
 
-        <p className="mt-2 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 line-clamp-2">
+        <p className="mt-2 text-xs md:text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
           {bean.tastingNotes?.join(', ')}
         </p>
 
-        <div className="mt-auto flex flex-col md:flex-row md:items-center justify-between border-t-2 border-cream pt-3 md:pt-4 dark:border-dark-border gap-3 md:gap-0">
+        <div className="mt-auto flex flex-col md:flex-row md:items-center justify-between border-t-4 border-coffee-dark dark:border-dark-accent pt-4 mt-4 gap-3 md:gap-0">
           <div className="flex items-baseline gap-1.5 w-full md:w-auto">
-            <span className="text-base font-extrabold text-coffee-medium dark:text-dark-accent md:text-2xl">
+            <span className="font-pixel text-base text-coffee-medium dark:text-dark-accent md:text-xl">
               ₹{bean.price ? bean.price.toFixed(0) : 'N/A'}{' '}
             </span>
-            {bean.weight && <span className="text-sm text-neutral-500 dark:text-neutral-400">/ {bean.weight}g</span>}
+            {bean.weight && <span className="font-pixel text-[10px] text-neutral-500 dark:text-neutral-400">/ {bean.weight}g</span>}
           </div>
           <div className="flex items-center gap-2 w-full md:w-auto justify-between md:justify-end">
             <button
               onClick={handleFavoriteClick}
               title={isFavorite ? "Remove from Favourites" : "Add to Favourites"}
-              className="rounded-full p-2.5 transition-transform duration-200 ease-in-out hover:scale-110 active:scale-95 focus:outline-none"
+              className="p-2 transition-transform duration-200 ease-in-out hover:scale-110 active:scale-95 focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 className={`transition-all duration-200 ${isFavorite
                   ? 'fill-current stroke-current text-red-500'
@@ -108,13 +107,13 @@ const CoffeeCard = memo(function CoffeeCard({ bean, isFavorite, onToggleFavorite
               href={bean.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-xl px-3 py-2 text-xs md:px-5 md:py-2.5 md:text-sm font-bold text-white transition-all duration-300 w-full md:w-auto text-center ${bean.inStock
-                ? 'bg-linear-to-br from-emerald-500 to-emerald-600 shadow-emerald-500/40 hover:-translate-y-0.5 hover:shadow-lg'
-                : 'cursor-not-allowed bg-red-500 shadow-none'
+              className={`pixel-button text-[10px] md:text-xs w-full md:w-auto text-center ${bean.inStock
+                ? ''
+                : 'cursor-not-allowed bg-red-500 text-white border-red-700 shadow-red-700 pointer-events-none'
                 }`}
-              onClick={(e) => e.stopPropagation()} // Prevent card click if it's wrapped in a link
+              onClick={(e) => e.stopPropagation()}
             >
-              Explore →
+              Explore
             </a>
           </div>
         </div>

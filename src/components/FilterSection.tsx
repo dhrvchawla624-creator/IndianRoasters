@@ -56,12 +56,12 @@ const SelectDropdown = ({ options, selectedValue, onSelect, allLabel }: SelectDr
   };
   return (
     <div className="relative" ref={dropdownRef}>
-      <button onClick={() => setIsOpen(!isOpen)} className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg flex justify-between items-center">
+      <button onClick={() => setIsOpen(!isOpen)} className="font-pixel w-full px-4 py-3 border-4 border-coffee-dark dark:border-dark-accent rounded-none text-xs md:text-sm bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)] hover:bg-cream-light dark:hover:bg-dark-bg focus:outline-none flex justify-between items-center active:translate-x-1 active:translate-y-1 active:shadow-none">
         <span>{selectedValue === 'all' ? allLabel : selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1)}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-2 w-full bg-white dark:bg-dark-surface rounded-xl shadow-lg p-2 h-48 overflow-y-auto border-2 border-coffee-light dark:border-dark-border z-10 animate-slideDown">
+        <div className="absolute top-full mt-2 w-full bg-white dark:bg-dark-surface border-4 border-coffee-dark dark:border-dark-accent shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)] p-2 h-48 overflow-y-auto z-10 animate-slideDown">
           <button onClick={() => handleSelect('all')} className="w-full text-left p-2.5 rounded-lg transition-colors duration-200 hover:bg-cream-dark dark:hover:bg-dark-border text-sm font-medium text-coffee-dark dark:text-dark-text">{allLabel}</button>
           {options.map(option => (
             <button key={option} onClick={() => handleSelect(option)} className="w-full text-left p-2.5 rounded-lg transition-colors duration-200 hover:bg-cream-dark dark:hover:bg-dark-border text-sm font-medium text-coffee-dark dark:text-dark-text">
@@ -126,15 +126,15 @@ function FilterSection(props: FilterSectionProps) {
             placeholder="Search for coffee beans, roasters, origins ..."
             value={props.searchTerm}
             onChange={(e) => props.setSearchTerm(e.target.value)}
-            className="w-full pl-16 pr-6 py-4 rounded-2xl border border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-[#AB6E36]/50 dark:focus:ring-dark-accent/50 focus:border-transparent transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] text-lg"
+            className="font-pixel w-full pl-16 pr-6 py-4 rounded-none border-4 border-coffee-dark dark:border-dark-accent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:ring-0 transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(44,24,16,1)] dark:shadow-[6px_6px_0px_0px_rgba(232,184,77,1)] text-xs md:text-sm"
           />
         </div>
       </div>
       {/* Price Slider - Full Width */}
       <div className="mb-8">
-        <div className="max-w-3xl mx-auto">
-          <label className="block text-lg font-medium text-coffee-dark dark:text-dark-text mb-2 text-center">Price Range (₹)</label>
-          <div className="flex justify-between mb-1.5 font-medium text-base text-[#AB6E36] dark:text-dark-accent">
+        <div className="max-w-3xl mx-auto mb-12">
+          <label className="font-pixel block text-base md:text-lg text-coffee-dark dark:text-dark-text mb-4 text-center">Price Range</label>
+          <div className="flex justify-between mb-4 font-pixel text-sm md:text-base text-coffee-dark dark:text-dark-accent">
             <span>₹{priceLow.toLocaleString()}</span>
             <span>₹{priceHigh.toLocaleString()}</span>
           </div>
@@ -145,11 +145,11 @@ function FilterSection(props: FilterSectionProps) {
             value={[priceLow, priceHigh] as [number, number]} // safest
             onChange={(val: number | number[]) => props.setPriceRange(val as [number, number])}
             step={50}
-            railStyle={{ backgroundColor: '#F3EDE6', height: 10, borderRadius: 7 }}
-            trackStyle={[{ backgroundColor: '#D87330', height: 10, borderRadius: 7 }] as any}
+            railStyle={{ backgroundColor: '#4a2c1d', height: 8, borderRadius: 0, opacity: 0.3 }}
+            trackStyle={[{ backgroundColor: '#2c1810', height: 8, borderRadius: 0 }] as any}
             handleStyle={[
-              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 },
-              { borderColor: '#D87330', backgroundColor: '#FFF', boxShadow: '0 2px 8px rgba(216, 115, 48, 0.13)', width: 26, height: 26, marginTop: -8 }
+              { borderColor: '#2c1810', borderWidth: 4, backgroundColor: '#FFF', boxShadow: '4px 4px 0px 0px rgba(44,24,16,1)', width: 24, height: 24, marginTop: -8, borderRadius: 0, opacity: 1 },
+              { borderColor: '#2c1810', borderWidth: 4, backgroundColor: '#FFF', boxShadow: '4px 4px 0px 0px rgba(44,24,16,1)', width: 24, height: 24, marginTop: -8, borderRadius: 0, opacity: 1 }
             ] as any}
           />
 
@@ -213,17 +213,17 @@ function FilterSection(props: FilterSectionProps) {
           <div className="relative" ref={tastingNotesRef}>
             <button
               onClick={() => setIsTastingNotesOpen(!isTastingNotesOpen)}
-              className="w-full px-4 py-3 border-2 border-transparent rounded-xl text-base bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-md hover:border-coffee-light dark:hover:border-dark-accent focus:outline-none focus:border-coffee-medium dark:focus:border-dark-accent focus:shadow-lg flex justify-between items-center"
+              className="font-pixel w-full px-4 py-3 border-4 border-coffee-dark dark:border-dark-accent rounded-none text-xs md:text-sm bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer transition-all duration-300 shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)] hover:bg-cream-light dark:hover:bg-dark-bg focus:outline-none flex justify-between items-center active:translate-x-1 active:translate-y-1 active:shadow-none"
             >
               <span>
                 {props.selectedTastingNote.length > 0
                   ? `${props.selectedTastingNote.length} Note${props.selectedTastingNote.length > 1 ? 's' : ''} Selected`
                   : 'All Notes'}
               </span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isTastingNotesOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${isTastingNotesOpen ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"></polyline></svg>
             </button>
             {isTastingNotesOpen && (
-              <div className="absolute top-full mt-2 w-full bg-white dark:bg-dark-surface rounded-xl shadow-lg p-2 h-48 overflow-y-auto border-2 border-coffee-light dark:border-dark-border z-10 animate-slideDown">
+              <div className="absolute top-full mt-2 w-full bg-white dark:bg-dark-surface border-4 border-coffee-dark dark:border-dark-accent shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)] p-2 h-48 overflow-y-auto z-10 animate-slideDown">
                 {props.tastingNoteOptions.map(note => {
                   const isSelected = props.selectedTastingNote.includes(note);
                   return (

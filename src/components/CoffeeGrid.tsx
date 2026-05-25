@@ -69,43 +69,43 @@ function CoffeeGrid({
 
       {/* Pagination Controls */}
       {pageCount > 0 && (
-        <div className="flex justify-center my-10 gap-4 flex-wrap px-5">
+        <div className="flex justify-center my-10 gap-3 md:gap-4 flex-wrap px-5">
           <button
             onClick={() => setPage(Math.max(page - 1, 1))}
             disabled={page === 1}
-            className={`px-5 py-2 rounded-lg border-2 border-gold dark:border-dark-accent font-semibold transition-all duration-150 ${page === 1
-                ? 'bg-cream-light dark:bg-dark-bg-secondary text-gray-400 dark:text-dark-text-muted cursor-not-allowed'
-                : 'bg-[#fffbe8] dark:bg-dark-surface text-[#222] dark:text-dark-text cursor-pointer hover:bg-gold dark:hover:bg-dark-accent hover:text-white'
+            className={`font-pixel px-4 py-2 border-4 transition-all duration-150 ${page === 1
+                ? 'border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                : 'border-coffee-dark dark:border-dark-accent bg-[#fffbe8] dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer hover:bg-gold dark:hover:bg-dark-accent hover:text-white shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)] active:shadow-none active:translate-x-1 active:translate-y-1'
               }`}
           >
-            Previous
+            PREV
           </button>
-          <div className="flex gap-1 items-center text-base">
+          <div className="flex gap-2 items-center text-sm md:text-base">
             {paginationPages.map((pg, idx) => typeof pg === 'number' ? (
               <button
                 key={pg}
                 onClick={() => setPage(pg)}
                 disabled={pg === page}
-                className={`px-3 py-1 rounded-lg transition-all ${pg === page
-                    ? 'bg-gold dark:bg-dark-accent text-white font-bold border-2 border-gold dark:border-dark-accent cursor-default'
-                    : 'bg-[#fffbe8] dark:bg-dark-surface text-[#111] dark:text-dark-text font-semibold border-2 border-[#fffbe8] dark:border-dark-surface cursor-pointer hover:bg-gold/10 dark:hover:bg-dark-accent/20'
+                className={`font-pixel w-10 h-10 flex items-center justify-center border-4 transition-all ${pg === page
+                    ? 'border-coffee-dark dark:border-dark-accent bg-gold dark:bg-dark-accent text-white cursor-default shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)]'
+                    : 'border-coffee-dark dark:border-dark-accent bg-[#fffbe8] dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer hover:bg-gold/20 dark:hover:bg-dark-accent/20'
                   }`}
               >
                 {pg}
               </button>
             ) : (
-              <span key={`ellipsis-${idx}`} className="px-1 text-gold dark:text-dark-accent font-bold select-none">…</span>
+              <span key={`ellipsis-${idx}`} className="px-1 text-gold dark:text-dark-accent font-pixel font-bold select-none">...</span>
             ))}
           </div>
           <button
             onClick={() => setPage(Math.min(page + 1, pageCount))}
             disabled={page === pageCount || pageCount === 0}
-            className={`px-5 py-2 rounded-lg border-2 border-gold dark:border-dark-accent font-semibold transition-all duration-150 ${page === pageCount || pageCount === 0
-                ? 'bg-cream-light dark:bg-dark-bg-secondary text-gray-400 dark:text-dark-text-muted cursor-not-allowed'
-                : 'bg-[#fffbe8] dark:bg-dark-surface text-[#222] dark:text-dark-text cursor-pointer hover:bg-gold dark:hover:bg-dark-accent hover:text-white'
+            className={`font-pixel px-4 py-2 border-4 transition-all duration-150 ${page === pageCount || pageCount === 0
+                ? 'border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                : 'border-coffee-dark dark:border-dark-accent bg-[#fffbe8] dark:bg-dark-surface text-coffee-dark dark:text-dark-text cursor-pointer hover:bg-gold dark:hover:bg-dark-accent hover:text-white shadow-[4px_4px_0px_0px_rgba(44,24,16,1)] dark:shadow-[4px_4px_0px_0px_rgba(232,184,77,1)] active:shadow-none active:translate-x-1 active:translate-y-1'
               }`}
           >
-            Next
+            NEXT
           </button>
         </div>
       )}
@@ -113,12 +113,12 @@ function CoffeeGrid({
       {/* Empty State */}
       {filteredBeansCount === 0 && (
         <div className="text-center py-20 px-5 animate-fadeIn">
-          <div className="text-8xl mb-5 opacity-30">☕</div>
-          <h3 className="text-3xl text-coffee-dark dark:text-dark-text mb-2.5">No coffee beans found</h3>
-          <p className="text-base text-coffee-light dark:text-dark-text-secondary mb-8">Try adjusting your filters or search terms</p>
+          <div className="text-8xl mb-5 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">☕</div>
+          <h3 className="font-pixel text-2xl md:text-3xl text-coffee-dark dark:text-dark-text mb-4">No coffee found</h3>
+          <p className="text-base text-coffee-light dark:text-dark-text-secondary mb-8 font-serif italic">Try adjusting your filters or search terms.</p>
           <button
             onClick={onResetFilters}
-            className="px-8 py-3.5 bg-coffee-medium dark:bg-dark-accent text-white border-none rounded-xl text-base font-semibold cursor-pointer transition-all duration-300 shadow-md hover:bg-coffee-brown dark:hover:bg-dark-accent/80 hover:-translate-y-0.5 hover:shadow-lg"
+            className="pixel-button"
           >
             Reset Filters
           </button>

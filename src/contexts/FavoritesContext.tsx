@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { auth, db } from '../firebase.js';
+import { auth, db, isFirebaseConfigured } from '../firebase.js';
 import { collection, doc, setDoc, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 
 interface FavoritesContextType {
@@ -18,6 +18,12 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
   // Load favorites when user logs in
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      setFavorites([]);
+      setLoading(false);
+      return;
+    }
+
     const loadFavorites = async () => {
       const user = auth.currentUser;
       if (!user) {
