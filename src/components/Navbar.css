@@ -1,10 +1,8 @@
 /* General Navbar Styling */
 .navbar {
   background: #C8AD7F;
-  /* Earthy Beige */
-  /* backdrop-filter removed for solid color match */
-  border-bottom: 1px solid rgba(44, 24, 16, 0.1);
-  height: 64px;
+  border-bottom: 4px solid #2c1810;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,13 +10,12 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease, transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .navbar.scrolled {
   background: #C8AD7F;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(44, 24, 16, 0.1);
+  box-shadow: 0 8px 0px 0px rgba(44, 24, 16, 0.2);
 }
 
 .navbar-hidden {
@@ -28,7 +25,7 @@
 .navbar-container {
   display: flex;
   justify-content: space-between;
-  height: 64px;
+  height: 80px;
   z-index: 1;
   width: 100%;
   max-width: 1300px;
@@ -43,13 +40,22 @@
   color: #2c1810;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: normal;
-  transition: color 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   display: flex;
-  gap: 0.25rem 0.5rem;
-  /* vertical gap | horizontal gap */
+  gap: 0.5rem 0.5rem;
   align-items: center;
+  text-shadow: 2px 2px 0px rgba(255,255,255,0.4);
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.pixel-logo-icon {
+  color: #2c1810;
+  filter: drop-shadow(2px 2px 0px rgba(255,255,255,0.4));
 }
 
 .navbar-left {
@@ -89,7 +95,7 @@
 }
 
 .nav-item {
-  height: 64px;
+  height: 80px;
 }
 
 .nav-link {
@@ -100,19 +106,34 @@
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-  transition: color 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  font-weight: 700;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 15px;
+  left: 1rem;
+  right: 1rem;
+  height: 4px;
+  background-color: #2c1810;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  transform: scaleX(1);
 }
 
 .nav-link:hover {
   color: #2c1810;
-  opacity: 0.8;
+  background-color: rgba(44, 24, 16, 0.05);
 }
 
 .nav-link.active {
-  /* color: #fff;  -- Let it inherit or be handled by state */
-  color: inherit;
-  font-weight: 600;
-  /* border-bottom removed */
+  color: #2c1810;
 }
 
 /* .navbar.scrolled .nav-link { color: #2c1810; } - already inherited */
@@ -236,7 +257,7 @@
 
   .navbar,
   .navbar-container {
-    height: 60px;
+    height: 72px;
   }
 
   .menu-icon.open .bar:nth-child(1) {
