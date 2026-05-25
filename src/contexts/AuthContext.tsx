@@ -6,7 +6,7 @@ import {
   signOut as firebaseSignOut
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
-import { auth, googleProvider, githubProvider } from '../firebase.js';
+import { auth, googleProvider, githubProvider, isFirebaseConfigured } from '../firebase.js';
 
 interface AuthContextType {
   user: User | null;
@@ -23,6 +23,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      console.warn("⚠️ Firebase is not configured. Running in local mock auth mode.");
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
@@ -32,6 +38,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
+    if (!isFirebaseConfigured) {
+      alert('Authentication is disabled because Firebase is not configured. Please set up the environment variables in a .env file.');
+      return;
+    }
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
@@ -41,6 +51,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signInWithGithub = async () => {
+    if (!isFirebaseConfigured) {
+      alert('Authentication is disabled because Firebase is not configured. Please set up the environment variables in a .env file.');
+      return;
+    }
     try {
       await signInWithPopup(auth, githubProvider);
     } catch (error) {
@@ -50,6 +64,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
+    if (!isFirebaseConfigured) {
+      setUser(null);
+      return;
+    }
     try {
       await firebaseSignOut(auth);
     } catch (error) {

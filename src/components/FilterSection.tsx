@@ -126,7 +126,7 @@ function FilterSection(props: FilterSectionProps) {
             placeholder="Search for coffee beans, roasters, origins ..."
             value={props.searchTerm}
             onChange={(e) => props.setSearchTerm(e.target.value)}
-            className="w-full pl-16 pr-6 py-4 rounded-2xl border border-transparent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-[#AB6E36]/50 dark:focus:ring-dark-accent/50 focus:border-transparent transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] text-lg"
+            className="font-pixel w-full pl-16 pr-6 py-4 rounded-none border-4 border-coffee-dark dark:border-dark-accent bg-white dark:bg-dark-surface text-coffee-dark dark:text-dark-text placeholder-coffee-light dark:placeholder-dark-text-secondary focus:outline-none focus:ring-0 transition-all duration-300 shadow-[6px_6px_0px_0px_rgba(44,24,16,1)] dark:shadow-[6px_6px_0px_0px_rgba(232,184,77,1)] text-xs md:text-sm"
           />
         </div>
       </div>

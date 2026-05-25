@@ -20,17 +20,23 @@ function Hero({ totalBeans, totalRoasters }: HeroProps) {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-2 drop-shadow-lg h-20 md:h-32">
-          <TypingAnimation />
-          <br />
-          <span className="bg-linear-to-r from-gold to-cream dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
+        <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg h-24 md:h-36">
+          <div className="font-pixel text-xl md:text-3xl mb-4 tracking-wider text-gold dark:text-dark-accent">
+            <TypingAnimation />
+          </div>
+          <span className="bg-linear-to-r from-cream-light to-gold dark:from-dark-accent dark:to-dark-text bg-clip-text text-transparent">
             Coffee Roasters Library
           </span>
         </h1>
-        <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
+        <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md mb-8">
           Explore <strong className="font-bold text-gold dark:text-dark-accent">{totalBeans}+</strong> coffee beans from <strong className="font-bold text-gold dark:text-dark-accent">{totalRoasters}+</strong> roasters across India
         </p>
 
+        <a href="#filters" className="inline-block mt-4">
+          <button className="pixel-button text-sm md:text-base">
+            Start Brewing
+          </button>
+        </a>
       </div>
     </header>
   );
